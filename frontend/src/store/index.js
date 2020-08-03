@@ -1,8 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import VueCookies from 'vue-cookies'
+import cookies from 'vue-cookies'
+
 import createPersistedState from 'vuex-persistedstate';
 import http from '../util/http-common';
+
+import router from '@/router'
+
 Vue.use(Vuex);
 Vue.use(VueCookies)
 
@@ -11,15 +17,17 @@ export default new Vuex.Store({
     createPersistedState()
   ],
   state: {
-    isLogin: false,
     HOST: 'http://localhost:8080',
-    TOKEN: '',
+    authToken: cookies.get('auth-token'),
     posts: [],
     post: {},
     replies: [],
     reply: {},
   },
   getters: {
+    // user
+    isLogIn: state => !!state.authToken,
+    // post
     posts(state){
         return state.posts;
     },
@@ -34,17 +42,12 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // user
     setCookie(state, payload) {
+      state.authToken = payload
       Vue.$cookies.set('auth-token', payload)
-      state.isLogin = true
     },
-    logout(state) {
-      if (state.isLogin === true) {
-        state.isLogin = false;
-        Vue.$cookies.remove('auth-token');
-        alert('로그아웃 되었습니다.');
-      }
-    },
+    // post
     setPOSTs(state, payload){
       state.posts = payload;
     },
@@ -59,6 +62,13 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    // user
+    logout({commit}) {
+      commit('setCookie', null)
+      cookies.remove('auth-token')
+      router.push({ name: 'List' })
+    },
+    // post
     getPOSTs(context) {
       http
       .get(`/api/post/list`)
@@ -89,6 +99,16 @@ export default new Vuex.Store({
         context.commit('setREPLY', data);
       });
      },
+    search({ commit }, searchInput) {
+      http.get(`api/post/search/${searchInput}`)
+      .then((res) => {
+        console.log(res)
+        commit('setPOSTs', res)
+      .catch((err) => {
+        console.log(err)
+      })
+      })
+    }
   },
   modules: {
   }

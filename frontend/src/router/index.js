@@ -24,11 +24,6 @@ Vue.use(VueRouter)
 
 
 const routes = [
-  {
-    path: '/',
-    name: 'List',
-    component: List
-  },
   // user
   {
     path: '/user/join',
@@ -54,6 +49,12 @@ const routes = [
     path: '/visitCreate',
     name: 'VisitCreate',
     component: VisitCreate
+  },
+  // post
+  {
+    path: '/',
+    name: 'List',
+    component: List
   },
   {
     path: '/create',
@@ -88,6 +89,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['Login', 'Join', 'List']
+  const authPages = ['Login', 'Join']
+
+  const authRequired = !publicPages.includes(to.name)
+  const unauthRequired = authPages.includes(to.name)
+  const isLogin = !!Vue.$cookies.isKey('auth-token')
+
+  if(unauthRequired && isLogin) {
+    next('/') 
+  }
+  authRequired && !isLogin ? next({ name: 'Login' }) : next()
 })
 
 export default router

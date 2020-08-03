@@ -26,8 +26,7 @@
     components: {
       Header,
       Aside,
-      
-    }
+    },
   }
 </script>
 <style scoped>
