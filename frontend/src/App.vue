@@ -26,8 +26,12 @@
     components: {
       Header,
       Aside,
+<<<<<<< HEAD
       
     }
+=======
+    },
+>>>>>>> 1416068bc00654b7d096cdeb34bb189f600bf634
   }
 </script>
 <style scoped>

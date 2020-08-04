@@ -52,34 +52,12 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.$store.commit('setCookie', res.data.accessToken);
-          // this.$router.push('/')
           $('#exampleModal').modal('hide');
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log("실패");
-        });
-    },
-    loginGet() { // get 으로 로그인. 서버에 그렇게 돼있음.
-      this.$http
-        .get(`${this.$store.state.HOST}/account/login`, {
-          params: {
-            email: this.loginData.email,
-            password: this.loginData.password,
-          },
-        })
-        .then((res) => {
-          console.log(res.data.token);
-          this.$store.commit('setCookie', res.data.token)
-        //   this.$router.push('/')
-        //   $('#exampleModal').modal('hide')
-          $('#exampleModal').modal('hide');
-          
-          // 새로고침 자동 적용 --> 바꾸셔도 돼요
           this.$router.go()
         })
         .catch((err) => {
-          console.log(err);
+          alert("이메일 및 비밀번호를 확인해주세요.")
+          console.log(err.response.data.message);
         });
     },
   },

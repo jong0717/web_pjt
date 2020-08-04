@@ -1,8 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import VueCookies from 'vue-cookies'
+import cookies from 'vue-cookies'
+
 import createPersistedState from 'vuex-persistedstate';
 import http from '../util/http-common';
+
+import router from '@/router'
+
 Vue.use(Vuex);
 Vue.use(VueCookies)
 
@@ -59,6 +65,13 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    // user
+    /* logout({commit}) {
+      commit('setCookie', null)
+      cookies.remove('auth-token')
+      router.push({ name: 'List' })
+    }, */
+    // post
     getPOSTs(context) {
       http
       .get(`/api/post/list`)
@@ -68,12 +81,12 @@ export default new Vuex.Store({
       .catch(() => {
         alert('에러가 발생했습니다.');
       });
-     },
+    },
     getPOST(context, payload) {
       http.get(payload).then(({ data }) => {
         context.commit('setPOST', data);
       });
-     },
+    },
     getREPLIES(context) {
       http
       .get(`/api/reply/list`)
@@ -83,12 +96,22 @@ export default new Vuex.Store({
       .catch(() => {
         alert('에러가 발생했습니다.');
       });
-     },
+    },
     getREPLY(context, payload) {
       http.get(payload).then(({ data }) => {
         context.commit('setREPLY', data);
       });
-     },
+    },
+    search({ commit }, searchInput) {
+      http.get(`api/post/search/${searchInput}`)
+      .then((res) => {
+        console.log(res)
+        commit('setPOSTs', res)
+      .catch((err) => {
+        console.log(err)
+      })
+      })
+    }
   },
   modules: {
   }

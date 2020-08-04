@@ -31,18 +31,18 @@
 // import axios from 'axios'
 
 export default {
-   data: () => {
-     return {
-       email: '',
-       nickName: '',
-       password: '',
-       passwordConfirm: '',
-       isTerm: false,
+  data: () => {
+    return {
+      email: '',
+      nickName: '',
+      password: '',
+      passwordConfirm: '',
+      isTerm: false,
 
-     }
-   },
-   methods: {
-     check() {
+    }
+  },
+  methods: {
+    check() {
         let checkList = [this.nickName == '', this.email == '', this.password == '',
                         this.password != this.passwordConfirm, !this.isTerm];
         let checkMessage = ['닉네임을 입력', '이메일을 입력', '비밀번호를 입력', '비밀번호를 확인', '약관에 동의'];
@@ -66,19 +66,15 @@ export default {
             alert('회원가입 인증 메일이 발송되었습니다. 이메일을 확인해주세요.');
             this.$router.push('/');
         },
-        (error) => {
-            console.log(error)
-            console.log('signup실행됐따')
-            // this.$router.push({
-            //     name: constants.URL_TYPE.ERROR.ERROR
-            // });
+        (err) => {
+            console.log(err.response.data.message)
         })
-        .catch((error) => {
-            console.log(error);
+        .catch((err) => {
+            console.log(err);
             alert('이메일 형식 지키기(abc@abc.com)\n비밀번호는 영문/숫자 포함 8자 이상');
         });
     },
-   }
+  }
 }
 </script>
 
