@@ -89,6 +89,16 @@ export default new Vuex.Store({
         context.commit('setREPLY', data);
       });
      },
+    search({commit}, searchInput){
+      http.get(`api/post/search/${searchInput}`)
+      .then((res) => {
+        console.log(res)
+        commit('setPOSTs', res)
+      }) 
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
   modules: {
   }

@@ -9,6 +9,7 @@ import Read from '../views/post/Read.vue'
 import Create from '../views/post/Create.vue'
 import Update from '../views/post/Update.vue'
 import Delete from '../views/post/Delete.vue'
+import Search from '../views/post/Search.vue'
 
 // user
 import Join from '@/views/user/Join.vue'
@@ -80,6 +81,12 @@ const routes = [
     path: '*',
     name: 'NotFoundPage',
     component: NotFoundPage
+  },
+  {
+    path: '/search/:title',
+    name: 'Search',
+    component: Search,
+    props: true
   },
 
 ]

@@ -38,15 +38,20 @@
 
 <script>
 import moment from 'moment';
-import { mapGetters } from 'vuex';
+//import { mapGetters } from 'vuex';
 
 export default {
-  name: "List",
+  name: "Search",
   computed: {
-  ...mapGetters(['posts']),
+  //...mapGetters(['posts']),
+  },
+  data: () => {
+    return {  
+      posts: [],
+    }
   },
   created() {
-    this.$store.dispatch('getPOSTs')
+    this.searchByTitle()
   },
   methods: {
     movePage() {
@@ -55,9 +60,16 @@ export default {
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format('YYYY.MM.DD');
     },
-  },
-  data: () => {
-    return {
+    searchByTitle(){
+        this.$http.get(`${this.$store.state.HOST}/api/post/search/${this.$route.params.title}`)
+        .then(response => {
+          console.log(response);
+          this.posts = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log('에러가 발생했습니다.');
+        });
     }
   },
 };
