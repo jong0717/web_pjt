@@ -17,6 +17,7 @@
     </div>
   </div>
 </template>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
   import Header from '@/components/common/Header.vue'
   import Aside from '@/views/post/Aside.vue'
