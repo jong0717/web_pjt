@@ -17,15 +17,17 @@ export default new Vuex.Store({
     createPersistedState()
   ],
   state: {
-    isLogin: false,
     HOST: 'http://localhost:8080',
-    TOKEN: '',
+    authToken: cookies.get('auth-token'),
     posts: [],
     post: {},
     replies: [],
     reply: {},
   },
   getters: {
+    // user
+    isLogIn: state => !!state.authToken,
+    // post
     posts(state){
         return state.posts;
     },
@@ -40,17 +42,12 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // user
     setCookie(state, payload) {
+      state.authToken = payload
       Vue.$cookies.set('auth-token', payload)
-      state.isLogin = true
     },
-    logout(state) {
-      if (state.isLogin === true) {
-        state.isLogin = false;
-        Vue.$cookies.remove('auth-token');
-        alert('로그아웃 되었습니다.');
-      }
-    },
+    // post
     setPOSTs(state, payload){
       state.posts = payload;
     },
@@ -66,11 +63,11 @@ export default new Vuex.Store({
   },
   actions: {
     // user
-    /* logout({commit}) {
-      commit('setCookie', null)
-      cookies.remove('auth-token')
-      router.push({ name: 'List' })
-    }, */
+    logout({commit}) {
+      commit('setCookie', null);
+      cookies.remove('auth-token');
+      router.push({ name: 'List' }).catch(() => {});
+    },
     // post
     getPOSTs(context) {
       http
