@@ -66,7 +66,7 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
         User user = new User();
 
         user.setProvider(EAuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setUid(oAuth2UserInfo.getId());
+        // user.setUid(oAuth2UserInfo.getId());
         user.setNickname(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());

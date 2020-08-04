@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.web.blog.model.posts.Posts;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +45,7 @@ public class User {
     private String imageUrl;
 
     @JsonIgnore
-    @NotBlank
+    // @NotBlank
 	@Size(max = 120)
     private String password;
 

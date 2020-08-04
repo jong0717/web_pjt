@@ -1,6 +1,7 @@
 package com.web.blog.security.jwt;
 
 import java.util.Date;
+import java.util.List;
 
 import com.web.blog.security.service.UserDetailsImpl;
 
@@ -29,12 +30,22 @@ public class JwtUtils {
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .claim("email", userPrincipal.getEmail())
+                .claim("role", userPrincipal.getAuthorities())
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
-    public String getEmailFromJwtToken(String token) {
+    public String getUidFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String getEmailFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", String.class);
+    }
+
+    public Object getAuthoritiesFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", List.class);
     }
 
     public boolean validateJwtToken(String authToken) {

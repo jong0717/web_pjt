@@ -27,7 +27,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,8 +80,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                 userDetails.getId(),
                                                 userDetails.getUsername(),
-                                                userDetails.getEmail(),
-                                                roles));
+                                                userDetails.getEmail()/*,
+                                                roles*/));
     }
 
     @PostMapping("/signup")
@@ -116,19 +115,19 @@ public class AuthController {
                 switch (role) {
                 case "admin":
                     Role adminRole = roleDao.findByName(ERole.ROLE_ADMIN)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(adminRole);
 
                     break;
                 case "mod":
                     Role modRole = roleDao.findByName(ERole.ROLE_MODERATOR)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(modRole);
 
                     break;
                 default:
                     Role userRole = roleDao.findByName(ERole.ROLE_USER)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(userRole);
                 }
             });
