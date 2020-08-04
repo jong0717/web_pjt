@@ -20,6 +20,8 @@ import VisitCreate from '@/views/board/VisitCreate.vue'
 //err
 import NotFoundPage from '@/views/err/NotFoundPage.vue'
 
+import store from '@/store'
+
 Vue.use(VueRouter)
 
 
@@ -74,6 +76,18 @@ const routes = [
     path: '/delete',
     name: 'Delete',
     component: Delete,
+  },
+  {
+    path: '/oauth2/redirect',
+    name: 'SNSLogin',
+    redirect: (to) => {
+      console.log(to.query.token);
+      store.commit('setCookie', to.query.token);
+
+      return {
+        path: '/', query: null
+      }
+    }
   },
   // err
   {
