@@ -1,34 +1,39 @@
 <template>
   <div id="app">
+    <v-app>
       <Header />
-        <!-- <nav id="router">
+      <!-- <nav id="router">
           <ul>
             <li><router-link :to="{ name:'List' }">목록</router-link></li>
             <li><router-link :to="{ name:'MyPage' }">MyPage</router-link></li>
             <li><router-link :to="{ name:'VisitCreate' }">방명록</router-link></li>
           </ul>
-        </nav> -->
-    <div class="container">
-      <div class="row">
-        <div class="col-10"><router-view /> </div>
-        <div class="col-2"><Aside /></div>
-        
-      </div> 
-    </div>
+      </nav>-->
+      <div class="container">
+        <div class="row">
+          <div class="col-10">
+            <router-view />
+          </div>
+          <div class="col-2">
+            <Aside />
+          </div>
+        </div>
+      </div>
+    </v-app>
   </div>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
-  import Header from '@/components/common/Header.vue'
-  import Aside from '@/views/post/Aside.vue'
-  // import List from '@/views/post/List.vue'
+import Header from "@/components/common/Header.vue";
+import Aside from "@/views/post/Aside.vue";
+// import List from '@/views/post/List.vue'
 
-  export default {
-    components: {
-      Header,
-      Aside,
-    },
-  }
+export default {
+  components: {
+    Header,
+    Aside,
+  },
+};
 </script>
 <style scoped>
 #app {
