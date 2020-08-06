@@ -75,7 +75,7 @@ const routes = [
   },
   // post
   {
-    path: '/:name/temp1',
+    path: '/temp1',
     name: 'List',
     component: List
   },
@@ -85,12 +85,12 @@ const routes = [
     component: Create,
   },
   {
-    path: '/:name/temp1/read',
+    path: '/read',
     name: 'Read',
     component: Read
   },
   {
-    path: '/:name/temp1/update',
+    path: '/update',
     name: 'Update',
     component: Update,
   },
@@ -139,18 +139,18 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Join', 'List', 'Main']
-  const authPages = ['Login', 'Join']
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['Login', 'Join', 'List', 'Main']
+//   const authPages = ['Login', 'Join']
 
-  const authRequired = !publicPages.includes(to.name)
-  const unauthRequired = authPages.includes(to.name)
-  const isLogin = !!Vue.$cookies.isKey('auth-token')
+//   const authRequired = !publicPages.includes(to.name)
+//   const unauthRequired = authPages.includes(to.name)
+//   const isLogin = !!Vue.$cookies.isKey('auth-token')
 
-  if(unauthRequired && isLogin) {
-    next('/') 
-  }
-  authRequired && !isLogin ? next({ name: 'Login' }) : next()
-})
+//   if(unauthRequired && isLogin) {
+//     next('/') 
+//   }
+//   authRequired && !isLogin ? next({ name: 'Login' }) : next()
+// })
 
 export default router

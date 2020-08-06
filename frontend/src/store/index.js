@@ -28,9 +28,16 @@ export default new Vuex.Store({
     reply: {},
     pnoArr: [], // 중복을 걸러주기 위한 pno array
     newPostsArr: [],
+    // search
     searchPosts: [],
     searchFlag: false,
+    // rendering
     renderNum: '0', // 0: main 1: form1, 2: form2, 3: form3
+    // userinfo
+    email: '',
+    nickname: '',
+    imageUrl: '',
+    blogname: '',
   },
   getters: {
     // user
@@ -87,7 +94,24 @@ export default new Vuex.Store({
     // render
     setRenderNum(state, payload) {
       state.renderNum = payload
-    }
+    },
+    getUserinfo(state) {
+      http
+        .get(`/account/userinfo`, {
+          params: {
+            accessToken: this.$store.state.authToken,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          state.email = res.data.email
+          state.nickname = res.data.nickname
+          state.imageUrl = res.data.imageUrl
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
   },
   actions: {
     // user
@@ -149,7 +173,8 @@ export default new Vuex.Store({
       })
     },
     moveToblog({ commit }, payload) {
-      commit('setRenderNum', payload)
+      this.state.blogname = payload.name
+      commit('setRenderNum', payload.selected)
       router.push({ name: 'List' })
     }
   },

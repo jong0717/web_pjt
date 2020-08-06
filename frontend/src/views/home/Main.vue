@@ -1,8 +1,12 @@
 <template>
-  <div>
-      <img src="@/assets/main.png" alt="mainimage" class="mainImg">
-      <router-link to="/blogcreate"><button type="button" class="btn btn-outline-dark startBtn">시작하기</button></router-link>
-  </div>
+    <div>
+        <div class="imgCon">
+            <img src="@/assets/main.png" alt="mainImage">
+            <div class="startBtn">
+                <router-link to="/blogcreate"><button type="button" class="btn btn-outline-dark">시작하기</button></router-link>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -14,17 +18,19 @@ export default {
 }
 </script>
 
-<style>
-.mainImg {
-    width:100%;
-    height: auto;
+<style scoped>
+.imgCon {
+    /* width: 80vw; */
+
 }
+img {
+    width: 100%;
+}
+
 .startBtn {
-    position: relative;
-    bottom: 210px;
+    margin-bottom: 5vh;
+    width: 100%;
     border-radius: 1rem !important;
 }
-.signBtn {
-    position: relative;
-}
+
 </style>

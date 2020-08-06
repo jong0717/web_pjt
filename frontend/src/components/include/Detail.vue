@@ -78,7 +78,7 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-  <div><h1>여기에 나와야 돼</h1></div>
+  <!-- <div><h1>여기에 나와야 돼</h1></div> -->
     <div class="text-center">
       <router-link to="/"
         ><button class="btn btn-primary" id="listBtn">목록</button></router-link

@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <v-alert v-if="isLogin" type="success">
-      성공적으로 로그인되었습니다.
-    </v-alert>
       <form class="mx-auto col-6">
         <div class="form-group">
           <label for="email">이메일</label>
@@ -59,7 +56,8 @@ export default {
           console.log(res.data);
           this.$store.commit('setCookie', res.data.accessToken);
           $('#exampleModal').modal('hide');
-          this.$router.go()
+          // this.$router.go()
+          this.$router.push('/')
         })
         .catch((err) => {
           alert("이메일 및 비밀번호를 확인해주세요.")

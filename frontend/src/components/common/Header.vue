@@ -5,7 +5,7 @@
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
         <div id="navbarname" class="animate__animated animate__bounce">
           <a class="navbarname" href="/">
-            <h4>맛집블로그</h4>
+            <h4>{{blogname}}</h4>
           </a>
         </div>
         <button
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import Login from "@/views/user/Login.vue";
 // import $ from 'jquery'
 
@@ -123,6 +123,7 @@ export default {
   },
   computed: {
     ...mapGetters(["isLogIn"]),
+    ...mapState(['blogname'])
   },
 };
 </script>

@@ -100,6 +100,7 @@ export default {
   // },
   mounted() {
     this.addScrollWatcher();
+    this.$store.state.renderNum = 1
   },
   updated() {
     this.loadUntilViewportIsFull();
