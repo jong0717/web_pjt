@@ -90,22 +90,18 @@ public class AccountController {
     @GetMapping("/userinfo")
     @ApiOperation(value = "유저 정보 얻기")
     public Object getUserInfo(@RequestParam(required = true) final String accessToken) {
-        User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(accessToken));
+        User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(accessToken))
+                            .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
 
-        if (user != null)
-            return new ResponseEntity<>(new UserResponse(user), HttpStatus.OK);
-
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new UserResponse(user), HttpStatus.OK);
     }
 
     @PutMapping("/modify")
     @ApiOperation(value = "수정하기")
     public Object modify(@Valid @RequestBody UserRequest request) {
         final BasicResponse result = new BasicResponse();
-        User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(request.getAccessToken()));
-
-        if (user == null)
-            return new ResponseEntity<>(result, HttpStatus.METHOD_NOT_ALLOWED);
+        User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(request.getAccessToken()))
+                            .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
 
         try {
             user.setNickname(request.getNickname());
@@ -127,6 +123,7 @@ public class AccountController {
         } catch (Exception e) {
             result.status = false;
             result.data = "fail";
+            result.message = "회원 정보 수정 실패";
 
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
@@ -147,6 +144,7 @@ public class AccountController {
         } catch (Exception e) {
             result.status = false;
             result.data = "fail";
+            result.message = "회원 탈퇴 실패";
 
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }

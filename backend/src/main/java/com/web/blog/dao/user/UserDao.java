@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
     @Transactional(readOnly = true)
-    User getUserByEmail(String email);
+    Optional<User> getUserByEmail(String email);
 
     @Transactional(readOnly = true)
-    User getUserByUid(Long uid);
+    Optional<User> getUserByUid(Long uid);
 
     Boolean existsByEmail(String email);
 
@@ -26,6 +26,7 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     // use executeQuery() -> executeUpdate()
     @Modifying
+    // avoid javax.persistence.TransactionRequiredException
     @Transactional
     @Query(value = "DELETE user_roles, users FROM user_roles LEFT JOIN users ON user_roles.user_id = users.uid WHERE user_roles.user_id = :uid", nativeQuery = true)
     void deleteByUid(@Param("uid") Long uid);

@@ -53,6 +53,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private EAuthProvider provider;
 
+    // https://dzone.com/articles/why-set-is-better-than-list-in-manytomany
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(	name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id"), 
