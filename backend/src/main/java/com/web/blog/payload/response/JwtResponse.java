@@ -8,14 +8,14 @@ public class JwtResponse {
     private Long id;
     private String nickname;
     private String email;
-    // private List<String> roles;
+    private List<String> roles;
 
-    public JwtResponse(String accessToken, Long id, String nickname, String email/*, List<String> roles*/) {
+    public JwtResponse(String accessToken, Long id, String nickname, String email, List<String> roles) {
         this.accessToken = accessToken;
         this.id = id;
         this.nickname = nickname;
         this.email = email;
-        // this.roles = roles;
+        this.roles = roles;
     }
 
     public String getAccessToken() { return accessToken; }
@@ -33,5 +33,5 @@ public class JwtResponse {
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
 
-    // public List<String> getRoles() { return roles; }
+    public List<String> getRoles() { return roles; }
 }

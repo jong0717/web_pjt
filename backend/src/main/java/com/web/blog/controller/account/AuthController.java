@@ -81,8 +81,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                 userDetails.getId(),
                                                 userDetails.getUsername(),
-                                                userDetails.getEmail()/*,
-                                                roles*/));
+                                                userDetails.getEmail(),
+                                                roles));
     }
 
     @PostMapping("/signup")
@@ -104,14 +104,15 @@ public class AuthController {
                                 signUpRequest.getEmail(),
                                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRole();
+        // Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = null;
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
             Role userRole = roleDao.findByName(ERole.ROLE_USER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        } else {
+        } /* else {
             strRoles.forEach(role -> {
                 switch (role) {
                 case "admin":
@@ -132,7 +133,7 @@ public class AuthController {
                     roles.add(userRole);
                 }
             });
-        }
+        } */
 
         user.setRoles(roles);
         System.out.println(user);

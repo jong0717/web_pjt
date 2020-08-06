@@ -134,13 +134,13 @@ public class AccountController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    /* @DeleteMapping("/withdrawal")
+    @DeleteMapping("/withdrawal")
     @ApiOperation(value = "탈퇴하기")
     public Object withdrawal(@Valid @RequestBody String accessToken) {
         final BasicResponse result = new BasicResponse();
 
         try {
-            userDao.deleteById(jwtUtils.getUidFromJwtToken(accessToken));
+            userDao.deleteByUid(jwtUtils.getUidFromJwtToken(accessToken));
 
             result.status = true;
             result.data = "success";
@@ -152,5 +152,5 @@ public class AccountController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
-    } */
+    }
 }

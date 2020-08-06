@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(	name = "users", 
+@Table(	name = "users",
         uniqueConstraints = { 
             @UniqueConstraint(columnNames = "email") 
         })
@@ -53,7 +53,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private EAuthProvider provider;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(	name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id"), 
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
