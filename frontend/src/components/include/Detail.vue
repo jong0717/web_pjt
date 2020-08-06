@@ -78,6 +78,7 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+  <div><h1>여기에 나와야 돼</h1></div>
     <div class="text-center">
       <router-link to="/"
         ><button class="btn btn-primary" id="listBtn">목록</button></router-link
@@ -204,6 +205,14 @@ export default {
       .catch(() => {
         alert('삭제 처리시 에러가 발생했습니다.');
       });
+    },
+    getNaverBlog() {
+      const headers = {'X-Naver-Client-Id':'PbOyaByRiX_P1pzboQ3m', 'X-Naver-Client-Secret':'AClAi8Sq6M'}
+      this.$http.get('https://openapi.naver.com/v1/search/blog',{
+        params: {
+          title: '운암동루덴스'
+        }, headers
+      } )
     }
   },
 };

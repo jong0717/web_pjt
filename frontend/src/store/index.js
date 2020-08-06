@@ -30,6 +30,7 @@ export default new Vuex.Store({
     newPostsArr: [],
     searchPosts: [],
     searchFlag: false,
+    renderNum: '0', // 0: main 1: form1, 2: form2, 3: form3
   },
   getters: {
     // user
@@ -83,13 +84,17 @@ export default new Vuex.Store({
     setREPLY(state, payload){
         state.reply = payload;
     },
+    // render
+    setRenderNum(state, payload) {
+      state.renderNum = payload
+    }
   },
   actions: {
     // user
     logout({commit}) {
       commit('setCookie', null)
       cookies.remove('auth-token')
-      router.push({ name: 'List' })
+      router.push({ name: 'Main' })
     },
     // post
     getPOSTs({ commit }) {
@@ -142,6 +147,10 @@ export default new Vuex.Store({
         console.log(err)
       })
       })
+    },
+    moveToblog({ commit }, payload) {
+      commit('setRenderNum', payload)
+      router.push({ name: 'List' })
     }
   },
   modules: {

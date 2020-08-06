@@ -1,7 +1,7 @@
 <template>
   <div class="container list">
-    <button class="btn btn-light" @click="movePage">글쓰기</button>
-
+    <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
+    <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
     <!-- <div class="list-cards row d-flex justify-content-around">
       <div
         class="card border-info mb-3"
@@ -35,9 +35,11 @@
       >
         <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
 
-        <v-card-title><router-link :to="'/read?pno='+item.pno">
+        <v-card-title>
+          <router-link :to="'/read?pno='+item.pno">
             <h5 class="card-title">{{item.title}}</h5>
-          </router-link></v-card-title>
+          </router-link>
+        </v-card-title>
 
         <v-card-text>
           <v-row align="center" class="mx-0">
@@ -68,7 +70,13 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn color="deep-purple lighten-2" text @click="reserve">Reserve</v-btn>
+          {{ item.heart }}
+          <v-btn icon color="black">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+          <v-btn icon color="pink">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>

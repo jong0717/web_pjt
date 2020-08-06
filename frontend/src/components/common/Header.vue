@@ -5,7 +5,7 @@
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
         <div id="navbarname" class="animate__animated animate__bounce">
           <a class="navbarname" href="/">
-            <h4>싸피로그</h4>
+            <h4>맛집블로그</h4>
           </a>
         </div>
         <button
@@ -57,6 +57,7 @@
                 </li >-->
                 <li class="nav-item active">
                   <button type="button" class="btn btn-light" @click="logout">로그아웃</button>
+                  <v-gravatar email="somebody@somewhere.com" :size="30"/>
                 </li>
               </span>
             </ul>

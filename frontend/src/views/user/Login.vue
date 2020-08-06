@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    
+    <v-alert v-if="isLogin" type="success">
+      성공적으로 로그인되었습니다.
+    </v-alert>
       <form class="mx-auto col-6">
         <div class="form-group">
           <label for="email">이메일</label>
@@ -28,6 +30,8 @@
 
 <script>
 // import constants from '../../lib/constants'
+// import LoginSuccess from '@/views/user/LoginSuccess.vue'
+import { mapGetters } from "vuex";
 import axios from "axios";
 import $ from 'jquery'
 import 'bootstrap'
@@ -63,6 +67,9 @@ export default {
         });
     },
   },
+  computed: {
+    ...mapGetters(["isLogIn"]),
+  }
 };
 </script>
 

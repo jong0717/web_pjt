@@ -1,21 +1,22 @@
 <template>
   <div id="app">
     <v-app>
-      <Header />
-      <!-- <nav id="router">
-          <ul>
-            <li><router-link :to="{ name:'List' }">목록</router-link></li>
-            <li><router-link :to="{ name:'MyPage' }">MyPage</router-link></li>
-            <li><router-link :to="{ name:'VisitCreate' }">방명록</router-link></li>
-          </ul>
-      </nav>-->
-      <div class="container">
-        <div class="row">
-          <div class="col-10">
-            <router-view />
-          </div>
-          <div class="col-2">
-            <Aside />
+      <!-- 메인페이지 -->
+      <div v-if="renderNum==0">
+        <HeaderMain />
+        <router-view />
+      </div>
+      <!-- 첫번째 폼 -->
+      <div v-if="renderNum==1">
+        <Header />
+        <div class="container">
+          <div class="row">
+            <div class="col-9">
+              <router-view />
+            </div>
+            <div class="col-3">
+              <Aside />
+            </div>
           </div>
         </div>
       </div>
@@ -25,14 +26,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
 import Header from "@/components/common/Header.vue";
+import HeaderMain from "@/components/common/HeaderMain.vue"
 import Aside from "@/views/post/Aside.vue";
+import Main from "@/views/home/Main.vue"
+
+import { mapState } from 'vuex'
 // import List from '@/views/post/List.vue'
 
 export default {
   components: {
     Header,
     Aside,
+    Main,
+    HeaderMain,
   },
+  computed: {
+    ...mapState(['renderNum'])
+  }
 };
 </script>
 <style scoped>
