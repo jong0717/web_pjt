@@ -20,6 +20,9 @@ export default {
   },
     methods: {
     ...mapActions(["logout", "search"]),
+    mounted() {
+    this.$store.state.renderNum = 0
+  }
   },
 };
 </script>

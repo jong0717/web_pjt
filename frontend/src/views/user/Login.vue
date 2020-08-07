@@ -18,10 +18,11 @@
         <br />
         <!-- <button @click="login" type="button" class="btn btn--login btn-success">로그인</button> -->
         <v-btn @click="login" color="primary">로그인</v-btn>
+        <router-link :to="{ name: 'Join'}"><v-btn color="primary">회원가입</v-btn></router-link>
       </form>
       <div style="margin-top: 5%"></div>
       <a href='http://localhost:8080/oauth2/authorize/google?redirect_uri="http://localhost:3000/oauth2/redirect"'>
-          <img :src="google.logo" alt="Google" contain height="60%" width="60%"/></a>
+          <img :src="google.logo" alt="Google" contain height="60%" width="30%"/></a>
   </div>
 </template>
 

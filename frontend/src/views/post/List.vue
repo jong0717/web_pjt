@@ -1,7 +1,10 @@
 <template>
   <div class="container list">
     <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
-    <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
+    <div class="row justify-content-around">
+      <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
+      <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
+    </div>
     <!-- <div class="list-cards row d-flex justify-content-around">
       <div
         class="card border-info mb-3"
@@ -131,6 +134,9 @@ export default {
         this.$store.dispatch("getPOSTs");
       }
     },
+    reload() {
+      this.$router.go()
+    }
   },
   data: () => {
     return {};

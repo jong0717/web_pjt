@@ -57,7 +57,7 @@
                 </li >-->
                 <li class="nav-item active">
                   <button type="button" class="btn btn-light" @click="logout">로그아웃</button>
-                  <v-gravatar email="somebody@somewhere.com" :size="30"/>
+                  <!-- <v-gravatar email="somebody@somewhere.com" :size="30"/> -->
                 </li>
               </span>
             </ul>
@@ -125,6 +125,9 @@ export default {
     ...mapGetters(["isLogIn"]),
     ...mapState(['blogname'])
   },
+  mounted() {
+  this.$store.state.renderNum = 1
+  }
 };
 </script>
 

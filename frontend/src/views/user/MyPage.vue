@@ -9,7 +9,7 @@
               <img :src="imageUrl" alt="" width="100px">
             </div>
             <div v-if="!imageUrl">
-              <v-gravatar email="somebody@somewhere.com" />
+              <v-gravatar :email="email" />
             </div>
           </div>
           <div class="form-group">
@@ -22,12 +22,20 @@
               type="text"
               class="form-control"
               id="exampleFormControlInput2"
-              v-model="nickname"
+              v-model="userData.nickname"
             />
           </div>
           <div class="form-group">
+            <label for="exampleFormControlInput1">새 비밀번호</label>
+            <input type="password" class="form-control" id="exampleFormControlInput1" v-model="userData.password" />
+          </div>
+          <div class="form-group">
             <label for="exampleFormControlTextarea1">소개</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea v-model="userData.introduce" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="row justify-content-around">
+            <v-btn @click="editUserinfo" color="success">수정하기</v-btn>
+            <v-btn @click="editUserinfo" color="error">탈퇴하기</v-btn>
           </div>
         </form>
       </div>
@@ -37,14 +45,19 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 export default {
   data() {
     return {
       accessToken: this.$store.state.authToken,
       email: "",
-      nickname: "",
-      imageUrl: "",
+      userData: {
+        accessToken: this.$store.state.authToken,
+        imageUrl: null,
+        introduce: null,
+        nickname: null,
+        password: null
+      }
     };
   },
   methods: {
@@ -58,23 +71,34 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.email = res.data.email;
-          this.nickname = res.data.nickname;
-          this.imageUrl = res.data.imageUrl
+          this.userData.nickname = res.data.nickname;
+          this.userData.imageUrl = res.data.imageUrl
+          this.userData.introduce = res.data.introduce
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    editUserinfo() {
+      axios.put(`${this.$store.state.HOST}/account/modify`, this.userData)
+      .then((res) => {
+        location.reload()
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
   mounted() {
     this.getUserinfo();
   },
-  created() {
-    this.getUserinfo();
-  },
-  computed: {
-    ...mapState(['imageUrl'])
-  }
+  // created() {
+  //   this.getUserinfo();
+  // },
+  // computed: {
+  //   ...mapState(['authToken'])
+  // }
 };
 </script>
 

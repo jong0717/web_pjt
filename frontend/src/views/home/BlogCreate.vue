@@ -18,8 +18,9 @@
           <option value="2">template2</option>
           <option value="3">template3</option>
         </select>
-        <button @click="moveToblog(selectedData)" class="ml-1 B-CreateBtn">Get</button>
       </div>
+        <!-- <button @click="moveToblog(selectedData)" class="ml-1 B-CreateBtn">Get</button> -->
+        <v-btn @click="moveToblog(selectedData)" x-large color="success" dark>시작하기</v-btn>
     </div>
   </div>
 </template>
