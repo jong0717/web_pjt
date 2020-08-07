@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // import constants from '../lib/constants.js'
+// home
+import Main from '@/views/home/Main.vue'
+import BlogCreate from '@/views/home/BlogCreate.vue'
 
 // post
 import List from '../views/post/List.vue'
@@ -22,10 +25,28 @@ import NotFoundPage from '@/views/err/NotFoundPage.vue'
 
 import store from '@/store'
 
+// hong place(template3)
+// 1.home
+import Home from '@/views/template3/home/Home.vue'
+// +재완
+// lsit2
+import List2 from '@/views/post2/List2.vue'
+
 Vue.use(VueRouter)
 
 
 const routes = [
+  // home
+  {
+    path:'/',
+    name:'Main',
+    component:Main
+  },
+  {
+    path:'/blogcreate',
+    name:'BlogCreate',
+    component:BlogCreate
+  },
   // user
   {
     path: '/user/join',
@@ -54,7 +75,7 @@ const routes = [
   },
   // post
   {
-    path: '/',
+    path: '/temp1',
     name: 'List',
     component: List
   },
@@ -96,6 +117,19 @@ const routes = [
     name: 'NotFoundPage',
     component: NotFoundPage
   },
+    // hong place(template3)
+  // 1. home
+  {
+    path:'/temp3',
+    name:'Home',
+    component:Home
+  },
+  // 재완
+  {
+    path: '/temp2',
+    name: 'List2',
+    component: List2
+  },
 
 ]
 
@@ -106,7 +140,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Join', 'List']
+  const publicPages = ['Login', 'Join', 'List', 'Main']
   const authPages = ['Login', 'Join']
 
   const authRequired = !publicPages.includes(to.name)
