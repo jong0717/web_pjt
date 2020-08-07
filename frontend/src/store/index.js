@@ -137,12 +137,12 @@ export default new Vuex.Store({
       .catch(() => {
         alert('에러가 발생했습니다.');
       });
-     },
+    },
     getPOST(context, payload) {
       http.get(payload).then(({ data }) => {
         context.commit('setPOST', data);
       });
-     },
+    },
     getREPLIES(context) {
       http
       .get(`/api/reply/list`)
@@ -152,12 +152,12 @@ export default new Vuex.Store({
       .catch(() => {
         alert('에러가 발생했습니다.');
       });
-     },
+    },
     getREPLY(context, payload) {
       http.get(payload).then(({ data }) => {
         context.commit('setREPLY', data);
       });
-     },
+    },
     search({ commit }, searchInput) {
       http.get(`api/post/search/${searchInput}`)
       .then((res) => {
