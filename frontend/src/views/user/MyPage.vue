@@ -35,7 +35,7 @@
           </div>
           <div class="row justify-content-around">
             <v-btn @click="editUserinfo" color="success">수정하기</v-btn>
-            <v-btn @click="editUserinfo" color="error">탈퇴하기</v-btn>
+            <v-btn @click="deleteUser" color="error">탈퇴하기</v-btn>
           </div>
         </form>
       </div>
@@ -45,7 +45,8 @@
 
 <script>
 import axios from "axios";
-// import { mapState } from "vuex";
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -61,6 +62,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['logout']),
     getUserinfo() {
       axios
         .get(`${this.$store.state.HOST}/account/userinfo`, {
@@ -84,6 +86,19 @@ export default {
       .then((res) => {
         location.reload()
         console.log(res)
+      })  
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    deleteUser() {
+      axios.delete(`${this.$store.state.HOST}/account/withdrawal`, {data:this.$store.state.authToken})
+      .then((res) => {
+        console.log(res)
+        setTimeout(() => {
+          this.logout()
+        }, 1000)
+
       })
       .catch((err) => {
         console.log(err)
