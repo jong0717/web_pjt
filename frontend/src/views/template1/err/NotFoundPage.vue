@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import constants from '../../lib/constants'
+    import constants from '../../../lib/constants'
 
     export default {
         components: {

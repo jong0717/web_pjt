@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import VisitPage from '@/views/board/VisitPage.vue'
+import VisitPage from '@/views/template1/board/VisitPage.vue'
 export default {
     name: 'VisitCreate',
     data() {

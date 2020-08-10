@@ -3,11 +3,11 @@ import VueRouter from 'vue-router'
 
 // import constants from '../lib/constants.js'
 // home
-import Main from '@/views/home/Main.vue'
-import BlogCreate from '@/views/home/BlogCreate.vue'
+import Main from '@/views/main/Main.vue'
+import BlogCreate from '@/views/main/BlogCreate.vue'
 
 // post
-import List from '../views/post/List.vue'
+import List from '../views/template1/post/List.vue'
 import Read from '../views/post/Read.vue'
 import Create from '../views/post/Create.vue'
 import Update from '../views/post/Update.vue'
@@ -17,11 +17,11 @@ import Delete from '../views/post/Delete.vue'
 import Join from '@/views/user/Join.vue'
 import Login from '@/views/user/Login.vue'
 import MyPage from '@/views/user/MyPage.vue'
-import VisitPage from '@/views/board/VisitPage.vue'
-import VisitCreate from '@/views/board/VisitCreate.vue'
+import VisitPage from '@/views/template1/board/VisitPage.vue'
+import VisitCreate from '@/views/template1/board/VisitCreate.vue'
 
 //err
-import NotFoundPage from '@/views/err/NotFoundPage.vue'
+import NotFoundPage from '@/views/template1/err/NotFoundPage.vue'
 
 import store from '@/store'
 
@@ -30,7 +30,7 @@ import store from '@/store'
 import Home from '@/views/template3/home/Home.vue'
 // +재완
 // lsit2
-import List2 from '@/views/post2/List2.vue'
+import List2 from '@/views/template2/post/List2.vue'
 
 Vue.use(VueRouter)
 
@@ -139,18 +139,18 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Join', 'List', 'Main']
-  const authPages = ['Login', 'Join']
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['Login', 'Join', 'List', 'Main']
+//   const authPages = ['Login', 'Join']
 
-  const authRequired = !publicPages.includes(to.name)
-  const unauthRequired = authPages.includes(to.name)
-  const isLogin = !!Vue.$cookies.isKey('auth-token')
+//   const authRequired = !publicPages.includes(to.name)
+//   const unauthRequired = authPages.includes(to.name)
+//   const isLogin = !!Vue.$cookies.isKey('auth-token')
 
-  if(unauthRequired && isLogin) {
-    next('/') 
-  }
-  authRequired && !isLogin ? next({ name: 'Login' }) : next()
-})
+//   if(unauthRequired && isLogin) {
+//     next('/') 
+//   }
+//   authRequired && !isLogin ? next({ name: 'Login' }) : next()
+// })
 
 export default router

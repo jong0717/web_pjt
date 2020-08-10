@@ -27,7 +27,7 @@
 
 <script>
 // import Main from '@/views/home/Main.vue'
-import BlogList from '@/components/homepage/BlogList.vue'
+import BlogList from '@/components/main/BlogList.vue'
 import { mapActions } from 'vuex'
 
 export default {
