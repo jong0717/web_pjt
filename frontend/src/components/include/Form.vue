@@ -1,7 +1,7 @@
 <template>
   <div id="createForm">
     <div class="form-group">
-      <label for="uid">작성자</label>
+      <!-- <label for="uid">작성자</label>
       <input
         type="text"
         class="form-control"
@@ -9,7 +9,7 @@
         ref="uid"
         placeholder="작성자를 입력하세요"
         v-model="uid"
-      />
+      /> -->
     </div>
     <div class="form-group">
       <label for="title">제목</label>
@@ -51,7 +51,7 @@ export default {
   data: function() {
     return {
       pno: '',
-      uid: '',
+      uid: this.$store.state.uid.uid,
       title: '',
       content: '',
       heart: 0,

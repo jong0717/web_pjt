@@ -4,21 +4,33 @@ import Vuex from 'vuex'
 import VueCookies from 'vue-cookies'
 import cookies from 'vue-cookies'
 
-// import createPersistedState from 'vuex-persistedstate';
+import createPersistedState from 'vuex-persistedstate';
 import http from '../util/http-common';
 
 import router from '@/router'
 
 import VueScrollMonitor from 'vue-scrollmonitor'
 
+import uid from './uid.js';
+
+const modules = {
+  uid, 
+}
+const plugins = [
+  createPersistedState({
+    paths: [
+      'uid'
+    ]
+  })
+]
+
 Vue.use(Vuex);
 Vue.use(VueCookies)
 Vue.use(VueScrollMonitor)
 
 export default new Vuex.Store({
-  // plugins: [
-  //   createPersistedState()
-  // ],
+  modules,
+  plugins,
   state: {
     HOST: 'http://localhost:8080',
     authToken: cookies.get('auth-token'),
@@ -178,6 +190,4 @@ export default new Vuex.Store({
       router.push({ name: 'List' })
     }
   },
-  modules: {
-  }
 })

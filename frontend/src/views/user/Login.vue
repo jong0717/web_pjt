@@ -56,6 +56,8 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.$store.commit('setCookie', res.data.accessToken);
+          this.$store.dispatch('update_uid', res.data.id)
+          console.log(res.data.id)
           $('#exampleModal').modal('hide');
           // this.$router.go()
           this.$router.push('/')
