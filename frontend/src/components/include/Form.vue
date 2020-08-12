@@ -1,13 +1,14 @@
 <template>
   <div class="container">
     <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="name" :counter="10" :rules="nameRules" label="제목" required></v-text-field>
+      <v-text-field v-model="title" :counter="10" :rules="nameRules" label="제목" required></v-text-field>
 
       <v-textarea
           outlined
           name="input-7-4"
           label="내용"
           value=""
+          v-model="content"
         ></v-textarea>
       <v-text-field
             label="Prepend"
