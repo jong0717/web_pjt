@@ -14,7 +14,7 @@
             <div class="col-9">
               <router-view />
             </div>
-            <div class="col-3">
+            <div class="col-3 aside">
               <Aside />
             </div>
           </div>
@@ -25,10 +25,10 @@
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
-import Header from "@/components/common/Header.vue";
-import HeaderMain from "@/components/common/HeaderMain.vue"
-import Aside from "@/views/post/Aside.vue";
-import Main from "@/views/home/Main.vue"
+import Header from "@/components/template1/Header.vue";
+import HeaderMain from "@/components/main/HeaderMain.vue"
+import Aside from "@/views/template1/post/Aside.vue";
+import Main from "@/views/main/Main.vue"
 
 import { mapState } from 'vuex'
 // import List from '@/views/post/List.vue'
@@ -66,7 +66,12 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
+.aside {
+  width: auto;
+  padding-top: 20%;
+  border-left: 0.1em solid #eee;
+  padding: 0.5em;
+}
 /* #router {
   margin: 20px;
   height: 66px;

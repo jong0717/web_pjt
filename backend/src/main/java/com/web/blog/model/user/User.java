@@ -54,11 +54,15 @@ public class User {
     private EAuthProvider provider;
 
     // https://dzone.com/articles/why-set-is-better-than-list-in-manytomany
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(	name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id"), 
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    // blog
+    private String blogName;
+    private int templateNumber;
 
     public User() {}
 
@@ -66,7 +70,9 @@ public class User {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
+
         this.provider = EAuthProvider.local;
+        this.templateNumber = -1;
     }
 
     @Builder
@@ -74,7 +80,9 @@ public class User {
         this.uid = uid;
         this.nickname = nickname;
         this.password = password;
+
         this.provider = EAuthProvider.local;
+        this.templateNumber = -1;
     }
 
     public void setUid(String uid) { this.uid = Long.parseLong(uid); }
