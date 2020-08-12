@@ -20,7 +20,7 @@
         </select>
       </div>
         <!-- <button @click="moveToblog(selectedData)" class="ml-1 B-CreateBtn">Get</button> -->
-        <v-btn @click="moveToblog(selectedData)" x-large color="success" dark>시작하기</v-btn>
+        <v-btn @click="moveToblog(selectedData)" x-large rounded outlined color="success">시작하기</v-btn>
     </div>
   </div>
 </template>

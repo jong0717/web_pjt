@@ -139,18 +139,18 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const publicPages = ['Login', 'Join', 'List', 'Main']
-//   const authPages = ['Login', 'Join']
+router.beforeEach((to, from, next) => {
+  const publicPages = ['Login', 'Join', 'List', 'Main']
+  const authPages = ['Login', 'Join']
 
-//   const authRequired = !publicPages.includes(to.name)
-//   const unauthRequired = authPages.includes(to.name)
-//   const isLogin = !!Vue.$cookies.isKey('auth-token')
+  const authRequired = !publicPages.includes(to.name)
+  const unauthRequired = authPages.includes(to.name)
+  const isLogin = !!Vue.$cookies.isKey('auth-token')
 
-//   if(unauthRequired && isLogin) {
-//     next('/') 
-//   }
-//   authRequired && !isLogin ? next({ name: 'Login' }) : next()
-// })
+  if(unauthRequired && isLogin) {
+    next('/') 
+  }
+  authRequired && !isLogin ? next({ name: 'Login' }) : next()
+})
 
 export default router
