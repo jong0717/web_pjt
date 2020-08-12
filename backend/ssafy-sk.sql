@@ -3,22 +3,9 @@
 
 DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE `user` (
-  `uid` int NOT NULL auto_increment,
-  `nickname` varchar(128) DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `password` varchar(128) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `create_date` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`uid`),
-  UNIQUE KEY `user_idx_unique_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-insert into user(nickname, email, password) values('test', 'test@test.com', 1234);
-
 CREATE TABLE `posts` (
   `pno` int NOT NULL AUTO_INCREMENT,
-  `uid` int NOT NULL,
+  `uid` bigint NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` varchar(1000) NOT NULL,
   `heart` int default 0,
@@ -26,7 +13,7 @@ CREATE TABLE `posts` (
   `create_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`pno`),
   KEY `post_to_user_fk` (`uid`),
-  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) on delete cascade
+  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 
@@ -77,7 +64,7 @@ SELECT * FROM user_roles;
 
 CREATE TABLE blog (
   `bid` int NOT NULL AUTO_INCREMENT,
-  `uid` int NOT NULL,
+  `uid` bigint NOT NULL,
   `blogname` varchar(100) NOT NULL,
   `template_num` int NOT NULL,
   `visitors_num` int default 0,
