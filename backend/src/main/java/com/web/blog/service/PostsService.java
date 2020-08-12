@@ -10,6 +10,9 @@ import com.web.blog.model.posts.PostsResponseDto;
 import com.web.blog.model.posts.PostsSaveRequestDto;
 import com.web.blog.model.posts.PostsUpdateRequestDto;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,10 +55,12 @@ public class PostsService{
     }
 
     @Transactional(readOnly = true)
-    public List<PostsListResponseDto> findAllDesc() {
-        return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)
-                .collect(Collectors.toList());
+    public Page<PostsListResponseDto> findAllDesc(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pno"));
+        return postsRepository.findAllDesc(pageRequest).map(PostsListResponseDto::new);
+        // return postsRepository.findAllDesc().stream()
+        //         .map(PostsListResponseDto::new)
+        //         .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

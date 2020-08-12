@@ -1,5 +1,8 @@
 package com.web.blog.controller.post;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,8 +72,9 @@ public class PostsApiController{
 
     @GetMapping("/api/post/list")
     @ApiOperation(value = "전체 게시글 불러오기")
-    public List<PostsListResponseDto> findAll() {
-        return postsService.findAllDesc();
+    public Page<PostsListResponseDto> findAll(@RequestParam(required = true) final int page,
+                                                @RequestParam(required = true) final int size) {
+        return postsService.findAllDesc(page, size);
     }
 
     @GetMapping("api/post/detail/{pno}")
