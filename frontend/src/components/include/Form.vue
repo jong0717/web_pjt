@@ -13,7 +13,6 @@
             label="Prepend"
             prepend-icon="mdi-map-marker"
           ></v-text-field>
-      <Map />
 
 
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
@@ -37,12 +36,10 @@
 </template>
 
 <script>
-import Map from "@/components/template1/Map.vue";
 
 export default {
   name: "post-Form",
   components: {
-    Map,
   },
   props: {
     type: { type: String },
