@@ -1,5 +1,5 @@
 <template>
-    <div class="backimg">
+    <div>
       <v-navigation-drawer
         v-model="drawer"
         :color="color"
@@ -10,51 +10,56 @@
         :src="bg"
         absolute
         dark
-
+        
       >
         <v-list
           dense
           nav
-          class="py-0"
+          class="py-0 backimg"
         >
+        <div>
           <v-list-item two-line :class="miniVariant && 'px-0'">
-            <!-- <v-list-item-avatar>
-              <img src="https://randomuser.me/api/portraits/men/81.jpg">
-            </v-list-item-avatar> -->
-            <!-- <i class="fas fa-bars size:2x"></i> -->
+
             <v-list-item-content >
-              <!-- <v-list-item-title>Application</v-list-item-title>
-              <v-list-item-subtitle>Subtext</v-list-item-subtitle> -->
+
             </v-list-item-content>
-              <!-- <input
-              class="form-control searchInput"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-              v-model="searchInput"
-            /> -->
+
             <v-text-field :rules="rules" placeholder="Search" v-model="searchInput" class='SEARCH'></v-text-field>
             <i class="fas fa-search" @click="search(searchInput)"></i>
           </v-list-item>
-
           <v-divider></v-divider>
+          </div>
 
-          <v-list-item
+          <div>
+            <v-avatar color="light">
+              <v-icon dark>mdi-account-circle</v-icon>
+            </v-avatar> 
+            <h2>홍뽀로블로그</h2>
+          <!-- <v-list-item
             v-for="item in items"
             :key="item.title"
             link
+            
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
-
+            
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title><h1>{{ item.title }}</h1></v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
+          </div>
+          <div class='d-flex justify-content-around mb-4'>
+            <i class="fas fa-pen"></i>
+            <i class="fas fa-book"></i>
+            <i class="fas fa-code"></i>
+            <i class="fas fa-user-cog"></i>
+          </div>
         </v-list>
       </v-navigation-drawer>
       <Sidebar/>
+
       </div>
 </template>
 
@@ -71,12 +76,10 @@ export default {
       searchInput:'',
       drawer: true,
       items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard" },
-        { title: "Photos", icon: "mdi-image" },
-        { title: "About", icon: "mdi-help-box" },
+        // { title: "홍뽀로블로그", icon: "mdi-account-circle" },
+        // { title: "Photos", icon: "mdi-image" },
+        // { title: "About", icon: "mdi-help-box" },
       ],
-      color: "primary",
-      colors: ["primary", "blue", "success", "red", "teal"],
       right: false,
       permanent: true,
       miniVariant: false,
@@ -119,4 +122,18 @@ export default {
   width:60%;
   height: 60%;
 }
+i {
+  color:white;
+}
+
+.backimg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+/* .footicons {
+  
+} */
+
 </style>
