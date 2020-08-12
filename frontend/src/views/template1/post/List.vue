@@ -1,33 +1,9 @@
 <template>
   <div class="container list">
-    <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
     <div class="row justify-content-around">
       <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
       <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
     </div>
-    <!-- <div class="list-cards row d-flex justify-content-around">
-      <div
-        class="card border-info mb-3"
-        style="max-width: 18rem;"
-        v-for="(item, index) in newPosts"
-        :key="index + '_posts'"
-      >
-        <div class="card-header bg-white">
-          <strong>
-            <h4 class="mb-0">Card title</h4>
-          </strong>
-        </div>
-        <img src="https://picsum.photos/600/300/?image=1" alt />
-        <div class="card-body text-info">
-          <p>{{item.pno}}</p>
-          <router-link :to="'/read?pno='+item.pno">
-            <h5 class="card-title">{{item.title}}</h5>
-          </router-link>
-          <p class="card-text">{{item.content}}</p>
-          <p>{{getFormatDate(item.createDate)}}</p>
-        </div>
-      </div>
-    </div>-->
     <div class="list-cards row d-flex justify-content-around">
       <v-card
         :loading="loading"

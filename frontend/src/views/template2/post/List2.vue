@@ -38,15 +38,110 @@
                 <div class="justify-content-between">
                   <!-- buttons -->
                   <v-row class="editorbuttons">
+
+                    
+                    <!-- H1 -->
                     <v-tooltip top>
-                      <!-- Bold -->
+                      <template
+                        class="H1"
+                        v-slot:activator="{ on }"
+                        onclick="document.execCommand('formatBlock',false,'<h1>')"
+                      >
+                        <v-btn
+                          class="ml-5"
+                          :href="source"
+                          onclick="document.execCommand('formatBlock',false,'<h1>')"
+                          icon
+                          medium
+                          target="_blank"
+                          v-on="on"
+                        >
+                          <input type="button" class="BOLD" />
+                          <img src="https://img.icons8.com/ios-glyphs/30/000000/header-1.png"/>
+                        </v-btn>
+                      </template>
+                      <span>H1</span>
+                    </v-tooltip>
+
+                    <!-- H2 -->
+                    <v-tooltip top>
+                      <template
+                        class="H2"
+                        v-slot:activator="{ on }"
+                        onclick="document.execCommand('formatBlock',false,'<h2>')"
+                      >
+                        <v-btn
+                          class="ml-4"
+                          :href="source"
+                          onclick="document.execCommand('formatBlock',false,'<h2>')"
+                          icon
+                          medium
+                          target="_blank"
+                          v-on="on"
+                        >
+                          <input type="button" class="BOLD" />
+                          <img src="https://img.icons8.com/ios-glyphs/30/000000/header-2.png"/>
+                        </v-btn>
+                      </template>
+                      <span>H2</span>
+                    </v-tooltip>
+
+                    <!-- H3 -->
+                    <v-tooltip top>
+                      <template
+                        class="H3"
+                        v-slot:activator="{ on }"
+                        onclick="document.execCommand('formatBlock',false,'<h3>')"
+                      >
+                        <v-btn
+                          class="ml-4"
+                          :href="source"
+                          onclick="document.execCommand('formatBlock',false,'<h3>')"
+                          icon
+                          medium
+                          target="_blank"
+                          v-on="on"
+                        >
+                          <input type="button" class="H3" />
+                          <img src="https://img.icons8.com/ios-glyphs/30/000000/header-3.png"/>
+                        </v-btn>
+                      </template>
+                      <span>H3</span>
+                    </v-tooltip>
+
+                    <!-- H4 -->
+                    <v-tooltip top>
+                      <template
+                        class="H3"
+                        v-slot:activator="{ on }"
+                        onclick="document.execCommand('formatBlock',false,'<div>')"
+                      >
+                        <v-btn
+                          class="ml-4"
+                          :href="source"
+                          onclick="document.execCommand('formatBlock',false,'<div>')"
+                          icon
+                          medium
+                          target="_blank"
+                          v-on="on"
+                        >
+                          <input type="button" class="H3" />
+                          <img src="https://img.icons8.com/carbon-copy/30/000000/4-c.png"/>
+                        </v-btn>
+                      </template>
+                      <span>p</span>
+                    </v-tooltip>
+
+                    
+                    
+                    <!-- Bold -->
+                    <v-tooltip top>
                       <template
                         class="BOLD"
                         v-slot:activator="{ on }"
                         onclick="document.execCommand('bold')"
                       >
                         <v-btn
-                          class="ml-4"
                           :href="source"
                           onclick="document.execCommand('bold')"
                           icon
@@ -268,22 +363,19 @@
                       </template>
                       <span class="UNDERBAR">오른쪽 정렬</span>
                     </v-tooltip>
-                    <div class="buttons">
-                      <input
-                        v-if="html_switch===true"
-                        class="btn btn-primary m-1"
-                        type="button"
-                        value="에디터로 보기"
-                        @click="convertToEditor"
-                      />
-                      <input
-                        v-if="html_switch===false"
-                        class="btn btn-primary m-1"
-                        type="button"
-                        value="HTML로 보기"
-                        @click="convertToHTML"
-                      />
-                    </div>
+
+                    <input
+                      v-if="html_switch===true"
+                      type="button"
+                      value="에디터로 보기"
+                      @click="convertToEditor"
+                    />
+                    <input
+                      v-if="html_switch===false"
+                      type="button"
+                      value="HTML로 보기"
+                      @click="convertToHTML"
+                    />
                   </v-row>
 
                   <div class="col-1-none"></div>
@@ -294,27 +386,11 @@
                 </div>
               </div>
 
-              <div class="buttons">
-                <input
-                  v-if="html_switch===true"
-                  class="btn btn-primary m-1"
-                  type="button"
-                  value="에디터로 보기"
-                  @click="convertToEditor"
-                />
-                <input
-                  v-if="html_switch===false"
-                  class="btn btn-primary m-1"
-                  type="button"
-                  value="HTML로 보기"
-                  @click="convertToHTML"
-                />
-              </div>
+              <button class="btn btn-primary m-4">글쓰기</button>
+              <button class="btn btn-primary m-4">취소</button>
             </v-col>
           </v-row>
         </v-container>
-        <button class="btn btn-primary m-4">글쓰기</button>
-        <button class="btn btn-primary m-4">취소</button>
       </v-main>
     </v-app>
   </div>
@@ -360,4 +436,7 @@ export default {
 </script>
 
 <style scoped>
+input.btn {
+  margin: 0;
+}
 </style>
