@@ -7,14 +7,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
+import java.io.File;
 import java.util.List;
 
-import com.web.blog.model.BasicResponse;
 import com.web.blog.model.posts.PostsListResponseDto;
 import com.web.blog.model.posts.PostsResponseDto;
 import com.web.blog.model.posts.PostsSaveRequestDto;
@@ -31,7 +33,18 @@ public class PostsApiController{
 
     @PostMapping("/api/post/insert")
     @ApiOperation(value = "게시글 등록하기")
-    public Long save(@RequestBody PostsSaveRequestDto requestDto){
+    public Long save(@RequestParam("files") MultipartFile files, @RequestParam("uid") Long uid, @RequestParam("title") String title,
+    @RequestParam("content") String content, @RequestParam("heart") Long heart){
+        PostsSaveRequestDto requestDto;
+        try {
+            String baseDir = "C:\\SubPJT3\\s03p13c207\\frontend\\public\\files";
+            String filePath = baseDir + "\\" + files.getOriginalFilename();
+            files.transferTo(new File(filePath));
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        requestDto = new PostsSaveRequestDto(null, uid, title, content, heart, files.getOriginalFilename(), null);
         return postsService.save(requestDto);
     }
 

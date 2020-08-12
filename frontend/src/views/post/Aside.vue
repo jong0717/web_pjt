@@ -7,7 +7,7 @@
       <div class="aside-top"><a href="#contact" class="aside-top">태그</a></div>
       <hr class="aside-hr">
       이런것도 되게할수있을까<br>연습 블로그<br>
-      <h4>전체 방문자 : 0</h4>
+      <h4>전체 방문자 : {{count}}</h4>
 
       <h4>Today : 0</h4>
 
@@ -19,6 +19,35 @@
 <script>
 export default {
   name: "Aside",
+  data: function(){
+    return {
+      count: '',
+    }
+  },
+  created(){
+    this.getBlog(),
+    this.getCount()
+  },
+  methods: {
+    getBlog(){
+      this.$http.get(`${this.$store.state.HOST}/api/blog/bbbb`)
+        .then(({ data }) => {
+          this.count = data;
+        })
+        .catch(() => {
+          console.log('에러가 발생했습니다.');
+        });
+    },
+    getCount(){
+      this.$http.get(`${this.$store.state.HOST}/api/blog`)
+        .then(({ data }) => {
+          this.count = data;
+        })
+        .catch(() => {
+          console.log('에러가 발생했습니다.');
+        });
+    }
+  }
 };
 </script>
 <style scoped>

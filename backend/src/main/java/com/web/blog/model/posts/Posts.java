@@ -37,6 +37,8 @@ public class Posts {
 
     private Long heart;
 
+    private String img;
+
     @Column(insertable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createDate;
@@ -47,12 +49,13 @@ public class Posts {
     private User user;
     
     @Builder
-    public Posts(Long pno, Long uid, String title, String content, Long heart, LocalDateTime createDate){
+    public Posts(Long pno, Long uid, String title, String content, Long heart, String img, LocalDateTime createDate){
         this.pno = pno;
         this.uid = uid;
         this.title = title;
         this.content = content;
         this.heart = heart;
+        this.img = img;
         this.createDate = createDate;
     }
 

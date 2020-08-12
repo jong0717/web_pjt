@@ -33,6 +33,11 @@
         v-model="content"
       ></textarea>
     </div>
+    <div class="form-group">
+      <label for="exampleFormControlFile1"></label>
+      <div><img v-bind:src="defalutImg" alt="" width="180" height="180"></div>
+      <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
+    </div>
     <div class="text-right">
       <button class="btn btn-primary" id="registerBtn" v-if="type == 'create'" @click="checkHandler">등록</button>&nbsp;
       <button class="btn btn-primary" id="updateBtn" v-else @click="checkHandler">수정</button>
@@ -56,6 +61,10 @@ export default {
       content: '',
       heart: 0,
       createDate: '',
+      defalutImg: '//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png',
+      files: [],
+      flag: true,
+      selectImg: '',
     };
   },
   methods: {
@@ -79,21 +88,35 @@ export default {
       else this.type == 'create' ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
-      this.$http.post(`${this.$store.state.HOST}/api/post/insert`, {
-          pno: this.pno,
-          uid: this.uid,
-          title: this.title,
-          content: this.content,
-          heart: 0,
-          createDate: this.createDate,
-        })
-        .then(() => {
-          alert('등록이 완료되었습니다.');
-          this.moveList();
-        })
-        .catch(() => {
-          alert('등록 처리시 에러가 발생했습니다.');
-        });
+      let i;
+      alert(this.$route.query.pno)
+      for (i = 0; i < this.files.length; i++) {
+          let formData = new FormData();
+          formData.append('pno', this.pno)
+          formData.append('uid', this.uid)
+          formData.append('title', this.title)
+          formData.append('content', this.content)
+          formData.append('heart', this.heart)
+          formData.append('createDate', this.createDate)
+          formData.append('files', this.files[i]);
+          this.$http.post(`${this.$store.state.HOST}/api/post/insert`,
+                  formData, {
+                      headers: {
+                          'Content-Type': 'multipart/form-data'
+                      },
+                  },
+              ).then(function() {
+                  alert('등록이 완료되었습니다.');
+                  this.$router.push('/temp1');
+                  console.log('SUCCESS!!');
+              })
+              .catch(function() {
+                this.$router.push('/temp1');
+                  console.log('FAILURE!!');
+              });
+              this.$router.push('/temp1');
+      }
+
     },
     updateHandler() {
       this.$http.put(`${this.$store.state.HOST}/api/post/modify/${this.pno}`, {
@@ -113,8 +136,14 @@ export default {
         });
     },
     moveList() {
-      this.$router.push('/');
+      this.$router.push('/temp1');
     },
+    handleFileUpload() {
+                    this.files = this.$refs.files.files;
+                    console.log(this.files);
+                    alert(this.files[0].name)
+                    this.defalutImg = this.files[0].name;
+        }        
   },
   created() {
     if (this.type === 'update') {
