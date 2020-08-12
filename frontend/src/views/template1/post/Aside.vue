@@ -1,5 +1,5 @@
 <template>
-  <div class="aside">
+  <div class="">
     <div class="container">
       <router-link to="/">분류 전체 보기</router-link><br>
       <div class="aside-top"><a href="#services" class="aside-top">최근 인기글</a></div><br>

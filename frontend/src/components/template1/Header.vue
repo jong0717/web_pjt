@@ -5,10 +5,10 @@
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
         <div id="navbarname" class="animate__animated animate__bounce">
           <a class="navbarname" href="/">
-            <h4>{{blogname}}</h4>
+            <h4>{{ blogname }}</h4>
           </a>
         </div>
-        <button
+        <!-- <button
           class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -18,7 +18,7 @@
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
 
         <div
           class="collapse navbar-collapse d-flex justify-content-end"
@@ -26,14 +26,15 @@
         >
           <form class="form-inline my-2 my-lg-0">
             <input
-              class="form-control mr-sm-2"
-              type="search"
+              class="form-control mr-sm-2 fas"
+              type="text"
               placeholder="Search"
               aria-label="Search"
               v-model="searchInput"
             />
-            <button @click="search(searchInput)" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-
+            <!-- <i class="fas fa-search"></i> -->
+            <!-- <button @click="search(searchInput)" class="btn btn-outline-dark my-2 my-sm-0" type="button">Search</button> -->
+            <v-btn @click="search(searchInput)" class="searchBtn px-0" tile color="dark" dark><i class="fas fa-search"></i></v-btn>
             <ul class="navbar-nav mr-auto">
               <span v-if="!isLogIn" class="d-flex justify-content-end">
                 <li class="nav-item active">
@@ -56,7 +57,7 @@
                             <router-link to="/visitpage" class="nav-link mr-auto">방명록</router-link>
                 </li >-->
                 <li class="nav-item active">
-                  <button type="button" class="btn btn-light" @click="logout">로그아웃</button>
+                  <button type="button" class="btn btn-outline-secondary" @click="logout">로그아웃</button>
                   <!-- <v-gravatar email="somebody@somewhere.com" :size="30"/> -->
                 </li>
               </span>
@@ -132,8 +133,17 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  font-size:2rem;
+}
+
 .header {
   border-bottom: 1px solid #eee;
+}
+
+.searchBtn {
+  min-width: 36px !important;
+  height: 36px;
 }
 #router {
   margin: 0 0;
@@ -145,6 +155,7 @@ export default {
   list-style: none;
   float: left;
   padding: 0 26px;
+  margin-top:20px;
 }
 
 .inner {
