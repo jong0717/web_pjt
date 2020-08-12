@@ -50,6 +50,7 @@ export default new Vuex.Store({
     nickname: '',
     imageUrl: '',
     blogname: '',
+    myblog: [],
   },
   getters: {
     // user
@@ -124,6 +125,16 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    setMyBlog(state, payload) {
+      for (let item of payload) {
+        if (item.uid === state.uid.uid) {
+          state.myblog.push(item)
+          console.log('하나 추가')
+        }
+        // console.log(item.uid)
+      }
+      // state.myblog = [...payload]
+    }
   },
   actions: {
     // user
@@ -131,6 +142,7 @@ export default new Vuex.Store({
       commit('setCookie', null)
       cookies.remove('auth-token')
       router.push({ name: 'Main' })
+      router.go()
     },
     // post
     getPOSTs({ commit }) {
@@ -185,9 +197,36 @@ export default new Vuex.Store({
       })
     },
     moveToblog({ commit }, payload) {
-      this.state.blogname = payload.name
-      commit('setRenderNum', payload.selected)
+      this.state.blogname = payload.blogname
+      commit('setRenderNum', payload.template_num)
       router.push({ name: 'List' })
+    },
+    createBlog({ commit }, payload) {
+      http.post(`api/blog/insert`, {
+        bid: payload.bid,
+        blogname: payload.blogname,
+        template_num: payload.template_num,
+        uid: payload.uid,
+        visitors_num: payload.visitors_num,
+        // payload
+      })
+      .then((res) => {
+        commit('setRenderNum', payload.template_num)
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    getMyBlog({ commit }) {
+      http.get(`api/blog/list`)
+      .then((res) => {
+        console.log(res.data)
+        commit('setMyBlog', res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   },
 })

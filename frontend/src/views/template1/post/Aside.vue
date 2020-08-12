@@ -19,6 +19,9 @@
 <script>
 export default {
   name: "Aside",
+  mounted() {
+  this.$store.state.renderNum = 1
+  },
 };
 </script>
 <style scoped>
