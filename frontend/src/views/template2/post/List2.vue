@@ -63,7 +63,7 @@
                       <span>H1</span>
                     </v-tooltip>
 
-                    <!-- H1 -->
+                    <!-- H2 -->
                     <v-tooltip top>
                       <template
                         class="H2"
@@ -86,7 +86,7 @@
                       <span>H2</span>
                     </v-tooltip>
 
-                    <!-- H1 -->
+                    <!-- H3 -->
                     <v-tooltip top>
                       <template
                         class="H3"
@@ -109,7 +109,7 @@
                       <span>H3</span>
                     </v-tooltip>
 
-                    <!-- H1 -->
+                    <!-- H4 -->
                     <v-tooltip top>
                       <template
                         class="H3"
