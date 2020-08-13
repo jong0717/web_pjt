@@ -5,12 +5,12 @@
     style="position: relative;"
   > -->
   <div>
-    <v-container class="fill-height">
+    <!-- <v-container class="fill-height">
       <v-row
         align="center"
         justify="center"
         
-      >
+      > -->
         <!-- <v-btn
           color=""
           dark
@@ -19,8 +19,8 @@
         > -->
         <i class="fas fa-bars fa-lg" @click.stop="drawer = !drawer"></i>
         <!-- </v-btn> -->
-      </v-row>
-    </v-container>
+      <!-- </v-row>
+    </v-container> -->
 
     <v-navigation-drawer
       v-model="drawer"
@@ -77,7 +77,7 @@
 </script>
 
 
-<style>
+<style scoped>
 i:hover {
   cursor: pointer;
 }
@@ -88,6 +88,5 @@ i:hover {
   left: 20px;
   z-index: 100;
   color:white;
-
 }
 </style>

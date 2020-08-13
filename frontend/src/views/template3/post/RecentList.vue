@@ -1,57 +1,75 @@
 <template>
-  <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
-    <v-timeline-item
-      v-for="(item, i) in items"
-      :key="i"
-      :color="item.color"
-      :icon="item.icon"
-      fill-dot
+  <div>
+    <!-- <v-radio-group row wrap>
+      <v-switch v-model="" label="Toggle align-top" class="mx-4"></v-switch>
+      <v-switch v-model="dense" label="Toggle dense" class="mx-4"></v-switch>
+      <v-switch v-model="fillDot" label="Toggle fill-dot" class="mx-4"></v-switch>
+      <v-switch v-model="hideDot" label="Toggle hide-dot" class="mx-4"></v-switch>
+      <v-switch v-model="icon" label="Toggle icon" class="mx-4"></v-switch>
+      <v-switch v-model="avatar" label="Toggle avatar" class="mx-4"></v-switch>
+      <v-switch v-model="iconColor" label="Toggle icon color" class="mx-4"></v-switch>
+      <v-switch v-model="reverse" label="Toggle reverse" class="mx-4"></v-switch>
+      <v-switch v-model="left" label="Toggle left" class="mx-4"></v-switch>
+      <v-switch v-model="right" label="Toggle right" class="mx-4"></v-switch>
+      <v-switch v-model="small" label="Toggle small" class="mx-4"></v-switch>
+    </v-radio-group> -->
+    <h2 class="text-align-left">전체글</h2>
+      <hr>
+        <v-card class="elevation-2 ">
+          <v-card-title class="headline">Lorem ipsum</v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
+          </v-card-text>
+        </v-card>
+    <!-- <v-timeline
+      :align-top="alignTop"
+      :dense="dense"
+      :reverse="reverse"
     >
-      <v-card
-        :color="item.color"
-        dark
+      <h2 class="text-align-left">전체글</h2>
+      <v-timeline-item
+        v-for="n in 3"
+        :key="n"
+        :fill-dot="fillDot"
+        :hide-dot="hideDot"
+        :icon="icon ? 'mdi-star' : ''"
+        :icon-color=" iconColor ? 'deep-orange' : ''"
+        :left="left"
+        :right="right"
+        :small="small"
       >
-        <v-card-title class="title">Lorem Ipsum Dolor</v-card-title>
-        <v-card-text class="white text--primary">
-          <p>Lorem ipsum dcaetibus, vix an salutandi sententiae.</p>
-          <v-btn
-            :color="item.color"
-            class="mx-0"
-            outlined
-          >
-            Button
-          </v-btn>
-        </v-card-text>
-      </v-card>
-    </v-timeline-item>
-  </v-timeline>
+        <template v-slot:icon>
+          <v-avatar v-if="avatar">
+            <img src="http://i.pravatar.cc/64">
+          </v-avatar>
+        </template> -->
+        <!-- <span slot="opposite">Tus eu perfecto</span> -->
+        <!-- <hr>
+        <v-card class="elevation-2">
+          <v-card-title class="headline">Lorem ipsum</v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
+          </v-card-text>
+        </v-card> -->
+      <!-- </v-timeline-item>
+    </v-timeline> --> 
+  </div>
 </template>
+
 <script>
   export default {
-    name:'recentlist',
     data: () => ({
-      items: [
-        {
-          color: 'red lighten-2',
-          icon: 'mdi-star',
-        },
-        {
-          color: 'purple darken-1',
-          icon: 'mdi-book-variant',
-        },
-        {
-          color: 'green lighten-1',
-          icon: 'mdi-airballoon',
-        },
-        {
-          color: 'indigo',
-          icon: 'mdi-buffer',
-        },
-      ],
+      alignTop: false,
+      avatar: false,
+      dense: true,
+      fillDot: false,
+      hideDot: true,
+      icon: false,
+      iconColor: false,
+      left: false,
+      reverse: false,
+      right: false,
+      small: false,
     }),
   }
 </script>
-
-<style>
-
-</style>

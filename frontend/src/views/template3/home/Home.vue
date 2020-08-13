@@ -1,79 +1,149 @@
 <template>
-    <div>
-      <v-navigation-drawer
-        v-model="drawer"
-        :color="color"
-        :expand-on-hover="expandOnHover"
-        :mini-variant="miniVariant"
-        :right="right"
-        :permanent="permanent"
-        :src="bg"
-        absolute
-        dark
-        
-      >
-        <v-list
-          dense
-          nav
-          class="py-0 backimg"
-        >
+  <!-- <v-app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :color="color"
+      :expand-on-hover="expandOnHover"
+      :mini-variant="miniVariant"
+      :right="right"
+      :permanent="permanent"
+      :src="bg"
+      absolute
+      dark
+    >
+      <v-list dense nav class="py-0 backimg">
         <div>
           <v-list-item two-line :class="miniVariant && 'px-0'">
+            <v-list-item-content></v-list-item-content>
 
-            <v-list-item-content >
-
-            </v-list-item-content>
-
-            <v-text-field :rules="rules" placeholder="Search" v-model="searchInput" class='SEARCH'></v-text-field>
+            <v-text-field :rules="rules" placeholder="Search" v-model="searchInput" class="SEARCH"></v-text-field>
             <i class="fas fa-search" @click="search(searchInput)"></i>
           </v-list-item>
           <v-divider></v-divider>
-          </div>
+        </div>
 
-          <div>
-            <v-avatar color="light">
-              <v-icon dark>mdi-account-circle</v-icon>
-            </v-avatar> 
-            <h2>홍뽀로블로그</h2>
-          <!-- <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
-            
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-            
-            <v-list-item-content>
-              <v-list-item-title><h1>{{ item.title }}</h1></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item> -->
-          </div>
-          <div class='d-flex justify-content-around mb-4'>
-            <i class="fas fa-pen"></i>
-            <i class="fas fa-book"></i>
-            <i class="fas fa-code"></i>
-            <i class="fas fa-user-cog"></i>
-          </div>
-        </v-list>
-      </v-navigation-drawer>
-      <Sidebar/>
+        <div>
+          <v-avatar color="light">
+            <v-icon dark>mdi-account-circle</v-icon>
+          </v-avatar>
+          <h2>홍뽀로블로그</h2>
+         
+        </div>
+        <div class="d-flex justify-content-around mb-4">
+          <i class="fas fa-pen"></i>
+          <i class="fas fa-book"></i>
+          <i class="fas fa-code"></i>
+          <i class="fas fa-user-cog"></i>
+        </div>
+      </v-list>
+    </v-navigation-drawer>
 
-      </div>
+
+    <v-app-bar app color="indigo" dark>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <v-container class="fill-height fluid">
+        <v-row align="center" justify="center">
+            <v-col class="text-center">
+          <Sidebar />
+          <RecentList />
+            </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+
+    
+  </v-app> -->
+  <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      :color="color"
+      :expand-on-hover="expandOnHover"
+      :mini-variant="miniVariant"
+      :right="right"
+      :permanent="permanent"
+      :src="bg"
+      absolute
+      dark
+    >
+      <v-list dense nav class="py-0 backimg">
+        <div>
+          <v-list-item two-line :class="miniVariant && 'px-0'">
+            <v-list-item-content></v-list-item-content>
+
+            <v-text-field :rules="rules" placeholder="Search" v-model="searchInput" class="SEARCH"></v-text-field>
+            <i class="fas fa-search" @click="search(searchInput)"></i>
+          </v-list-item>
+          <v-divider></v-divider>
+        </div>
+
+        <div>
+          <v-avatar color="light">
+            <v-icon dark>mdi-account-circle</v-icon>
+          </v-avatar>
+          <h2>홍뽀로블로그</h2>
+         
+        </div>
+        <div class="d-flex justify-content-around mb-4">
+          <i class="fas fa-pen"></i>
+          <i class="fas fa-book"></i>
+          <i class="fas fa-code"></i>
+          <i class="fas fa-user-cog"></i>
+        </div>
+      </v-list>
+    </v-navigation-drawer>
+
+    <!-- <v-app-bar
+      app
+      color="indigo"
+      dark
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar> -->
+
+            <Sidebar />
+    <v-main>
+      <v-container
+        class="fill-height"
+        fluid
+      >
+        <v-row
+          align="center"
+          justify="center"
+        >
+          <v-col class="text-center">
+            <RecentList />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+    <!-- <v-footer
+      color="indigo"
+      app
+    >
+      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
+    </v-footer> -->
+  </v-app>
 </template>
 
 <script>
-import Sidebar from '@/components/template3/Sidebar.vue'
-import { mapActions } from "vuex"
+import Sidebar from "@/components/template3/Sidebar.vue";
+import RecentList from "@/views/template3/post/RecentList.vue";
+import { mapActions } from "vuex";
 export default {
-  name: 'home',
+  name: "home",
   components: {
-    Sidebar
+    Sidebar,
+    RecentList,
   },
   data() {
     return {
-      searchInput:'',
+      searchInput: "",
       drawer: true,
       items: [
         // { title: "홍뽀로블로그", icon: "mdi-account-circle" },
@@ -88,7 +158,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["search"])
+    ...mapActions(["search"]),
   },
   computed: {
     bg() {
@@ -111,19 +181,19 @@ export default {
   left: 0;
 
   /* Preserve aspet ratio */
-  /* min-width: 100%;
+/* min-width: 100%;
   min-height: 100%;
-} */ 
+} */
 .searchBtn {
   min-width: 36px !important;
   height: 36px;
 }
 .SEARCH {
-  width:60%;
+  width: 60%;
   height: 60%;
 }
 i {
-  color:white;
+  color: white;
 }
 
 .backimg {
@@ -135,5 +205,4 @@ i {
 /* .footicons {
   
 } */
-
 </style>
