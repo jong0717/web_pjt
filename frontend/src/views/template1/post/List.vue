@@ -30,7 +30,6 @@
     </div>-->
     <div class="list-cards row d-flex justify-content-around">
       <v-card
-        :loading="loading"
         class="mx-auto my-12 card mb-3"
         max-width="374"
         v-for="(item, index) in newPosts"
@@ -60,17 +59,7 @@
 
         <v-card-title>Tonight's availability</v-card-title>
 
-        <v-card-text>
-          <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-            <v-chip>5:30PM</v-chip>
 
-            <v-chip>7:30PM</v-chip>
-
-            <v-chip>8:00PM</v-chip>
-
-            <v-chip>9:00PM</v-chip>
-          </v-chip-group>
-        </v-card-text>
 
         <v-card-actions>
           {{ item.heart }}

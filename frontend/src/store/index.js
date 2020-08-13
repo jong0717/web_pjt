@@ -51,6 +51,7 @@ export default new Vuex.Store({
     imageUrl: '',
     blogname: '',
     myblog: [],
+    page: 0,
   },
   getters: {
     // user
@@ -134,6 +135,9 @@ export default new Vuex.Store({
         // console.log(item.uid)
       }
       // state.myblog = [...payload]
+    },
+    pagePlus(state) {
+      state.page++
     }
   },
   actions: {
@@ -145,18 +149,18 @@ export default new Vuex.Store({
       router.go()
     },
     // post
-    getPOSTs({ commit }) {
-      const options = {
-        params: {
-          // _page: this.page++,
-          _limit: 3,
-        }
-      }
+    getPOSTs({ commit, state }) {
       http
-      .get(`/api/post/list`, options)
+      .get(`/api/post/list`, {
+        params: {
+          page: state.page++,
+          size: 4,
+        }
+      })
       .then(({ data }) => {
-        console.log(data)
-        commit('setPOSTs', data);
+        if (data.empty === false) {
+          commit('setPOSTs', data.content);
+        }
       })
       .catch(() => {
         alert('에러가 발생했습니다.');
