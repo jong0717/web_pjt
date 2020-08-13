@@ -39,50 +39,13 @@
         </div>
       </v-list>
     </v-navigation-drawer>
-
-    <!-- <v-app-bar
-      app
-      color="indigo"
-      dark
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar> -->
-
-    <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="text-center">
-
-            <Sidebar/>
-            <!-- <BootstrapSidebar /> -->
-            <RecentList />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-
-  </v-app>
+    </v-app>
 </template>
 
 <script>
-import Sidebar from "@/components/template3/Sidebar.vue";
-// import BootstrapSidebar from '@/components/template3/BootstrapSidebar.vue'
-import RecentList from "@/views/template3/post/RecentList.vue";
 import { mapActions } from "vuex";
 export default {
-  name: "home",
-  components: {
-    Sidebar,
-    // BootstrapSidebar,
-    RecentList,
-  },
+  name:'Navigation',
   data() {
     return {
       searchInput: "",
@@ -103,41 +66,9 @@ export default {
         : undefined;
     },
   },
-  mounted() {
-    this.$store.state.renderNum = 3;
-  },
-};
+}
 </script>
 
-
-<style scoped>
-/* #background {
-  position: relative;
-  top: 0;
-  left: 0;
-
-  /* Preserve aspet ratio */
-/* min-width: 100%;
-  min-height: 100%;
-} */
-.searchBtn {
-  min-width: 36px !important;
-  height: 36px;
-}
-.SEARCH {
-  width: 60%;
-  height: 60%;
-}
-i {
-  color: white;
-}
-
-.backimg {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
+<style>
 
 </style>

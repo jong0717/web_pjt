@@ -34,6 +34,7 @@ import Aside from "@/views/template1/post/Aside.vue";
 import Main from "@/views/main/Main.vue"
 import Home from "@/views/template3/home/Home.vue"
 
+
 import { mapState } from 'vuex'
 // import List from '@/views/post/List.vue'
 
