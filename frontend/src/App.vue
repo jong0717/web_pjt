@@ -38,6 +38,7 @@ import Home from "@/views/template3/home/Home.vue"
 import { mapState } from 'vuex'
 // import List from '@/views/post/List.vue'
 
+
 export default {
   components: {
     Header,
@@ -45,6 +46,7 @@ export default {
     Main,
     HeaderMain,
     Home,
+
   },
   computed: {
     ...mapState(['renderNum'])
