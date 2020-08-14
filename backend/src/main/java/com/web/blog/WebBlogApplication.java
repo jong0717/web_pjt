@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@EnableCaching
+// @EnableCaching
 @EnableConfigurationProperties(AppProperties.class)
 public class WebBlogApplication {
 

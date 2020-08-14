@@ -16,12 +16,23 @@
           ></v-text-field>
 
 
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
+      <!-- <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
 
       <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
 
-      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
+      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
     </v-form>
+
+    <file-pond
+        name="test"
+        ref="pond"
+        label-idle="Drop files here..."
+        allow-multiple="true"
+        accepted-file-types="image/jpeg, image/png"
+        v-bind:server="server"
+        v-bind:files="myFiles"
+        v-on:init="handleFilePondInit"/>
+
     <div class="form-group">
       <label for="exampleFormControlFile1"></label>
       <div><img v-bind:src="defalutImg" alt="" width="180" height="180"></div>
@@ -40,11 +51,18 @@
   </div>
 </template>
 
+
 <script>
+import vueFilePond from 'vue-filepond';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 export default {
   name: "post-Form",
   components: {
+    FilePond
   },
   props: {
     type: { type: String },
@@ -61,31 +79,32 @@ export default {
       files: [],
       flag: true,
       selectImg: '',
+      myFiles: [],
+      server : `${this.$store.state.HOST}/api/image`
     };
   },
   methods: {
     checkHandler() {
       let err = true;
       let msg = "";
-      !this.uid &&
-        ((msg = "작성자를 입력해주세요"),
-        (err = false),
-        this.$refs.uid.focus());
-      err &&
-        !this.title &&
-        ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
-      err &&
-        !this.content &&
-        ((msg = "내용 입력해주세요"),
-        (err = false),
-        this.$refs.content.focus());
+      // !this.uid &&
+      //   ((msg = "작성자를 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.uid.focus());
+      // err &&
+      //   !this.title &&
+      //   ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
+      // err &&
+      //   !this.content &&
+      //   ((msg = "내용 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
       let i;
-      alert(this.$route.query.pno)
       for (i = 0; i < this.files.length; i++) {
           let formData = new FormData();
           formData.append('pno', this.pno)
@@ -140,7 +159,11 @@ export default {
                     console.log(this.files);
                     alert(this.files[0].name)
                     this.defalutImg = this.files[0].name;
-        }        
+    },
+    handleFilePondInit: function() {
+            console.log('FilePond has initialized');
+            this.$refs.pond.getFiles();
+    },
   },
   created() {
     if (this.type === "update") {
