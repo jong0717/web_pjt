@@ -151,7 +151,7 @@ export default new Vuex.Store({
     // post
     getPOSTs({ commit, state }) {
       http
-      .get(`/api/post/list`, {
+      .get(`/api/post/list/1`, {  // api/post/list{bid}
         params: {
           page: state.page++,
           size: 4,

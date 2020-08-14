@@ -42,6 +42,8 @@ public class ImageController {
 
         try {
             BlobInfo fileFromGCS = gcsService.uploadFileToGCS(mfile);
+            System.out.println("출력------------------");
+            System.out.println(fileFromGCS.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

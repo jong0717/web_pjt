@@ -55,9 +55,9 @@ public class PostsService{
     }
 
     @Transactional(readOnly = true)
-    public Page<PostsListResponseDto> findAllDesc(int page, int size) {
+    public Page<PostsListResponseDto> findAllDesc(int page, int size, Long bid) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pno"));
-        return postsRepository.findAllDesc(pageRequest).map(PostsListResponseDto::new);
+        return postsRepository.findAllDesc(pageRequest, bid).map(PostsListResponseDto::new);
         // return postsRepository.findAllDesc().stream()
         //         .map(PostsListResponseDto::new)
         //         .collect(Collectors.toList());

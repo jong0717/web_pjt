@@ -23,16 +23,6 @@
       <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
     </v-form>
 
-    <file-pond
-        name="test"
-        ref="pond"
-        label-idle="Drop files here..."
-        allow-multiple="true"
-        accepted-file-types="image/jpeg, image/png"
-        v-bind:server="server"
-        v-bind:files="myFiles"
-        v-on:init="handleFilePondInit"/>
-
     <div class="form-group">
       <label for="exampleFormControlFile1"></label>
       <div><img v-bind:src="defalutImg" alt="" width="180" height="180"></div>
@@ -53,16 +43,9 @@
 
 
 <script>
-import vueFilePond from 'vue-filepond';
-import 'filepond/dist/filepond.min.css';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-const FilePond = vueFilePond(FilePondPluginFileValidateType);
-
 export default {
   name: "post-Form",
   components: {
-    FilePond
   },
   props: {
     type: { type: String },
@@ -79,8 +62,6 @@ export default {
       files: [],
       flag: true,
       selectImg: '',
-      myFiles: [],
-      server : `${this.$store.state.HOST}/api/image`
     };
   },
   methods: {
@@ -108,6 +89,7 @@ export default {
       for (i = 0; i < this.files.length; i++) {
           let formData = new FormData();
           formData.append('pno', this.pno)
+          formData.append('bid', 1) // 임시로 해놨어요
           formData.append('uid', this.uid)
           formData.append('title', this.title)
           formData.append('content', this.content)

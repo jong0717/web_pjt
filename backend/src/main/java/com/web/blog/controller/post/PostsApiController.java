@@ -40,7 +40,7 @@ public class PostsApiController {
 
     @PostMapping("/api/post/insert")
     @ApiOperation(value = "게시글 등록하기")
-    public Long save(@RequestParam("files") MultipartFile files, @RequestParam("uid") Long uid,
+    public Long save(@RequestParam("files") MultipartFile files, @RequestParam("bid") Long bid, @RequestParam("uid") Long uid,
             @RequestParam("title") String title, @RequestParam("content") String content,
             @RequestParam("heart") Long heart) {
 
@@ -50,18 +50,11 @@ public class PostsApiController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // try {
-        //     BlobInfo fileFromGCS = gcsService.uploadFileToGCS(files);
-        //     String baseDir = "C:\\SubPJT3\\s03p13c207\\frontend\\public\\files";
-        //     String filePath = baseDir + "\\" + files.getOriginalFilename();
-        //     files.transferTo(new File(filePath));
-        //     } catch(Exception e){
-        //         e.printStackTrace();
-        //     }
-            
-        requestDto = new PostsSaveRequestDto(null, uid, title, content, heart, files.getOriginalFilename(), null);
+        requestDto = new PostsSaveRequestDto(null, uid, bid, title, content, heart, files.getOriginalFilename(), null);
+        
         return postsService.save(requestDto);
     }
+
 
     @PutMapping("api/post/modify/{pno}")
     @ApiOperation(value = "게시글 수정하기")
@@ -82,11 +75,12 @@ public class PostsApiController {
         return postsService.findByPno(pno);
     }   
 
-    @GetMapping("/api/post/list")
+    @GetMapping("/api/post/list/{bid}")
     @ApiOperation(value = "전체 게시글 불러오기")
     public Page<PostsListResponseDto> findAll(@RequestParam(required = true) final int page,
-                                                @RequestParam(required = true) final int size) {
-        return postsService.findAllDesc(page, size);
+                                                @RequestParam(required = true) final int size,
+                                                @PathVariable Long bid) {
+        return postsService.findAllDesc(page, size, bid);
     }
 
     @GetMapping("api/post/detail/{pno}")

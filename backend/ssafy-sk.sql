@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `posts` (
   `pno` int NOT NULL AUTO_INCREMENT,
-  `uid` bigint NOT NULL,
+  `bid` int NOT NULL,
+  `uid` int NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` varchar(1000) NOT NULL,
   `heart` int default 0,
@@ -13,7 +14,9 @@ CREATE TABLE `posts` (
   `create_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`pno`),
   KEY `post_to_user_fk` (`uid`),
-  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) on delete cascade
+  KEY `post_to_blog_fk` (`bid`),
+  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) on delete cascade,
+  CONSTRAINT `post_to_blog_fk` FOREIGN KEY (`bid`) REFERENCES `blog` (`bid`) on delete cascade 
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 
@@ -64,7 +67,7 @@ SELECT * FROM user_roles;
 
 CREATE TABLE blog (
   `bid` int NOT NULL AUTO_INCREMENT,
-  `uid` bigint NOT NULL,
+  `uid` int NOT NULL,
   `blogname` varchar(100) NOT NULL,
   `template_num` int NOT NULL,
   `visitors_num` int default 0,

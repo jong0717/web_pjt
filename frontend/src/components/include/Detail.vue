@@ -23,7 +23,7 @@
     ></v-img>
 
     <div v-if="post.img !== null">
-      <img :src="'/files/'+post.img" alt="" width="350px">
+      <img :src="'https://storage.googleapis.com/getblog/'+post.img" alt="" width="350px">
     </div>
 
     <v-card-text>

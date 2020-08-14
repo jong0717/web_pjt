@@ -28,6 +28,8 @@ public class Posts {
     private Long pno;
 
     private Long uid;
+
+    private Long bid;
     
     @Column(length = 500, nullable = false)
     private String title;
@@ -43,15 +45,15 @@ public class Posts {
     @CreatedDate
     private LocalDateTime createDate;
 
-    //entity에 추가 안하고 할 수 있는 방법이 없을까
     @ManyToOne
     @JoinColumn(name="uid", insertable =false ,updatable = false)
     private User user;
     
     @Builder
-    public Posts(Long pno, Long uid, String title, String content, Long heart, String img, LocalDateTime createDate){
+    public Posts(Long pno, Long uid, Long bid, String title, String content, Long heart, String img, LocalDateTime createDate){
         this.pno = pno;
         this.uid = uid;
+        this.bid = bid;
         this.title = title;
         this.content = content;
         this.heart = heart;
