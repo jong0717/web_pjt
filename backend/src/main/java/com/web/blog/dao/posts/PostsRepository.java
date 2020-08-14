@@ -37,4 +37,11 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Transactional
     @Query(value = "UPDATE posts SET heart = heart-1 WHERE pno = :pno", nativeQuery = true)
     void minusHeart(@Param("pno") Long pno);
+
+    @Query("SELECT p.tag FROM Posts p WHERE p.pno = :pno")
+    String getPostTag(@Param("pno") Long pno);
+
+    @Query("SELECT p FROM Posts p where p.tag like '%' || :tagName || '%'")
+    List<Posts> findByTagContaining(@Param("tagName") String tagName);
+
 }

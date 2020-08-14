@@ -41,6 +41,8 @@ public class Posts {
 
     private String img;
 
+    private String tag;
+
     @Column(insertable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createDate;
@@ -50,7 +52,7 @@ public class Posts {
     private User user;
     
     @Builder
-    public Posts(Long pno, Long uid, Long bid, String title, String content, Long heart, String img, LocalDateTime createDate){
+    public Posts(Long pno, Long uid, Long bid, String title, String content, Long heart, String img, String tag, LocalDateTime createDate){
         this.pno = pno;
         this.uid = uid;
         this.bid = bid;
@@ -58,12 +60,15 @@ public class Posts {
         this.content = content;
         this.heart = heart;
         this.img = img;
+        this.tag = tag;
         this.createDate = createDate;
     }
 
-    public void update(String title, String content, LocalDateTime createDate) {
+    public void update(String title, String content, String img, String tag, LocalDateTime createDate) {
         this.title = title;
         this.content = content;
+        this.img = img;
+        this.tag = tag;
         this.createDate = createDate;
     }
 }

@@ -16,10 +16,11 @@ public class PostsSaveRequestDto {
     private String content;
     private Long heart;
     private String img;
+    private String tag;
     private LocalDateTime createDate;
 
     @Builder
-    public PostsSaveRequestDto(Long pno, Long uid, Long bid, String title, String content, Long heart, String img, LocalDateTime createDate){
+    public PostsSaveRequestDto(Long pno, Long uid, Long bid, String title, String content, Long heart, String img, String tag, LocalDateTime createDate){
         this.pno = pno;
         this.uid = uid;
         this.bid = bid;
@@ -27,6 +28,7 @@ public class PostsSaveRequestDto {
         this.content = content;
         this.heart = heart;
         this.img = img;
+        this.tag = tag;
         this.createDate = createDate;
     }
 
@@ -39,6 +41,7 @@ public class PostsSaveRequestDto {
                 .content(content)
                 .heart(heart)
                 .img(img)
+                .tag(tag)
                 .createDate(createDate)
                 .build();
     }

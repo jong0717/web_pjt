@@ -42,7 +42,7 @@ public class PostsApiController {
     @ApiOperation(value = "게시글 등록하기")
     public Long save(@RequestParam("files") MultipartFile files, @RequestParam("bid") Long bid, @RequestParam("uid") Long uid,
             @RequestParam("title") String title, @RequestParam("content") String content,
-            @RequestParam("heart") Long heart) {
+            @RequestParam("heart") Long heart, @RequestParam("tag") String tag) {
 
         PostsSaveRequestDto requestDto;
         try {
@@ -50,7 +50,7 @@ public class PostsApiController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        requestDto = new PostsSaveRequestDto(null, uid, bid, title, content, heart, files.getOriginalFilename(), null);
+        requestDto = new PostsSaveRequestDto(null, uid, bid, title, content, heart, files.getOriginalFilename(), tag, null);
         
         return postsService.save(requestDto);
     }
@@ -93,6 +93,18 @@ public class PostsApiController {
     @ApiOperation(value = "검색 게시글 불러오기")
     public List<PostsListResponseDto> findByTitleContaining(@PathVariable String title) {
         return postsService.findByTitleContaining(title);
+    }
+
+    @GetMapping("api/post/tag/{pno}")
+    @ApiOperation(value = "게시글에 해당하는 태그 가져오기")
+    public List<String> getPostTag(@PathVariable Long pno){
+        return postsService.getPostTag(pno);
+    }
+
+    @GetMapping("api/tag/search/{tagName}")
+    @ApiOperation(value = "태그 포함하는 게시글 불러오기")
+    public List<PostsListResponseDto> findByTagContaining(@PathVariable String tagName){
+        return postsService.findByTagContaining(tagName);
     }
 
 }

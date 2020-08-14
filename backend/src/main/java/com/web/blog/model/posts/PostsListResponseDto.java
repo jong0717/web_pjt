@@ -13,6 +13,7 @@ public class PostsListResponseDto {
     private String content;
     private Long heart;
     private String img;
+    private String tag;
     private LocalDateTime createDate;
 
     public PostsListResponseDto(Posts entity) {
@@ -23,6 +24,7 @@ public class PostsListResponseDto {
         this.content = entity.getContent();
         this.heart = entity.getHeart();
         this.img = entity.getImg();
+        this.tag = entity.getTag();
         this.createDate = entity.getCreateDate();
     }
 }
