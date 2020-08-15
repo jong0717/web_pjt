@@ -31,7 +31,8 @@ import store from '@/store'
 import RecentList from '@/views/template3/post/RecentList.vue'
 // +재완
 // lsit2
-import List2 from '@/views/template2/post/List2.vue'
+import List2 from '@/views/template2/List2.vue'
+import Edit from '@/views/template2/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -130,6 +131,11 @@ const routes = [
     path: '/temp2',
     name: 'List2',
     component: List2
+  },
+  {
+    path: '/edit',
+    name: 'Edit',
+    component: Edit
   },
 
 ]

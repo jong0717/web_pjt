@@ -16,13 +16,18 @@
           ></v-text-field>
 
 
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
+      <!-- <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
 
       <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
 
-      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
+      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
     </v-form>
 
+    <div class="form-group">
+      <label for="exampleFormControlFile1"></label>
+      <div><img v-bind:src="defalutImg" alt="" width="180" height="180"></div>
+      <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
+    </div>
     <div>
       <button
         class="btn btn-primary"
@@ -36,8 +41,8 @@
   </div>
 </template>
 
-<script>
 
+<script>
 export default {
   name: "post-Form",
   components: {
@@ -52,46 +57,63 @@ export default {
       title: "",
       content: "",
       heart: 0,
-      createDate: "",
+      createDate: '',
+      defalutImg: '//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png',
+      files: [],
+      flag: true,
+      selectImg: '',
     };
   },
   methods: {
     checkHandler() {
       let err = true;
       let msg = "";
-      !this.uid &&
-        ((msg = "작성자를 입력해주세요"),
-        (err = false),
-        this.$refs.uid.focus());
-      err &&
-        !this.title &&
-        ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
-      err &&
-        !this.content &&
-        ((msg = "내용 입력해주세요"),
-        (err = false),
-        this.$refs.content.focus());
+      // !this.uid &&
+      //   ((msg = "작성자를 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.uid.focus());
+      // err &&
+      //   !this.title &&
+      //   ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
+      // err &&
+      //   !this.content &&
+      //   ((msg = "내용 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
-      this.$http
-        .post(`${this.$store.state.HOST}/api/post/insert`, {
-          pno: this.pno,
-          uid: this.uid,
-          title: this.title,
-          content: this.content,
-          heart: 0,
-          createDate: this.createDate,
-        })
-        .then(() => {
-          alert("등록이 완료되었습니다.");
-          this.moveList();
-        })
-        .catch(() => {
-          alert("등록 처리시 에러가 발생했습니다.");
-        });
+      let i;
+      for (i = 0; i < this.files.length; i++) {
+          let formData = new FormData();
+          formData.append('pno', this.pno)
+          formData.append('bid', 1) // 임시로 해놨어요
+          formData.append('uid', this.uid)
+          formData.append('title', this.title)
+          formData.append('content', this.content)
+          formData.append('heart', this.heart)
+          formData.append('createDate', this.createDate)
+          formData.append('files', this.files[i]);
+          this.$http.post(`${this.$store.state.HOST}/api/post/insert`,
+                  formData, {
+                      headers: {
+                          'Content-Type': 'multipart/form-data'
+                      },
+                  },
+              ).then(function() {
+                  alert('등록이 완료되었습니다.');
+                  this.$router.push('/temp1');
+                  console.log('SUCCESS!!');
+              })
+              .catch(function() {
+                this.$router.push('/temp1');
+                  console.log('FAILURE!!');
+              });
+              this.$router.push('/temp1');
+      }
+
     },
     updateHandler() {
       this.$http
@@ -114,6 +136,16 @@ export default {
     moveList() {
       this.$router.push("/temp1");
     },
+    handleFileUpload() {
+                    this.files = this.$refs.files.files;
+                    console.log(this.files);
+                    alert(this.files[0].name)
+                    this.defalutImg = this.files[0].name;
+    },
+    handleFilePondInit: function() {
+            console.log('FilePond has initialized');
+            this.$refs.pond.getFiles();
+    },
   },
   created() {
     if (this.type === "update") {
@@ -127,7 +159,7 @@ export default {
           this.createDate = data.createDate;
         })
         .catch(() => {
-          alert("수정시 에러가 발생했습니다.");
+          alert("에러가 발생했습니다.");
         });
     }
   },
