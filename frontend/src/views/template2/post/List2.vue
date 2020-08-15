@@ -1,363 +1,152 @@
 <template>
-  <div class="text-center">
-    <!-- aside -->
-    <v-app id="inspire">
-      <v-navigation-drawer v-model="drawer" app>
-        <v-list dense>
-          <v-list-item link>
-            <v-list-item-action>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Home</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-action>
-              <v-icon>mdi-email</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Contact</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
+  <div class="container list">
+    <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
+    <div class="row justify-content-around">
+      <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
+      <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
+    </div>
+    <!-- <div class="list-cards row d-flex justify-content-around">
+      <div
+        class="card border-info mb-3"
+        style="max-width: 18rem;"
+        v-for="(item, index) in newPosts"
+        :key="index + '_posts'"
+      >
+        <div class="card-header bg-white">
+          <strong>
+            <h4 class="mb-0">Card title</h4>
+          </strong>
+        </div>
+        <img src="https://picsum.photos/600/300/?image=1" alt />
+        <div class="card-body text-info">
+          <p>{{item.pno}}</p>
+          <router-link :to="'/read?pno='+item.pno">
+            <h5 class="card-title">{{item.title}}</h5>
+          </router-link>
+          <p class="card-text">{{item.content}}</p>
+          <p>{{getFormatDate(item.createDate)}}</p>
+        </div>
+      </div>
+    </div>-->
+    <div class="list-cards row d-flex justify-content-around">
+      <v-card
+        class="mx-auto my-12 card mb-3"
+        max-width="374"
+        v-for="(item, index) in newPosts"
+        :key="index + '_posts'"
+      >
+        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
 
-      <!-- navbar -->
-      <v-app-bar app color="indigo" dark>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>Application</v-toolbar-title>
-      </v-app-bar>
-      <!-- main -->
-      <v-main>
-        <v-container class="fill-height" fluid>
-          <v-row align="center" justify="center">
-            <v-col class="text-center">
-              <div class="mybuttons border border-primary">
-                <!-- Bold -->
-                <div class="justify-content-between">
-                  <!-- buttons -->
-                  <v-row class="editorbuttons">
-                    <v-tooltip top>
-                      <!-- Bold -->
-                      <template
-                        class="BOLD"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('bold')"
-                      >
-                        <v-btn
-                          class="ml-4"
-                          :href="source"
-                          onclick="document.execCommand('bold')"
-                          icon
-                          medium
-                          target="_blank"
-                          v-on="on"
-                        >
-                          <input type="button" class="BOLD" />
-                          <i class="fas fa-bold"></i>
-                        </v-btn>
-                      </template>
-                      <span>Bold</span>
-                    </v-tooltip>
+        <v-card-title>
+          <router-link :to="'/read?pno='+item.pno">
+            <h5 class="card-title">{{item.title}}</h5>
+          </router-link>
+        </v-card-title>
 
-                    <!-- Italic -->
-                    <v-tooltip top>
-                      <template
-                        class="BOLD"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('bold')"
-                      >
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('Italic')"
-                          v-on="on"
-                        >
-                          <input type="button" class="ITALIC" />
-                          <i class="fas fa-italic"></i>
-                        </v-btn>
-                      </template>
-                      <span>Italic</span>
-                    </v-tooltip>
+        <v-card-text>
+          <v-row align="center" class="mx-0">
+            <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
 
-                    <!-- UNDERBAR -->
-
-                    <v-tooltip top>
-                      <template
-                        class="BOLD"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('createImages')"
-                      >
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('createImages')"
-                          v-on="on"
-                        >
-                          <input type="button" class="BAR" />
-                          <i class="fas fa-underline"></i>
-                        </v-btn>
-                      </template>
-                      <span class="UNDERBAR">underbar</span>
-                    </v-tooltip>
-
-                    <!-- BAR -->
-                    <v-tooltip top>
-                      <template
-                        class="BOLD"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('bold')"
-                      >
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('StrikeThrough')"
-                          v-on="on"
-                        >
-                          <input type="button" class="BAR" />
-                          <i class="fas fa-strikethrough"></i>
-                        </v-btn>
-                      </template>
-                      <span class="strikethrough">strikethrough</span>
-                    </v-tooltip>
-
-                    <!-- Undo -->
-                    |
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on }" onclick="document.execCommand('Undo')">
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('Undo')"
-                          v-on="on"
-                        >
-                          <input type="button" class="Undo" />
-                          <i class="fas fa-undo"></i>
-                        </v-btn>
-                      </template>
-                      <span class="Undo">Undo</span>
-                    </v-tooltip>
-
-                    <!-- redo -->
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on }" onclick="document.execCommand('Redo')">
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('Redo')"
-                          v-on="on"
-                        >
-                          <input type="button" class="Redo" />
-                          <i class="fas fa-redo"></i>
-                        </v-btn>
-                      </template>
-                      <span class="Redo">Redo</span>
-                    </v-tooltip>
-
-                    <!-- images -->
-                    |
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on }" onclick="document.execCommand('Images')">
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('images')"
-                          v-on="on"
-                        >
-                          <input type="button" class="Imgaes" />
-                          <i class="fas fa-images"></i>
-                        </v-btn>
-                      </template>
-                      <span class="Images">Images</span>
-                    </v-tooltip>
-
-                    <!-- link -->
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on }" onclick="document.execCommand('Link')">
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('Link')"
-                          v-on="on"
-                        >
-                          <input type="button" class="Link" />
-                          <i class="fas fa-link"></i>
-                        </v-btn>
-                      </template>
-                      <span class="Link">Link</span>
-                    </v-tooltip>
-
-                    <!-- 왼쪽 정렬 -->
-                    |
-                    <v-tooltip top>
-                      <template
-                        class="BOLD asdf"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('bold')"
-                      >
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('justifyleft')"
-                          v-on="on"
-                        >
-                          <input type="button" class="asdf" />
-                          <i class="fas fa-align-left"></i>
-                        </v-btn>
-                      </template>
-                      <span class="UNDERBAR">왼쪽 정렬</span>
-                    </v-tooltip>
-
-                    <!-- 가운데 정렬 -->
-                    <v-tooltip top>
-                      <template
-                        class="BOLD asdf"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('bold')"
-                      >
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('justifycenter')"
-                          v-on="on"
-                        >
-                          <input type="button" icon="fas fa-equals" />
-                          <i class="fas fa-align-center"></i>
-                        </v-btn>
-                      </template>
-                      <span class="UNDERBAR">가운데 정렬</span>
-                    </v-tooltip>
-
-                    <!-- 오른쪽 정렬 -->
-                    <v-tooltip top>
-                      <template
-                        class="BOLD asdf"
-                        v-slot:activator="{ on }"
-                        onclick="document.execCommand('bold')"
-                      >
-                        <v-btn
-                          :href="source"
-                          icon
-                          medium
-                          target="_blank"
-                          onclick="document.execCommand('justifyright')"
-                          v-on="on"
-                        >
-                          <input type="button" class="asdf" />
-                          <i class="fas fa-align-right"></i>
-                        </v-btn>
-                      </template>
-                      <span class="UNDERBAR">오른쪽 정렬</span>
-                    </v-tooltip>
-                    <div class="buttons">
-                      <input
-                        v-if="html_switch===true"
-                        class="btn btn-primary m-1"
-                        type="button"
-                        value="에디터로 보기"
-                        @click="convertToEditor"
-                      />
-                      <input
-                        v-if="html_switch===false"
-                        class="btn btn-primary m-1"
-                        type="button"
-                        value="HTML로 보기"
-                        @click="convertToHTML"
-                      />
-                    </div>
-                  </v-row>
-
-                  <div class="col-1-none"></div>
-                  <div class="mytexarea border border-danger col-11">
-                    <div class="editortext editorDIV" contenteditable="true"></div>
-                    <div class="editorHTMLDIV"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="buttons">
-                <input
-                  v-if="html_switch===true"
-                  class="btn btn-primary m-1"
-                  type="button"
-                  value="에디터로 보기"
-                  @click="convertToEditor"
-                />
-                <input
-                  v-if="html_switch===false"
-                  class="btn btn-primary m-1"
-                  type="button"
-                  value="HTML로 보기"
-                  @click="convertToHTML"
-                />
-              </div>
-            </v-col>
+            <div class="grey--text ml-4">4.5 (413)</div>
           </v-row>
-        </v-container>
-        <button class="btn btn-primary m-4">글쓰기</button>
-        <button class="btn btn-primary m-4">취소</button>
-      </v-main>
-    </v-app>
+
+          <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
+
+          <div>{{item.content}}</div>
+        </v-card-text>
+
+        <v-divider class="mx-4"></v-divider>
+
+        <v-card-title>Tonight's availability</v-card-title>
+
+        
+        <v-card-actions>
+          {{ item.heart }}
+          <v-btn icon color="black">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+          <v-btn icon color="pink">
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </div>
+    <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
   </div>
 </template>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
-import $ from "jquery";
+import moment from "moment";
+import { mapGetters } from "vuex";
 
-$(document).ready(function () {
-  $(".editorHTMLDIV").hide();
-});
-
-//HTML코드로 보기
-
-//에디터 화면으로 보기
 export default {
-  name: "List2",
-  props: {
-    source: String,
+  name: "List",
+  computed: {
+    ...mapGetters(["posts", "newPosts"]),
+    // ...mapState(["searchFlag"]),
   },
-  data: () => ({
-    html_switch: false,
-    drawer: null,
-  }),
+  // created() {
+  //   this.$store.dispatch('getPOSTs')
+  // },
+  mounted() {
+    this.addScrollWatcher();
+    this.$store.state.renderNum = 1
+  },
+  updated() {
+    this.loadUntilViewportIsFull();
+  },
   methods: {
-    convertToHTML: function () {
-      this.html_switch = true;
-      $(".editorHTMLDIV").text($(".editorDIV").html());
-      $(".editorHTMLDIV").show();
-      $(".editorDIV").hide();
+    movePage() {
+      this.$router.push("/create");
     },
-    convertToEditor: function () {
-      this.html_switch = false;
-      $(".editorDIV").html($(".editorHTMLDIV").text());
-      $(".editorDIV").show();
-      $(".editorHTMLDIV").hide();
+    getFormatDate(createDate) {
+      return moment(new Date(createDate)).format("YYYY.MM.DD");
     },
-    mounted: function () {
-      $(".editorHTMLDIV").hide();
+    addScrollWatcher() {
+      const bottomSensor = document.querySelector("#bottomSensor");
+      const watcher = scrollMonitor.create(bottomSensor);
+      watcher.enterViewport(() => {
+        if (this.$store.state.searchFlag === false) {
+          setTimeout(() => {
+            this.$store.dispatch("getPOSTs");
+          }, 500);
+        }
+      });
     },
+    loadUntilViewportIsFull() {
+      const bottomSensor = document.querySelector("#bottomSensor");
+      const watcher = scrollMonitor.create(bottomSensor);
+      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false) {
+        this.$store.dispatch("getPOSTs");
+      }
+    },
+    reload() {
+      this.$router.go()
+    }
+  },
+  data: () => {
+    return {};
   },
 };
 </script>
-
-<style scoped>
+<style>
+.list {
+  /* border-right: 0.1em solid #eee; */
+  padding: 0.5em;
+}
+.list-card {
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+  float: left;
+}
+.list-cards {
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+}
+.card {
+  display: inline-block;
+}
 </style>

@@ -329,14 +329,14 @@
 
             <div class="col-1-none"></div>
 
-            <textarea
+            <v-row
               class="editortext editorDIV form-control"
               type="text"
-              id="ascontent"
+              id="content"
               ref="content"
               placeholder="내용을 입력하세요"
               contenteditable="true"
-            ></textarea>
+            ></v-row>
 
             <div class="editorHTMLDIV"></div>
           </div>
@@ -384,20 +384,13 @@ export default {
   },
   methods: {
     convertToHTML: function () {
-      console.log(document.getElementById("ascontent"))
-      console.log(document.getElementById("ascontent").innerHTML)
-      console.log(document.getElementById("ascontent").innerText)
-      console.log(this.content);
+      this.content = document.getElementById("content").innerHTML
       this.html_switch = true;
       $(".editorHTMLDIV").text($(".editorDIV").html());
       $(".editorHTMLDIV").show();
       $(".editorDIV").hide();
     },
     convertToEditor: function () {
-      console.log(document.getElementById("ascontent"))
-      console.log(document.getElementById("ascontent").innerHTML)
-      console.log(document.getElementById("ascontent").innerText)
-      console.log(this.content);
       this.html_switch = false;
       $(".editorDIV").html($(".editorHTMLDIV").text());
       $(".editorDIV").show();
@@ -407,7 +400,7 @@ export default {
       $(".editorHTMLDIV").hide();
     },
     checkHandler() {
-      // this.content = document.getElementById('editortext')
+      this.content = document.getElementById("content").innerHTML
       let err = true;
       let msg = "";
       !this.uid &&
