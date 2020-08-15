@@ -127,7 +127,7 @@ export default {
           this.createDate = data.createDate;
         })
         .catch(() => {
-          alert("에러가 발생했습니다.");
+          alert("수정시 에러가 발생했습니다.");
         });
     }
   },

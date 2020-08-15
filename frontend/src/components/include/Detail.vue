@@ -161,7 +161,7 @@ export default {
           this.nickname = data;
         })
         .catch(() => {
-          console.log('에러가 발생했습니다.');
+          console.log('닉네임 에러가 발생했습니다.');
         });
     },
     getReplies(){
@@ -172,7 +172,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          console.log('에러가 발생했습니다.');
+          console.log('댓글 에러가 발생했습니다.');
         });
     },
     addHandler(){

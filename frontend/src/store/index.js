@@ -134,20 +134,21 @@ export default new Vuex.Store({
     },
     // post
     getPOSTs({ commit }) {
-      const options = {
-        params: {
-          // _page: this.page++,
-          _limit: 3,
-        }
-      }
+      // const options = {
+      //   params: {
+      //     // _page: this.page++,
+      //     _limit: 3,
+      //   }
+      // }
       http
-      .get(`/api/post/list`, options)
+      .get(`/api/post/list`)
       .then(({ data }) => {
         console.log(data)
         commit('setPOSTs', data);
       })
-      .catch(() => {
-        alert('에러가 발생했습니다.');
+      .catch((err) => {
+        alert('포스트 에러가 발생했습니다.');
+        console.log(err)
       });
     },
     getPOST(context, payload) {
@@ -162,7 +163,7 @@ export default new Vuex.Store({
         context.commit('setREPLIES', data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        alert('댓글 에러가 발생했습니다.');
       });
     },
     getREPLY(context, payload) {

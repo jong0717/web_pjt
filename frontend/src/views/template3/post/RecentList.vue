@@ -21,7 +21,7 @@ import { mapGetters } from "vuex"
     computed: {
     ...mapGetters(["posts", "newPosts"]),
     // ...mapState(["searchFlag"]),
-  },
+    },
     data: () => ({
 
     }),

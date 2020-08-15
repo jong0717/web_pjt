@@ -11,6 +11,7 @@
       :src="bg"
       absolute
       dark
+      class='Nav'
     >
       <v-list dense nav class="py-0 backimg">
         <div>
@@ -28,14 +29,14 @@
           <v-avatar color="light">
             <v-icon dark>mdi-account-circle</v-icon>
           </v-avatar>
-          <h2>홍뽀로블로그</h2>
+          <h2>{{ blogname }}</h2>
          
         </div>
         <div class="d-flex justify-content-around mb-4">
-          <router-link class="router-link" :to="{ name: Create }"><i class="fas fa-pen"></i></router-link>
+          <router-link to="/temp3"><i class="fas fa-list"></i></router-link>
+          <router-link class="router-link" to="/create"><i class="fas fa-pen"></i></router-link>
           <router-link to="/visitcreate"><i class="fas fa-book"></i></router-link>
-          <a href=""><i class="fas fa-code"></i></a>
-          <router-link :to="{}"><i class="fas fa-user-cog"></i></router-link>
+          <router-link to="/user/mypage"><i class="fas fa-user-cog"></i></router-link>
         </div>
       </v-list>
     </v-navigation-drawer>
@@ -61,8 +62,7 @@
           <v-col class="text-center">
 
             <Sidebar/>
-            <!-- <BootstrapSidebar /> -->
-            <RecentList />
+            <!-- <RecentList /> -->
             <router-view />
           </v-col>
         </v-row>
@@ -75,14 +75,14 @@
 <script>
 import Sidebar from "@/components/template3/Sidebar.vue";
 // import BootstrapSidebar from '@/components/template3/BootstrapSidebar.vue'
-import RecentList from "@/views/template3/post/RecentList.vue";
-import { mapActions } from "vuex";
+// import RecentList from "@/views/template3/post/RecentList.vue";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "home",
   components: {
     Sidebar,
     // BootstrapSidebar,
-    RecentList,
+    // RecentList,
   },
   data() {
     return {
@@ -98,6 +98,7 @@ export default {
     ...mapActions(["search"]),
   },
   computed: {
+    ...mapState(['blogname']),
     bg() {
       return this.background
         ? "https://i.pinimg.com/originals/5b/4f/12/5b4f120836f452f0f916a7eb885fdd98.jpg"
@@ -139,6 +140,8 @@ i {
   justify-content: space-between;
   height: 100%;
 }
-
+.Nav {
+  position:fixed;
+}
 
 </style>
