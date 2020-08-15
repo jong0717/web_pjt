@@ -5,29 +5,7 @@
       <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
       <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
     </div>
-    <!-- <div class="list-cards row d-flex justify-content-around">
-      <div
-        class="card border-info mb-3"
-        style="max-width: 18rem;"
-        v-for="(item, index) in newPosts"
-        :key="index + '_posts'"
-      >
-        <div class="card-header bg-white">
-          <strong>
-            <h4 class="mb-0">Card title</h4>
-          </strong>
-        </div>
-        <img src="https://picsum.photos/600/300/?image=1" alt />
-        <div class="card-body text-info">
-          <p>{{item.pno}}</p>
-          <router-link :to="'/read?pno='+item.pno">
-            <h5 class="card-title">{{item.title}}</h5>
-          </router-link>
-          <p class="card-text">{{item.content}}</p>
-          <p>{{getFormatDate(item.createDate)}}</p>
-        </div>
-      </div>
-    </div>-->
+
     <div class="list-cards row d-flex justify-content-around">
       <v-card
         class="mx-auto my-12 card mb-3"
@@ -36,7 +14,11 @@
         :key="index + '_posts'"
       >
         <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
+        <!-- <v-img height="250" :src="'@/assets/post/'+item.img"></v-img>
+        <v-img height="250" :src="'/public/files/'+item.img"></v-img>
+        <img :src="require(`@/assets/post/${imgURL}`)">
+        <img :src="'/public/files/'+item.img">
+        <p>{{item.img}}</p> -->
         <v-card-title>
           <router-link :to="'/read?pno='+item.pno">
             <h5 class="card-title">{{item.title}}</h5>
@@ -58,8 +40,6 @@
         <v-divider class="mx-4"></v-divider>
 
         <v-card-title>Tonight's availability</v-card-title>
-
-
 
         <v-card-actions>
           {{ item.heart }}
@@ -92,14 +72,14 @@ export default {
   // },
   mounted() {
     this.addScrollWatcher();
-    this.$store.state.renderNum = 1
+    this.$store.state.renderNum = 1;
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
     movePage() {
-      this.$router.push("/create");
+      this.$router.push({ name:'Create' });
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
@@ -124,11 +104,13 @@ export default {
       }
     },
     reload() {
-      this.$router.go()
-    }
+      this.$router.go();
+    },
   },
   data: () => {
-    return {};
+    return {
+      imgURL: '로고.png'
+    };
   },
 };
 </script>

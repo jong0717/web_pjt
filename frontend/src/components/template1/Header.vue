@@ -2,24 +2,17 @@
   <div class="header">
     <div class="inner">
       <nav class="navbar navbar-expand-lg navbar-light bg-white fixec-top">
+        <div class="i">
+          <v-btn @click="moveToMain" class="ma-2" color="dark darken-2" dark>
+            <v-icon dark left>mdi-arrow-left</v-icon>Main
+          </v-btn>
+        </div>
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
         <div id="navbarname" class="animate__animated animate__bounce">
           <a class="navbarname" href="/">
             <h4>{{ blogname }}</h4>
           </a>
         </div>
-        <!-- <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
-
         <div
           class="collapse navbar-collapse d-flex justify-content-end"
           id="navbarSupportedContent"
@@ -32,9 +25,9 @@
               aria-label="Search"
               v-model="searchInput"
             />
-            <!-- <i class="fas fa-search"></i> -->
-            <!-- <button @click="search(searchInput)" class="btn btn-outline-dark my-2 my-sm-0" type="button">Search</button> -->
-            <v-btn @click="search(searchInput)" class="searchBtn px-0" tile color="dark" dark><i class="fas fa-search"></i></v-btn>
+            <v-btn @click="search(searchInput)" class="searchBtn px-0" tile color="dark" dark>
+              <i class="fas fa-search"></i>
+            </v-btn>
             <ul class="navbar-nav mr-auto">
               <span v-if="!isLogIn" class="d-flex justify-content-end">
                 <li class="nav-item active">
@@ -50,12 +43,6 @@
                 </li>
               </span>
               <span v-if="isLogIn" class="d-flex justify-content-end">
-                <!-- <li class="nav-item active">
-                            <router-link to="/user/mypage" class="nav-link ml-auto">MyPage</router-link>
-                        </li>
-                        <li class="nav-item active">
-                            <router-link to="/visitpage" class="nav-link mr-auto">방명록</router-link>
-                </li >-->
                 <li class="nav-item active">
                   <button type="button" class="btn btn-outline-secondary" @click="logout">로그아웃</button>
                   <!-- <v-gravatar email="somebody@somewhere.com" :size="30"/> -->
@@ -116,25 +103,28 @@ export default {
   },
   data() {
     return {
-      searchInput: ''
-    }
+      searchInput: "",
+    };
   },
   methods: {
     ...mapActions(["logout", "search"]),
+    moveToMain() {
+      this.$router.push('/')
+    }
   },
   computed: {
     ...mapGetters(["isLogIn"]),
-    ...mapState(['blogname'])
+    ...mapState(["blogname"]),
   },
   mounted() {
-  this.$store.state.renderNum = 1
-  }
+    this.$store.state.renderNum = 1;
+  },
 };
 </script>
 
 <style scoped>
 h4 {
-  font-size:2rem;
+  font-size: 2rem;
 }
 
 .header {
@@ -155,7 +145,7 @@ h4 {
   list-style: none;
   float: left;
   padding: 0 26px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 .inner {

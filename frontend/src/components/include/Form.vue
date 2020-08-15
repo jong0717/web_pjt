@@ -3,24 +3,8 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field v-model="title" :counter="10" :rules="nameRules" label="제목" required></v-text-field>
 
-      <v-textarea
-          outlined
-          name="input-7-4"
-          label="내용"
-          value=""
-          v-model="content"
-        ></v-textarea>
-      <!-- <v-text-field
-            label="Prepend"
-            prepend-icon="mdi-map-marker"
-          ></v-text-field> -->
-
-
-      <!-- <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
-
-      <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
-
-      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
+      <v-textarea outlined name="input-7-4" label="내용" value v-model="content"></v-textarea>
+      <input type="file" name="photo" id="photo" />
     </v-form>
 
     <div>
@@ -37,11 +21,9 @@
 </template>
 
 <script>
-
 export default {
   name: "post-Form",
-  components: {
-  },
+  components: {},
   props: {
     type: { type: String },
   },
@@ -76,21 +58,22 @@ export default {
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
+      var formData = new FormData();
+      var photoFile = document.getElementById("photo");
+      formData.append("files", photoFile.files[0]);
       this.$http
-        .post(`${this.$store.state.HOST}/api/post/insert`, {
-          pno: this.pno,
-          uid: this.uid,
-          title: this.title,
-          content: this.content,
-          heart: 0,
-          createDate: this.createDate,
-        })
+        .post(
+          `${this.$store.state.HOST}/api/post/insert?content=${this.content}&heart=${this.heart}&title=${this.title}&uid=${this.uid}`,
+          formData
+        )
         .then(() => {
           alert("등록이 완료되었습니다.");
           this.moveList();
         })
-        .catch(() => {
+        .catch((err) => {
           alert("등록 처리시 에러가 발생했습니다.");
+          console.log(err);
+          console.log(formData);
         });
     },
     updateHandler() {

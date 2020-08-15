@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col-6">
         <h3>기본 정보</h3>
         <form class="wrap_set">
           <div class="form-group">
@@ -49,18 +49,44 @@
           </div>
         </form>
       </div>
-    </div>
-    <div>
-      <hr>
-      <h3>운영중인 블로그</h3>
-      <div class="card" v-for="item in myblog" :key="item">
-        <div class="card-header"></div>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p
-            class="card-text"
-          >{{item.blogname}}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+      <div class="col-6">
+        <h3>운영중인 블로그</h3>
+        <div class="card" v-for="item in myblog" :key="item">
+          <div class="card-body">
+            <h5 class="card-title">{{item.blogname}}</h5>
+            <v-btn @click="moveToBlog(item)" color>블로그 가기</v-btn>
+          </div>
+        </div>
+        <div>
+          <br />
+          <h3>개설 현황</h3>
+          <div class="card-body">
+            <h5></h5>
+            <h5 class="card-title">{{canCreateBlogNum}}개의 블로그를 더 운영할 수 있습니다.</h5>
+            <h7>운영중인 블로그: {{myblog.length}}개</h7>
+            <br />
+            <button @click="moveToBlogCreate" class="btn btn-dark">새 블로그 만들기</button><hr>
+            <h6>더 많은 블로그가 필요하십니까?</h6>
+            <v-row justify="center">
+              <v-dialog v-model="dialog" persistent max-width="290">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip v-bind="attrs" v-on="on" class="ma-2" color="orange" text-color="white">
+                    Premium
+                    <v-icon right>mdi-star</v-icon>
+                  </v-chip>
+                </template>
+                <v-card>
+                  <v-card-title class="headline">Use Google's location service?</v-card-title>
+                  <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
+                    <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </div>
         </div>
       </div>
     </div>
@@ -69,7 +95,7 @@
 
 <script>
 import axios from "axios";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -83,10 +109,11 @@ export default {
         nickname: null,
         password: null,
       },
+      dialog: false,
     };
   },
   methods: {
-    ...mapActions(["logout", "getMyBlog"]),
+    ...mapActions(["logout", "getMyBlog", "moveToBlog"]),
     getUserinfo() {
       axios
         .get(`${this.$store.state.HOST}/account/userinfo`, {
@@ -131,17 +158,21 @@ export default {
           console.log(err);
         });
     },
+    moveToBlogCreate() {
+      this.$router.push({ name: "BlogCreate" });
+    },
   },
   mounted() {
     this.getUserinfo();
-    this.getMyBlog()
+    this.getMyBlog();
   },
   // created() {
   //   this.getUserinfo();
   // },
   computed: {
-    ...mapState(['myblog'])
-  }
+    ...mapState(["myblog"]),
+    ...mapGetters(["canCreateBlogNum"]),
+  },
 };
 </script>
 

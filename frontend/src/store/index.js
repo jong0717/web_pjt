@@ -51,6 +51,7 @@ export default new Vuex.Store({
     imageUrl: '',
     blogname: '',
     myblog: [],
+    myblogbid: [],
     page: 0,
   },
   getters: {
@@ -81,6 +82,9 @@ export default new Vuex.Store({
       }
       return state.newPostsArr
     },
+    canCreateBlogNum(state) {
+      return 5 - (state.myblog).length
+    }
   },
   mutations: {
     // user
@@ -128,8 +132,9 @@ export default new Vuex.Store({
     },
     setMyBlog(state, payload) {
       for (let item of payload) {
-        if (item.uid === state.uid.uid) {
+        if (item.uid === state.uid.uid && !state.myblogbid.includes(item.bid)) {
           state.myblog.push(item)
+          state.myblogbid.push(item.bid)
           console.log('하나 추가')
         }
         // console.log(item.uid)
@@ -200,7 +205,7 @@ export default new Vuex.Store({
       })
       })
     },
-    moveToblog({ commit }, payload) {
+    moveToBlog({ commit }, payload) {
       this.state.blogname = payload.blogname
       commit('setRenderNum', payload.template_num)
       router.push({ name: 'List' })
@@ -216,7 +221,8 @@ export default new Vuex.Store({
       })
       .then((res) => {
         commit('setRenderNum', payload.template_num)
-        console.log(res)
+        console.log(res.data)
+        router.push({ name:'List', params: { uid:this.state.uid.uid, bid:res.data } })
       })
       .catch((err) => {
         console.log(err)

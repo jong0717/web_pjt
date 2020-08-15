@@ -64,38 +64,38 @@ const routes = [
     component: MyPage
   },
   {
-    path: '/visitPage',
+    path: '/1/:uid/:bid/visitPage',
     name: 'VisitPage',
     component: VisitPage
   },
   {
-    path: '/visitCreate',
+    path: '/1/:uid/:bid/visitCreate',
     name: 'VisitCreate',
     component: VisitCreate
   },
   // post
   {
-    path: '/temp1',
+    path: '/1/:uid/:bid',
     name: 'List',
     component: List
   },
   {
-    path: '/create',
+    path: '/1/:uid/:bid/create',
     name: 'Create',
     component: Create,
   },
   {
-    path: '/read',
+    path: '/1/:uid/:bid/read',
     name: 'Read',
     component: Read
   },
   {
-    path: '/update',
+    path: '/1/:uid/:bid/update',
     name: 'Update',
     component: Update,
   },
   {
-    path: '/delete',
+    path: '/1/:uid/:bid/delete',
     name: 'Delete',
     component: Delete,
   },
