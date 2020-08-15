@@ -1,10 +1,12 @@
 <template>
   <div class="header">
     <div class="inner">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white fixec-top">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <!-- <div class="d-flex justify-content-between"> -->
         <div class="i">
           <v-btn @click="moveToMain" class="ma-2" color="dark darken-2" dark>
-            <v-icon dark left>mdi-arrow-left</v-icon>Main
+            <!-- <v-icon dark left>mdi-arrow-left</v-icon>Main -->
+            <i class="fas fa-home mr-1"></i>메인
           </v-btn>
         </div>
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
@@ -135,6 +137,7 @@ h4 {
   min-width: 36px !important;
   height: 36px;
 }
+
 #router {
   margin: 0 0;
   height: 66px;
@@ -150,7 +153,7 @@ h4 {
 
 .inner {
   position: relative;
-  max-width: 1080px;
+  max-width: 100%;
   margin: 0 auto;
 }
 #router ul {
@@ -179,9 +182,16 @@ h4 {
   color: black;
   font-family: "Nanum Myeongjo";
   display: flex;
+  margin-left:4rem;
 }
 .navbarname:hover {
   animation: bounce;
   animation-duration: 1.5s;
+}
+.i {
+  margin-left:2rem;
+}
+#navbarSupportedContent {
+  margin-right:2rem;
 }
 </style>
