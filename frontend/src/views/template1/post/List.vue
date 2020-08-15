@@ -1,11 +1,9 @@
 <template>
   <div class="container list">
-    <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
     <div class="row justify-content-around">
-      <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
-      <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
+      <v-btn @click="movePage" large color="grey darken-2" class='text-white'>글쓰기</v-btn>
+      <v-btn @click="reload" large color="blue-grey darken-1" class='text-white'>전체 목록 보기</v-btn>
     </div>
-
     <div class="list-cards row d-flex justify-content-around">
       <v-card
         class="mx-auto my-12 card mb-3"
@@ -109,8 +107,7 @@ export default {
   },
   data: () => {
     return {
-      imgURL: '로고.png'
-    };
+    }
   },
 };
 </script>

@@ -17,12 +17,14 @@
     class="mx-auto my-12"
     max-width="374"
   >
-    <v-img
+    <v-img v-if="post.img === null"
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
     ></v-img>
 
-    <v-card-title>{{ post.title }}</v-card-title>
+    <div v-if="post.img !== null">
+      <img :src="'https://storage.googleapis.com/getblog/'+post.img" alt="" width="350px">
+    </div>
 
     <v-card-text>
       <v-row

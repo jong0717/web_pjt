@@ -20,6 +20,9 @@
           </div>
         </div>
       </div>
+      <div v-if="renderNum==3">
+        <Home />
+      </div>
     </v-app>
   </div>
 </template>
@@ -29,9 +32,12 @@ import Header from "@/components/template1/Header.vue";
 import HeaderMain from "@/components/main/HeaderMain.vue"
 import Aside from "@/views/template1/post/Aside.vue";
 import Main from "@/views/main/Main.vue"
+import Home from "@/views/template3/home/Home.vue"
+
 
 import { mapState } from 'vuex'
 // import List from '@/views/post/List.vue'
+
 
 export default {
   components: {
@@ -39,6 +45,8 @@ export default {
     Aside,
     Main,
     HeaderMain,
+    Home,
+
   },
   computed: {
     ...mapState(['renderNum'])
