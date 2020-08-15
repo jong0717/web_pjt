@@ -30,7 +30,6 @@
                   onclick="document.execCommand('formatBlock',false,'<h1>')"
                 >
                   <v-btn
-                    class="ml-5"
                     :href="source"
                     onclick="document.execCommand('formatBlock',false,'<h1>')"
                     icon
@@ -89,31 +88,7 @@
                   </v-btn>
                 </template>
                 <span>H3</span>
-              </v-tooltip>
-
-              <!-- H4 -->
-              <v-tooltip top>
-                <template
-                  class="H3"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('formatBlock',false,'<div>')"
-                >
-                  <v-btn
-                    class="ml-4"
-                    :href="source"
-                    onclick="document.execCommand('formatBlock',false,'<div>')"
-                    icon
-                    medium
-                    target="_blank"
-                    v-on="on"
-                  >
-                    <input type="button" class="H3" />
-                    <img src="https://img.icons8.com/carbon-copy/30/000000/4-c.png" />
-                  </v-btn>
-                </template>
-                <span>p</span>
-              </v-tooltip>
-
+              </v-tooltip>|
               <!-- Bold -->
               <v-tooltip top>
                 <template
@@ -204,7 +179,7 @@
               </v-tooltip>
 
               <!-- Undo -->
-              ||
+              |
               <v-tooltip top>
                 <template v-slot:activator="{ on }" onclick="document.execCommand('Undo')">
                   <v-btn
@@ -241,7 +216,7 @@
               </v-tooltip>
 
               <!-- images -->
-              ||
+              |
               <v-tooltip top>
                 <template v-slot:activator="{ on }" onclick="document.execCommand('Images')">
                   <v-btn
@@ -342,30 +317,27 @@
                   </v-btn>
                 </template>
                 <span class="UNDERBAR">오른쪽 정렬</span>
-              </v-tooltip>
-
+              </v-tooltip>|
               <input
                 v-if="html_switch===true"
                 type="button"
-                value="에디터로 보기"
+                value=" Editor"
                 @click="convertToEditor"
               />
-              <input
-                v-if="html_switch===false"
-                type="button"
-                value="HTML로 보기"
-                @click="convertToHTML"
-              />
+              <input v-if="html_switch===false" type="button" value=" HTML" @click="convertToHTML" />
             </v-row>
 
             <div class="col-1-none"></div>
-            <div
+
+            <textarea
               class="editortext editorDIV form-control"
-              id="content"
+              type="text"
+              id="ascontent"
               ref="content"
               placeholder="내용을 입력하세요"
               contenteditable="true"
-            ></div>
+            ></textarea>
+
             <div class="editorHTMLDIV"></div>
           </div>
         </v-col>
@@ -412,12 +384,20 @@ export default {
   },
   methods: {
     convertToHTML: function () {
+      console.log(document.getElementById("ascontent"))
+      console.log(document.getElementById("ascontent").innerHTML)
+      console.log(document.getElementById("ascontent").innerText)
+      console.log(this.content);
       this.html_switch = true;
       $(".editorHTMLDIV").text($(".editorDIV").html());
       $(".editorHTMLDIV").show();
       $(".editorDIV").hide();
     },
     convertToEditor: function () {
+      console.log(document.getElementById("ascontent"))
+      console.log(document.getElementById("ascontent").innerHTML)
+      console.log(document.getElementById("ascontent").innerText)
+      console.log(this.content);
       this.html_switch = false;
       $(".editorDIV").html($(".editorHTMLDIV").text());
       $(".editorDIV").show();
@@ -427,7 +407,7 @@ export default {
       $(".editorHTMLDIV").hide();
     },
     checkHandler() {
-      // this.content = document.getElementById('content')
+      // this.content = document.getElementById('editortext')
       let err = true;
       let msg = "";
       !this.uid &&
@@ -527,8 +507,8 @@ export default {
 }
 
 #createForm {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
   width: 80%;
   font-family: "Jua", sans-serif;
 }
