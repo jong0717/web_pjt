@@ -25,7 +25,6 @@ public interface UserDao extends JpaRepository<User, Long> {
     Optional<User> findByEmailAndPassword(String email, String password);
 
     // use executeQuery() -> executeUpdate()
-    // Not select query
     @Modifying
     // avoid javax.persistence.TransactionRequiredException
     @Transactional

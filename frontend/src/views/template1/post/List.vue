@@ -1,9 +1,33 @@
 <template>
   <div class="container list">
+    <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
     <div class="row justify-content-around">
-      <v-btn @click="movePage" large color="blue-grey darken-2" class="text-white">글쓰기</v-btn>
-      <v-btn @click="reload" large color="blue-grey darken-2" class='text-white'>전체 목록 보기</v-btn>
+      <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
+      <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
     </div>
+    <!-- <div class="list-cards row d-flex justify-content-around">
+      <div
+        class="card border-info mb-3"
+        style="max-width: 18rem;"
+        v-for="(item, index) in newPosts"
+        :key="index + '_posts'"
+      >
+        <div class="card-header bg-white">
+          <strong>
+            <h4 class="mb-0">Card title</h4>
+          </strong>
+        </div>
+        <img src="https://picsum.photos/600/300/?image=1" alt />
+        <div class="card-body text-info">
+          <p>{{item.pno}}</p>
+          <router-link :to="'/read?pno='+item.pno">
+            <h5 class="card-title">{{item.title}}</h5>
+          </router-link>
+          <p class="card-text">{{item.content}}</p>
+          <p>{{getFormatDate(item.createDate)}}</p>
+        </div>
+      </div>
+    </div>-->
     <div class="list-cards row d-flex justify-content-around">
       <v-card
         class="mx-auto my-12 card mb-3"
@@ -12,11 +36,7 @@
         :key="index + '_posts'"
       >
         <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-        <!-- <v-img height="250" :src="'@/assets/post/'+item.img"></v-img>
-        <v-img height="250" :src="'/public/files/'+item.img"></v-img>
-        <img :src="require(`@/assets/post/${imgURL}`)">
-        <img :src="'/public/files/'+item.img">
-        <p>{{item.img}}</p> -->
+
         <v-card-title>
           <router-link :to="'/read?pno='+item.pno">
             <h5 class="card-title">{{item.title}}</h5>
@@ -39,6 +59,7 @@
 
         <v-card-title>Tonight's availability</v-card-title>
 
+        
         <v-card-actions>
           {{ item.heart }}
           <v-btn icon color="black">
@@ -70,14 +91,14 @@ export default {
   // },
   mounted() {
     this.addScrollWatcher();
-    this.$store.state.renderNum = 1;
+    this.$store.state.renderNum = 1
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
     movePage() {
-      this.$router.push({ name:'Create' });
+      this.$router.push("/create");
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
@@ -86,7 +107,6 @@ export default {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
       watcher.enterViewport(() => {
-        console.log("___BOTTOM___");
         if (this.$store.state.searchFlag === false) {
           setTimeout(() => {
             this.$store.dispatch("getPOSTs");
@@ -102,12 +122,11 @@ export default {
       }
     },
     reload() {
-      this.$router.go();
-    },
+      this.$router.go()
+    }
   },
   data: () => {
-    return {
-    }
+    return {};
   },
 };
 </script>
@@ -129,8 +148,5 @@ export default {
 }
 .card {
   display: inline-block;
-}
-.writeBtn {
-  color:greenyellow !important;
 }
 </style>

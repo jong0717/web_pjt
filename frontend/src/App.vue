@@ -14,14 +14,11 @@
             <div class="col-9">
               <router-view />
             </div>
-            <div class="col-3 aside">
+            <div class="col-3">
               <Aside />
             </div>
           </div>
         </div>
-      </div>
-      <div v-if="renderNum==3">
-        <Home />
       </div>
     </v-app>
   </div>
@@ -32,12 +29,9 @@ import Header from "@/components/template1/Header.vue";
 import HeaderMain from "@/components/main/HeaderMain.vue"
 import Aside from "@/views/template1/post/Aside.vue";
 import Main from "@/views/main/Main.vue"
-import Home from "@/views/template3/home/Home.vue"
-
 
 import { mapState } from 'vuex'
 // import List from '@/views/post/List.vue'
-
 
 export default {
   components: {
@@ -45,8 +39,6 @@ export default {
     Aside,
     Main,
     HeaderMain,
-    Home,
-
   },
   computed: {
     ...mapState(['renderNum'])
@@ -74,12 +66,7 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-.aside {
-  width: auto;
-  padding-top: 20%;
-  border-left: 0.1em solid #eee;
-  padding: 0.5em;
-}
+
 /* #router {
   margin: 20px;
   height: 66px;

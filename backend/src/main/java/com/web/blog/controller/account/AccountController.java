@@ -1,13 +1,15 @@
 package com.web.blog.controller.account;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import com.web.blog.dao.user.UserDao;
 import com.web.blog.model.BasicResponse;
+import com.web.blog.payload.request.SignupRequest;
 import com.web.blog.payload.request.UserRequest;
 import com.web.blog.payload.response.UserResponse;
 import com.web.blog.security.jwt.JwtUtils;
-import com.web.blog.security.service.UserDetailsServiceImpl;
 import com.web.blog.model.user.User;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -46,9 +48,6 @@ public class AccountController {
 
     @Autowired
     UserDao userDao;
-
-    @Autowired
-    UserDetailsServiceImpl userService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -91,11 +90,8 @@ public class AccountController {
     @GetMapping("/userinfo")
     @ApiOperation(value = "유저 정보 얻기")
     public Object getUserInfo(@RequestParam(required = true) final String accessToken) {
-        System.out.println(accessToken);
-
         User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(accessToken))
                             .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
-        
 
         return new ResponseEntity<>(new UserResponse(user), HttpStatus.OK);
     }

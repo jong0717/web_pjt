@@ -1,17 +1,17 @@
 <template>
-  <div class="">
+  <div class="aside">
     <div class="container">
-      <router-link class="routerlink" to="/">분류 전체 보기</router-link>
-      <hr>
+      <router-link to="/">분류 전체 보기</router-link><br>
       <div class="aside-top"><a href="#services" class="aside-top">최근 인기글</a></div><br>
-      <div class="aside-top"><a href="#clients" class="aside-top" >최근 댓글</a></div>
+      <div class="aside-top"><a href="#clients" >최근 댓글</a></div>
       <div class="aside-top"><a href="#contact" class="aside-top">태그</a></div>
       <hr class="aside-hr">
-      <!-- <h4>전체 방문자 : 0</h4> -->
-      <h3>Total : 0</h3>
+      이런것도 되게할수있을까<br>연습 블로그<br>
+      <h4>전체 방문자 : 0</h4>
 
-      <h5>Today : 0</h5>
+      <h4>Today : 0</h4>
 
+      <h4>Yesterday : 0</h4>
     </div>
   </div>
 </template>
@@ -19,35 +19,6 @@
 <script>
 export default {
   name: "Aside",
-  data: function(){
-    return {
-      count: '',
-    }
-  },
-  created(){
-    this.getBlog(),
-    this.getCount()
-  },
-  methods: {
-    // getBlog(){
-    //   this.$http.get(`${this.$store.state.HOST}/api/blog/bbbb`)
-    //     .then(({ data }) => {
-    //       this.count = data;
-    //     })
-    //     .catch(() => {
-    //       console.log('에러가 발생했습니다.');
-    //     });
-    // },
-    // getCount(){
-    //   this.$http.get(`${this.$store.state.HOST}/api/blog`)
-    //     .then(({ data }) => {
-    //       this.count = data;
-    //     })
-    //     .catch(() => {
-    //       console.log('에러가 발생했습니다.');
-    //     });
-    // }
-  }
 };
 </script>
 <style scoped>
@@ -63,12 +34,8 @@ export default {
   height: 100%;
   margin-bottom: 20px;
   padding-bottom: 50px;
-  color:black;
 }
 .aside-hr {
   width: 200px;
-}
-.routerlink {
-  color:black;
 }
 </style>

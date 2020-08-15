@@ -1,70 +1,57 @@
 <template>
-  <div>
-    <h2 class="text-align-left">전체글</h2>
-      <hr>
-        <v-card class="elevation-2" v-for="(item,index) in newPosts" :key="index">
-          <v-card-title class="headline">
-            <router-link>{{ item.title }}</router-link>
-          </v-card-title>
-          <v-card-text>
-            {{ item.content }}
-          </v-card-text>
-        </v-card>
-  </div>
+  <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
+    <v-timeline-item
+      v-for="(item, i) in items"
+      :key="i"
+      :color="item.color"
+      :icon="item.icon"
+      fill-dot
+    >
+      <v-card
+        :color="item.color"
+        dark
+      >
+        <v-card-title class="title">Lorem Ipsum Dolor</v-card-title>
+        <v-card-text class="white text--primary">
+          <p>Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.</p>
+          <v-btn
+            :color="item.color"
+            class="mx-0"
+            outlined
+          >
+            Button
+          </v-btn>
+        </v-card-text>
+      </v-card>
+    </v-timeline-item>
+  </v-timeline>
 </template>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
-import moment from "moment"
-import { mapGetters } from "vuex"
   export default {
-    computed: {
-    ...mapGetters(["posts", "newPosts"]),
-    // ...mapState(["searchFlag"]),
-    },
+    name:'recentlist',
     data: () => ({
-
+      items: [
+        {
+          color: 'red lighten-2',
+          icon: 'mdi-star',
+        },
+        {
+          color: 'purple darken-1',
+          icon: 'mdi-book-variant',
+        },
+        {
+          color: 'green lighten-1',
+          icon: 'mdi-airballoon',
+        },
+        {
+          color: 'indigo',
+          icon: 'mdi-buffer',
+        },
+      ],
     }),
-      mounted() {
-    this.addScrollWatcher();
-    this.$store.state.renderNum = 3
-  },
-  updated() {
-    this.loadUntilViewportIsFull();
-  },
-  methods: {
-    movePage() {
-      this.$router.push("/create");
-    },
-    getFormatDate(createDate) {
-      return moment(new Date(createDate)).format("YYYY.MM.DD");
-    },
-    addScrollWatcher() {
-      const bottomSensor = document.querySelector("#bottomSensor");
-      const watcher = scrollMonitor.create(bottomSensor);
-      watcher.enterViewport(() => {
-        console.log("___BOTTOM___");
-        if (this.$store.state.searchFlag === false) {
-          setTimeout(() => {
-            this.$store.dispatch("getPOSTs");
-          }, 500);
-        }
-      });
-    },
-    loadUntilViewportIsFull() {
-      const bottomSensor = document.querySelector("#bottomSensor");
-      const watcher = scrollMonitor.create(bottomSensor);
-      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false) {
-        this.$store.dispatch("getPOSTs");
-      }
-    },
-    reload() {
-      this.$router.go()
-    },
-  }
   }
 </script>
 
-<style scoped>
+<style>
 
 </style>
