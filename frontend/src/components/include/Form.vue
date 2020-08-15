@@ -104,14 +104,15 @@ export default {
                   },
               ).then(function() {
                   alert('등록이 완료되었습니다.');
-                  this.$router.push('/temp1');
+                  // this.$router.push({name: 'List', params: {uid: this.state.uid.uid, bid: bid}});
+                  this.$router.go(-1);
                   console.log('SUCCESS!!');
               })
               .catch(function() {
                 this.$router.push('/temp1');
                   console.log('FAILURE!!');
               });
-              this.$router.push('/temp1');
+              this.$router.go(-1);
       }
 
     },

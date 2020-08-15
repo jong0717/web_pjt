@@ -54,6 +54,7 @@
         <div class="card" v-for="item in myblog" :key="item">
           <div class="card-body">
             <h5 class="card-title">{{item.blogname}}</h5>
+            <p>사용중인 테마:{{item.template_num}}</p>
             <v-btn @click="moveToBlog(item)" color>블로그 가기</v-btn>
           </div>
         </div>
@@ -165,6 +166,7 @@ export default {
   mounted() {
     this.getUserinfo();
     this.getMyBlog();
+    this.$store.state.renderNum = 0
   },
   // created() {
   //   this.getUserinfo();

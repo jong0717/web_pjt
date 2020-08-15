@@ -12,7 +12,7 @@ import Read from '../views/post/Read.vue'
 import Create from '../views/post/Create.vue'
 import Update from '../views/post/Update.vue'
 import Delete from '../views/post/Delete.vue'
-
+import Create3 from '../views/template3/post/Create3.vue'
 // user
 import Join from '@/views/user/Join.vue'
 import Login from '@/views/user/Login.vue'
@@ -27,12 +27,10 @@ import store from '@/store'
 
 // hong place(template3)
 // 1.home
-// import Home from '@/views/template3/home/Home.vue'
-import RecentList from '@/views/template3/post/RecentList.vue'
+import Home from '@/views/template3/home/Home.vue'
 // +재완
 // lsit2
-import List2 from '@/views/template2/List2.vue'
-import Edit from '@/views/template2/Edit.vue'
+// import List2 from '@/views/template2/post/List2.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +63,7 @@ const routes = [
     name: 'MyPage',
     component: MyPage
   },
+  // temp1
   {
     path: '/1/:uid/:bid/visitPage',
     name: 'VisitPage',
@@ -75,7 +74,7 @@ const routes = [
     name: 'VisitCreate',
     component: VisitCreate
   },
-  // post
+  // temp1/post
   {
     path: '/1/:uid/:bid',
     name: 'List',
@@ -119,24 +118,24 @@ const routes = [
     name: 'NotFoundPage',
     component: NotFoundPage
   },
-    // hong place(template3)
-  // 1. home
+  // temp3
   {
-    path:'/temp3',
-    name:'RecentList',
-    component:RecentList
+    path:'/3/:uid/:bid',
+    name:'Home',
+    component:Home
   },
+  // temp3/post
+  {
+    path: '/3/:uid/:bid/create',
+    name: 'Create3',
+    component: Create3,
+  }
   // 재완
-  {
-    path: '/temp2',
-    name: 'List2',
-    component: List2
-  },
-  {
-    path: '/edit',
-    name: 'Edit',
-    component: Edit
-  },
+  // {
+  //   path: '/temp2',
+  //   name: 'List2',
+  //   component: List2
+  // },
 
 ]
 
