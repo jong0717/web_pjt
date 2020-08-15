@@ -6,13 +6,13 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">블로그Get</span>
         </div>
-        <input v-model="selectedData.name" type="text" class="form-control" placeholder="블로그 이름을 입력하세요." aria-label="Username" aria-describedby="addon-wrapping">
+        <input v-model="selectedData.blogname" type="text" class="form-control" placeholder="블로그 이름을 입력하세요." aria-label="Username" aria-describedby="addon-wrapping">
       </div>
       <div class="input-group mb-3 mt-2">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">디자인Get</label>
         </div>
-        <select v-model="selectedData.selected" class="custom-select" id="inputGroupSelect01">
+        <select v-model="selectedData.template_num" class="custom-select" id="inputGroupSelect01">
           <option selected>원하는 template을 고르세요.</option>
           <option value="1">template1</option>
           <option value="2">template2</option>
@@ -20,7 +20,7 @@
         </select>
       </div>
         <!-- <button @click="moveToblog(selectedData)" class="ml-1 B-CreateBtn">Get</button> -->
-        <v-btn @click="moveToblog(selectedData)" x-large rounded outlined color="success">시작하기</v-btn>
+        <v-btn @click="createBlog(selectedData)" x-large rounded outlined color="success">시작하기</v-btn>
     </div>
   </div>
 </template>
@@ -38,13 +38,16 @@ export default {
   data() {
     return {
       selectedData: {
-        selected: '',
-        name: '',
+        template_num: '',
+        blogname: '',
+        bid: '',
+        uid: this.$store.state.uid.uid,
+        visitors_num: 0,
       }
     }
   },
   methods: {
-    ...mapActions(['moveToblog'])
+    ...mapActions(['createBlog'])
   },
   mounted() {
     this.$store.state.renderNum = 0

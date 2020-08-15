@@ -6,14 +6,17 @@
     </div>
     <div class="list-cards row d-flex justify-content-around">
       <v-card
-        :loading="loading"
         class="mx-auto my-12 card mb-3"
         max-width="374"
         v-for="(item, index) in newPosts"
         :key="index + '_posts'"
       >
         <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
+        <!-- <v-img height="250" :src="'@/assets/post/'+item.img"></v-img>
+        <v-img height="250" :src="'/public/files/'+item.img"></v-img>
+        <img :src="require(`@/assets/post/${imgURL}`)">
+        <img :src="'/public/files/'+item.img">
+        <p>{{item.img}}</p> -->
         <v-card-title>
           <router-link :to="'/read?pno='+item.pno">
             <h5 class="card-title">{{item.title}}</h5>
@@ -35,18 +38,6 @@
         <v-divider class="mx-4"></v-divider>
 
         <v-card-title>Tonight's availability</v-card-title>
-
-        <v-card-text>
-          <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-            <v-chip>5:30PM</v-chip>
-
-            <v-chip>7:30PM</v-chip>
-
-            <v-chip>8:00PM</v-chip>
-
-            <v-chip>9:00PM</v-chip>
-          </v-chip-group>
-        </v-card-text>
 
         <v-card-actions>
           {{ item.heart }}
@@ -79,14 +70,14 @@ export default {
   // },
   mounted() {
     this.addScrollWatcher();
-    this.$store.state.renderNum = 1
+    this.$store.state.renderNum = 1;
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
     movePage() {
-      this.$router.push("/create");
+      this.$router.push({ name:'Create' });
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
@@ -111,8 +102,8 @@ export default {
       }
     },
     reload() {
-      this.$router.go()
-    }
+      this.$router.go();
+    },
   },
   data: () => {
     return {
