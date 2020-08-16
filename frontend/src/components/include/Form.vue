@@ -109,7 +109,7 @@ export default {
                   console.log('SUCCESS!!');
               })
               .catch(function() {
-                this.$router.push('/temp1');
+                this.$router.push(-1);
                   console.log('FAILURE!!');
               });
               this.$router.go(-1);
@@ -135,7 +135,7 @@ export default {
         });
     },
     moveList() {
-      this.$router.push("/temp1");
+      this.$router.go(-1);
     },
     handleFileUpload() {
                     this.files = this.$refs.files.files;

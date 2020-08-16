@@ -86,17 +86,17 @@ const routes = [
     component: Create,
   },
   {
-    path: '/1/:uid/:bid/read',
+    path: '/read',
     name: 'Read',
     component: Read
   },
   {
-    path: '/1/:uid/:bid/update',
+    path: '/update',
     name: 'Update',
     component: Update,
   },
   {
-    path: '/1/:uid/:bid/delete',
+    path: '/delete',
     name: 'Delete',
     component: Delete,
   },

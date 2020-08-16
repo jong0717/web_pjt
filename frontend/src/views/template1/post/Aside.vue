@@ -24,10 +24,10 @@ export default {
       count: '',
     }
   },
-  created(){
-    this.getBlog(),
-    this.getCount()
-  },
+  // created(){
+  //   this.getBlog(),
+  //   this.getCount()
+  // },
   methods: {
     // getBlog(){
     //   this.$http.get(`${this.$store.state.HOST}/api/blog/bbbb`)
