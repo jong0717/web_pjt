@@ -1,78 +1,70 @@
 <template>
-  <div class="container list">
-    <!-- <button class="btn btn-light" @click="movePage">글쓰기</button> -->
-    <div class="row justify-content-around">
-      <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
-      <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
-    </div>
-    <!-- <div class="list-cards row d-flex justify-content-around">
-      <div
-        class="card border-info mb-3"
-        style="max-width: 18rem;"
-        v-for="(item, index) in newPosts"
-        :key="index + '_posts'"
-      >
-        <div class="card-header bg-white">
-          <strong>
-            <h4 class="mb-0">Card title</h4>
-          </strong>
-        </div>
-        <img src="https://picsum.photos/600/300/?image=1" alt />
-        <div class="card-body text-info">
-          <p>{{item.pno}}</p>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list dense>
+        <!-- home -->
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <!-- contact -->
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-email</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>최근 쓴 글</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <div v-for="(item, index) in newPosts" :key="index + '_posts'">
           <router-link :to="'/read?pno='+item.pno">
-            <h5 class="card-title">{{item.title}}</h5>
+            <p v-if="index<5" class="my-4 subtitle-1">{{item.title}}</p>
           </router-link>
-          <p class="card-text">{{item.content}}</p>
-          <p>{{getFormatDate(item.createDate)}}</p>
         </div>
+      </v-list>
+    </v-navigation-drawer>
+
+    <!-- navbar -->
+    <v-app-bar app color="indigo" dark>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <div class="container list">
+        <div class="row justify-content-around">
+          <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
+          <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
+        </div>
+
+        <!-- 시작 -->
+        <b-media
+          right-align
+          class="m-4"
+          vertical-align="center"
+          v-for="(item, index) in newPosts"
+          :key="index + '_posts'"
+        >
+          <template v-slot:aside>
+            <b-img width="80" alt="placeholder" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></b-img>
+          </template>
+          <router-link :to="'/read?pno='+item.pno">
+            <h5 class="mt-0 mb-1">{{ index+1 }}. {{item.title}}</h5>
+            <!-- <h5 v-if="index%2==0" class="mt-0 mb-1">{{ index+1 }}. {{item.title}}</h5> -->
+          </router-link>
+          <p class="mb-0">
+            {{ item.content }}
+          </p>
+        </b-media>
+        <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
       </div>
-    </div>-->
-    <div class="list-cards row d-flex justify-content-around">
-      <v-card
-        class="mx-auto my-12 card mb-3"
-        max-width="374"
-        v-for="(item, index) in newPosts"
-        :key="index + '_posts'"
-      >
-        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-        <v-card-title>
-          <router-link :to="'/read?pno='+item.pno">
-            <h5 class="card-title">{{item.title}}</h5>
-          </router-link>
-        </v-card-title>
-
-        <v-card-text>
-          <v-row align="center" class="mx-0">
-            <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-            <div class="grey--text ml-4">4.5 (413)</div>
-          </v-row>
-
-          <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
-
-          <div>{{item.content}}</div>
-        </v-card-text>
-
-        <v-divider class="mx-4"></v-divider>
-
-        <v-card-title>Tonight's availability</v-card-title>
-
-        
-        <v-card-actions>
-          {{ item.heart }}
-          <v-btn icon color="black">
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-          <v-btn icon color="pink">
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </div>
-    <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
-  </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
@@ -84,14 +76,10 @@ export default {
   name: "List",
   computed: {
     ...mapGetters(["posts", "newPosts"]),
-    // ...mapState(["searchFlag"]),
   },
-  // created() {
-  //   this.$store.dispatch('getPOSTs')
-  // },
   mounted() {
     this.addScrollWatcher();
-    this.$store.state.renderNum = 1
+    this.$store.state.renderNum = 2;
   },
   updated() {
     this.loadUntilViewportIsFull();
@@ -122,11 +110,13 @@ export default {
       }
     },
     reload() {
-      this.$router.go()
-    }
+      this.$router.go();
+    },
   },
   data: () => {
-    return {};
+    return {
+      drawer: null,
+    };
   },
 };
 </script>
