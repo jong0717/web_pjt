@@ -219,20 +219,20 @@ export default new Vuex.Store({
       http.post(`api/blog/insert`, {
         bid: payload.bid,
         blogname: payload.blogname,
-        template_num: payload.template_num,
+        template_num: payload.template_num+1,
         uid: payload.uid,
         visitors_num: payload.visitors_num,
         // payload
       })
         .then((res) => {
-          commit('setRenderNum', payload.template_num)
+          commit('setRenderNum', payload.template_num+1)
           console.log(res.data)
           // router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
-          if (payload.template_num == 1) {
+          if (payload.template_num == 0) {
             router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
-          } else if (payload.template_num == 3) {
+          } else if (payload.template_num == 2) {
             router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: res.data } })
-          }
+          } // blogcreate 시에 값이 0 1 2로 되어 있어 일단 이렇게
         })
         .catch((err) => {
           console.log(err)
