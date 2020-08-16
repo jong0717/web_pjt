@@ -45,19 +45,31 @@
           </div>
           <div class="row justify-content-around">
             <v-btn @click="editUserinfo" color="success">수정하기</v-btn>
-            <v-btn @click="deleteUser" color="error">탈퇴하기</v-btn>
+            <!-- <v-btn @click="deleteUser" color="error">탈퇴하기</v-btn> -->
+            <!-- <v-btn color="error">탈퇴하기</v-btn> -->
+            <v-bottom-sheet v-model="sheet" inset>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="error" dark v-bind="attrs" v-on="on">탈퇴하기</v-btn>
+              </template>
+              <v-sheet class="text-center" height="200px">
+                <v-btn class="mt-6" text color="error" @click="sheet = !sheet">close</v-btn>
+                <div class="my-3">탈퇴하면 작성한 글들이 모두 사라집니다. 그래도 탈퇴하시겠습니까?</div>
+                <v-btn @click="deleteUser" color="error">탈퇴하기</v-btn>
+              </v-sheet>
+            </v-bottom-sheet>
           </div>
         </form>
       </div>
       <div class="col-6">
         <h3>운영중인 블로그</h3>
-        <div class="card" v-for="item in myblog" :key="item">
+        <!-- <div class="card" v-for="item in myblog" :key="item">
           <div class="card-body">
             <h5 class="card-title">{{item.blogname}}</h5>
             <p>사용중인 테마:{{item.template_num}}</p>
             <v-btn @click="moveToBlog(item)" color>블로그 가기</v-btn>
           </div>
-        </div>
+          </div> -->
+        <BlogTable />
         <div>
           <br />
           <h3>개설 현황</h3>
@@ -109,10 +121,14 @@
 <script>
 import axios from "axios";
 import { mapActions, mapState, mapGetters } from "vuex";
-
+import BlogTable from '@/views/user/BlogTable.vue'
 export default {
+  components:{
+    BlogTable
+  },
   data() {
     return {
+      sheet:false,
       accessToken: this.$store.state.authToken,
       email: "",
       userData: {
