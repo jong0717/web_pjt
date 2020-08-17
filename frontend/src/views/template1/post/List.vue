@@ -89,7 +89,7 @@ export default {
         console.log("___BOTTOM___");
         if (this.$store.state.searchFlag === false) {
           setTimeout(() => {
-            this.$store.dispatch("getPOSTs");
+            this.$store.dispatch("getPOSTs", this.$route.params.bid);
           }, 500);
         }
       });
@@ -98,7 +98,7 @@ export default {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
       if (watcher.isFullyInViewport && this.$store.state.searchFlag === false) {
-        this.$store.dispatch("getPOSTs");
+        this.$store.dispatch("getPOSTs", this.$route.params.bid);
       }
     },
     reload() {
