@@ -14,7 +14,7 @@ import VueScrollMonitor from 'vue-scrollmonitor'
 import uid from './uid.js';
 
 const modules = {
-  uid, 
+  uid,
 }
 const plugins = [
   createPersistedState({
@@ -50,35 +50,41 @@ export default new Vuex.Store({
     nickname: '',
     imageUrl: '',
     blogname: '',
+    myblog: [],
+    myblogbid: [],
+    page: 0,
   },
   getters: {
     // user
     isLogIn: state => !!state.authToken,
     // post
-    posts(state){
-        return state.posts;
+    posts(state) {
+      return state.posts;
     },
-    post(state){
-        return state.post;
+    post(state) {
+      return state.post;
     },
-    replies(state){
+    replies(state) {
       return state.replies;
     },
-    reply(state){
+    reply(state) {
       return state.reply;
     },
-    newPosts(state){ // state.posts 를 돌면서 새로운 데이터(pnoArr로 판단)를 newPostsArr에 넣어 반환
+    newPosts(state) { // state.posts 를 돌면서 새로운 데이터(pnoArr로 판단)를 newPostsArr에 넣어 반환
       for (let post of state.posts) {
         if (state.pnoArr.includes(post.pno)) {
-          // console.log('중복데이터')
+          console.log('중복데이터')
         } else {
-          // console.log('새로운데이터')
+          console.log('새로운데이터')
           state.pnoArr.push(post.pno)
           state.newPostsArr.push(post)
-        } 
+        }
       }
       return state.newPostsArr
     },
+    canCreateBlogNum(state) {
+      return 5 - (state.myblog).length
+    }
   },
   mutations: {
     // user
@@ -87,21 +93,21 @@ export default new Vuex.Store({
       Vue.$cookies.set('auth-token', payload)
     },
     // post
-    setPOSTs(state, payload){
+    setPOSTs(state, payload) {
       if (state.searchFlag === true) {
         state.posts = [...payload]
       } else {
         state.posts = [...state.posts, ...payload];
       }
     },
-    setPOST(state, payload){
-        state.post = payload;
+    setPOST(state, payload) {
+      state.post = payload;
     },
-    setREPLIES(state, payload){
+    setREPLIES(state, payload) {
       state.replies = payload;
     },
-    setREPLY(state, payload){
-        state.reply = payload;
+    setREPLY(state, payload) {
+      state.reply = payload;
     },
     // render
     setRenderNum(state, payload) {
@@ -115,7 +121,7 @@ export default new Vuex.Store({
           },
         })
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           state.email = res.data.email
           state.nickname = res.data.nickname
           state.imageUrl = res.data.imageUrl
@@ -124,31 +130,46 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    setMyBlog(state, payload) {
+      for (let item of payload) {
+        if (item.uid === state.uid.uid && !state.myblogbid.includes(item.bid)) {
+          state.myblog.push(item)
+          state.myblogbid.push(item.bid)
+          console.log('하나 추가')
+        }
+        // console.log(item.uid)
+      }
+      // state.myblog = [...payload]
+    },
+    pagePlus(state) {
+      state.page++
+    }
   },
   actions: {
     // user
-    logout({commit}) {
+    logout({ commit }) {
       commit('setCookie', null)
       cookies.remove('auth-token')
       router.push({ name: 'Main' })
+      router.go()
     },
     // post
-    getPOSTs({ commit }) {
-      const options = {
-        params: {
-          // _page: this.page++,
-          _limit: 3,
-        }
-      }
+    getPOSTs({ commit, state }) {
       http
-      .get(`/api/post/list`, options)
-      .then(({ data }) => {
-        // console.log(data)
-        commit('setPOSTs', data);
-      })
-      .catch(() => {
-        alert('에러가 발생했습니다.');
-      });
+        .get(`/api/post/list`, {
+          params: {
+            page: state.page++,
+            size: 4,
+          }
+        })
+        .then(({ data }) => {
+          if (data.empty === false) {
+            commit('setPOSTs', data.content);
+          }
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
     },
     getPOST(context, payload) {
       http.get(payload).then(({ data }) => {
@@ -157,13 +178,13 @@ export default new Vuex.Store({
     },
     getREPLIES(context) {
       http
-      .get(`/api/reply/list`)
-      .then(({ data }) => {
-        context.commit('setREPLIES', data);
-      })
-      .catch(() => {
-        alert('에러가 발생했습니다.');
-      });
+        .get(`/api/reply/list`)
+        .then(({ data }) => {
+          context.commit('setREPLIES', data);
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
     },
     getREPLY(context, payload) {
       http.get(payload).then(({ data }) => {
@@ -217,10 +238,15 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    moveToblog({ commit }, payload) {
-      this.state.blogname = payload.name
-      commit('setRenderNum', payload.selected)
-      router.push({ name: 'List' })
+    getMyBlog({ commit }) {
+      http.get(`api/blog/list`)
+        .then((res) => {
+          console.log(res.data)
+          commit('setMyBlog', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
 })

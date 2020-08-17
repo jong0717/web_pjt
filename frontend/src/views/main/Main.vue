@@ -1,4 +1,13 @@
 <template>
+  <div>
+    <div class="imgCon">
+      <img src="@/assets/main.png" alt="mainImage" />
+      <div class="startBtn">
+        <router-link to="/blogcreate">
+          <button type="button" class="btn btn-outline-dark">시작하기</button>
+        </router-link>
+      </div>
+    </div>
     <div>
       <hr>
       <h1 class="mt-2">소개</h1>
@@ -35,6 +44,7 @@
         </v-card>
       </v-footer>
     </div>
+  </div>
 </template>
 
 <script>
@@ -100,13 +110,12 @@ export default {
 
 <style scoped>
 img {
-    width: 100%;
+  width: 100%;
 }
 
 .startBtn {
-    margin-bottom: 5vh;
-    width: 100%;
-    border-radius: 1rem !important;
+  margin-bottom: 5vh;
+  width: 100%;
+  border-radius: 1rem !important;
 }
-
 </style>

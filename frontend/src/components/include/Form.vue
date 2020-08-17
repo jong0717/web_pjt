@@ -1,350 +1,34 @@
 <template>
-  <div id="createForm">
-    <div class="form-group"></div>
+  <div class="container">
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field v-model="title" :counter="10" :rules="nameRules" label="제목" required></v-text-field>
+
+      <v-textarea
+          outlined
+          name="input-7-4"
+          label="내용"
+          value=""
+          v-model="content"
+        ></v-textarea>
+      <v-text-field
+            label="Prepend"
+            prepend-icon="mdi-map-marker"
+          ></v-text-field>
+
+
+      <!-- <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
+
+      <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
+
+      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
+    </v-form>
 
     <div class="form-group">
-      <label for="title">제목</label>
-      <input
-        type="text"
-        class="form-control pb-5"
-        id="title"
-        ref="title"
-        placeholder="제목을 입력하세요"
-        v-model="title"
-      />
+      <label for="exampleFormControlFile1"></label>
+      <div><img v-bind:src="defalutImg" alt="" width="180" height="180"></div>
+      <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
     </div>
-
-    <label for="content">내용</label>
-    <v-container class="form-group fill-height pt-0" fluid>
-      <v-row align="center" justify="center">
-        <v-col class="text-center">
-          <!-- Bold -->
-          <div class="justify-content-between">
-            <!-- buttons -->
-            <v-row class="editorbuttons border border-bottom">
-              <!-- H1 -->
-              <v-tooltip top>
-                <template
-                  class="H1"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('formatBlock',false,'<h1>')"
-                >
-                  <v-btn
-                    :href="source"
-                    onclick="document.execCommand('formatBlock',false,'<h1>')"
-                    icon
-                    medium
-                    target="_blank"
-                    v-on="on"
-                  >
-                    <input type="button" class="BOLD" />
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/header-1.png" />
-                  </v-btn>
-                </template>
-                <span>H1</span>
-              </v-tooltip>
-
-              <!-- H2 -->
-              <v-tooltip top>
-                <template
-                  class="H2"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('formatBlock',false,'<h2>')"
-                >
-                  <v-btn
-                    class="ml-4"
-                    :href="source"
-                    onclick="document.execCommand('formatBlock',false,'<h2>')"
-                    icon
-                    medium
-                    target="_blank"
-                    v-on="on"
-                  >
-                    <input type="button" class="BOLD" />
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/header-2.png" />
-                  </v-btn>
-                </template>
-                <span>H2</span>
-              </v-tooltip>
-
-              <!-- H3 -->
-              <v-tooltip top>
-                <template
-                  class="H3"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('formatBlock',false,'<h3>')"
-                >
-                  <v-btn
-                    class="ml-4"
-                    :href="source"
-                    onclick="document.execCommand('formatBlock',false,'<h3>')"
-                    icon
-                    medium
-                    target="_blank"
-                    v-on="on"
-                  >
-                    <input type="button" class="H3" />
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/header-3.png" />
-                  </v-btn>
-                </template>
-                <span>H3</span>
-              </v-tooltip>|
-              <!-- Bold -->
-              <v-tooltip top>
-                <template
-                  class="BOLD"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('bold')"
-                >
-                  <v-btn
-                    :href="source"
-                    onclick="document.execCommand('bold')"
-                    icon
-                    medium
-                    target="_blank"
-                    v-on="on"
-                  >
-                    <input type="button" class="BOLD" />
-                    <i class="fas fa-bold"></i>
-                  </v-btn>
-                </template>
-                <span>Bold</span>
-              </v-tooltip>
-
-              <!-- Italic -->
-              <v-tooltip top>
-                <template
-                  class="BOLD"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('bold')"
-                >
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('Italic')"
-                    v-on="on"
-                  >
-                    <input type="button" class="ITALIC" />
-                    <i class="fas fa-italic"></i>
-                  </v-btn>
-                </template>
-                <span>Italic</span>
-              </v-tooltip>
-
-              <!-- UNDERBAR -->
-
-              <v-tooltip top>
-                <template
-                  class="BOLD"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('createImages')"
-                >
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('createImages')"
-                    v-on="on"
-                  >
-                    <input type="button" class="BAR" />
-                    <i class="fas fa-underline"></i>
-                  </v-btn>
-                </template>
-                <span class="UNDERBAR">underbar</span>
-              </v-tooltip>
-
-              <!-- BAR -->
-              <v-tooltip top>
-                <template
-                  class="BOLD"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('bold')"
-                >
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('StrikeThrough')"
-                    v-on="on"
-                  >
-                    <input type="button" class="BAR" />
-                    <i class="fas fa-strikethrough"></i>
-                  </v-btn>
-                </template>
-                <span class="strikethrough">strikethrough</span>
-              </v-tooltip>
-
-              <!-- Undo -->
-              |
-              <v-tooltip top>
-                <template v-slot:activator="{ on }" onclick="document.execCommand('Undo')">
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('Undo')"
-                    v-on="on"
-                  >
-                    <input type="button" class="Undo" />
-                    <i class="fas fa-undo"></i>
-                  </v-btn>
-                </template>
-                <span class="Undo">Undo</span>
-              </v-tooltip>
-
-              <!-- redo -->
-              <v-tooltip top>
-                <template v-slot:activator="{ on }" onclick="document.execCommand('Redo')">
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('Redo')"
-                    v-on="on"
-                  >
-                    <input type="button" class="Redo" />
-                    <i class="fas fa-redo"></i>
-                  </v-btn>
-                </template>
-                <span class="Redo">Redo</span>
-              </v-tooltip>
-
-              <!-- images -->
-              |
-              <v-tooltip top>
-                <template v-slot:activator="{ on }" onclick="document.execCommand('Images')">
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('images')"
-                    v-on="on"
-                  >
-                    <input type="button" class="Imgaes" />
-                    <i class="fas fa-images"></i>
-                  </v-btn>
-                </template>
-                <span class="Images">Images</span>
-              </v-tooltip>
-
-              <!-- link -->
-              <v-tooltip top>
-                <template v-slot:activator="{ on }" onclick="document.execCommand('Link')">
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('Link')"
-                    v-on="on"
-                  >
-                    <input type="button" class="Link" />
-                    <i class="fas fa-link"></i>
-                  </v-btn>
-                </template>
-                <span class="Link">Link</span>
-              </v-tooltip>
-
-              <!-- 왼쪽 정렬 -->
-              |
-              <v-tooltip top>
-                <template
-                  class="BOLD asdf"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('bold')"
-                >
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('justifyleft')"
-                    v-on="on"
-                  >
-                    <input type="button" class="asdf" />
-                    <i class="fas fa-align-left"></i>
-                  </v-btn>
-                </template>
-                <span class="UNDERBAR">왼쪽 정렬</span>
-              </v-tooltip>
-
-              <!-- 가운데 정렬 -->
-              <v-tooltip top>
-                <template
-                  class="BOLD asdf"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('bold')"
-                >
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('justifycenter')"
-                    v-on="on"
-                  >
-                    <input type="button" icon="fas fa-equals" />
-                    <i class="fas fa-align-center"></i>
-                  </v-btn>
-                </template>
-                <span class="UNDERBAR">가운데 정렬</span>
-              </v-tooltip>
-
-              <!-- 오른쪽 정렬 -->
-              <v-tooltip top>
-                <template
-                  class="BOLD asdf"
-                  v-slot:activator="{ on }"
-                  onclick="document.execCommand('bold')"
-                >
-                  <v-btn
-                    :href="source"
-                    icon
-                    medium
-                    target="_blank"
-                    onclick="document.execCommand('justifyright')"
-                    v-on="on"
-                  >
-                    <input type="button" class="asdf" />
-                    <i class="fas fa-align-right"></i>
-                  </v-btn>
-                </template>
-                <span class="UNDERBAR">오른쪽 정렬</span>
-              </v-tooltip>|
-              <input
-                v-if="html_switch===true"
-                type="button"
-                value=" Editor"
-                @click="convertToEditor"
-              />
-              <input v-if="html_switch===false" type="button" value=" HTML" @click="convertToHTML" />
-            </v-row>
-
-            <div class="col-1-none"></div>
-
-            <v-row
-              class="editortext editorDIV form-control"
-              type="text"
-              id="content"
-              ref="content"
-              placeholder="내용을 입력하세요"
-              contenteditable="true"
-            ></v-row>
-
-            <div class="editorHTMLDIV"></div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <div class="text-right">
+    <div>
       <button
         class="btn btn-primary"
         id="registerBtn"
@@ -357,18 +41,14 @@
   </div>
 </template>
 
+
 <script>
-import $ from "jquery";
-
-$(document).ready(function () {
-  $(".editorHTMLDIV").hide();
-});
-
 export default {
   name: "post-Form",
+  components: {
+  },
   props: {
     type: { type: String },
-    source: String,
   },
   data: function () {
     return {
@@ -377,65 +57,64 @@ export default {
       title: "",
       content: "",
       heart: 0,
-      createDate: "",
-      html_switch: false,
-      drawer: null,
+      createDate: '',
+      defalutImg: '//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png',
+      files: [],
+      flag: true,
+      selectImg: '',
     };
   },
   methods: {
-    convertToHTML: function () {
-      this.content = document.getElementById("content").innerHTML
-      this.html_switch = true;
-      $(".editorHTMLDIV").text($(".editorDIV").html());
-      $(".editorHTMLDIV").show();
-      $(".editorDIV").hide();
-    },
-    convertToEditor: function () {
-      this.html_switch = false;
-      $(".editorDIV").html($(".editorHTMLDIV").text());
-      $(".editorDIV").show();
-      $(".editorHTMLDIV").hide();
-    },
-    mounted: function () {
-      $(".editorHTMLDIV").hide();
-    },
     checkHandler() {
-      this.content = document.getElementById("content").innerHTML
       let err = true;
       let msg = "";
-      !this.uid &&
-        ((msg = "작성자를 입력해주세요"),
-        (err = false),
-        this.$refs.uid.focus());
-      err &&
-        !this.title &&
-        ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
-      err &&
-        !this.content &&
-        ((msg = "내용 입력해주세요"),
-        (err = false),
-        this.$refs.content.focus());
+      // !this.uid &&
+      //   ((msg = "작성자를 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.uid.focus());
+      // err &&
+      //   !this.title &&
+      //   ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
+      // err &&
+      //   !this.content &&
+      //   ((msg = "내용 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
-      this.$http
-        .post(`${this.$store.state.HOST}/api/post/insert`, {
-          pno: this.pno,
-          uid: this.uid,
-          title: this.title,
-          content: this.content,
-          heart: 0,
-          createDate: this.createDate,
-        })
-        .then(() => {
-          alert("등록이 완료되었습니다.");
-          this.moveList();
-        })
-        .catch(() => {
-          alert("등록 처리시 에러가 발생했습니다.");
-        });
+      let i;
+      for (i = 0; i < this.files.length; i++) {
+          let formData = new FormData();
+          formData.append('pno', this.pno)
+          formData.append('bid', 1) // 임시로 해놨어요
+          formData.append('uid', this.uid)
+          formData.append('title', this.title)
+          formData.append('content', this.content)
+          formData.append('heart', this.heart)
+          formData.append('createDate', this.createDate)
+          formData.append('files', this.files[i]);
+          this.$http.post(`${this.$store.state.HOST}/api/post/insert`,
+                  formData, {
+                      headers: {
+                          'Content-Type': 'multipart/form-data'
+                      },
+                  },
+              ).then(function() {
+                  alert('등록이 완료되었습니다.');
+                  // this.$router.push({name: 'List', params: {uid: this.state.uid.uid, bid: bid}});
+                  this.$router.go(-1);
+                  console.log('SUCCESS!!');
+              })
+              .catch(function() {
+                this.$router.push(-1);
+                  console.log('FAILURE!!');
+              });
+              this.$router.go(-1);
+      }
+
     },
     updateHandler() {
       this.$http
@@ -456,7 +135,17 @@ export default {
         });
     },
     moveList() {
-      this.$router.push("/temp1");
+      this.$router.go(-1);
+    },
+    handleFileUpload() {
+                    this.files = this.$refs.files.files;
+                    console.log(this.files);
+                    alert(this.files[0].name)
+                    this.defalutImg = this.files[0].name;
+    },
+    handleFilePondInit: function() {
+            console.log('FilePond has initialized');
+            this.$refs.pond.getFiles();
     },
   },
   created() {
@@ -486,7 +175,7 @@ export default {
   margin-right: 7px;
 }
 
-# {
+#updateBtn {
   font-family: "Jua", sans-serif;
   background-color: gray;
   border-color: gray;
@@ -500,9 +189,9 @@ export default {
 }
 
 #createForm {
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 80%;
+  margin-left: 0%;
+  margin-right: 0%;
+  width: 50%;
   font-family: "Jua", sans-serif;
 }
 </style>

@@ -14,44 +14,43 @@
             <div class="col-9">
               <router-view />
             </div>
-            <div class="col-3">
+            <div class="col-3 aside">
               <Aside />
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- 두번째 폼 -->
-      <div v-if="renderNum==2">
-        <!-- <Header2 /> -->
-        <router-view />
+      <div v-if="renderNum==3">
+        <Home />
       </div>
-
-
     </v-app>
   </div>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
 import Header from "@/components/template1/Header.vue";
-import Header2 from "@/components/template2/Header.vue";
-import HeaderMain from "@/components/main/HeaderMain.vue";
+import HeaderMain from "@/components/main/HeaderMain.vue"
 import Aside from "@/views/template1/post/Aside.vue";
-import Main from "@/views/main/Main.vue";
+import Main from "@/views/main/Main.vue"
+import Home from "@/views/template3/home/Home.vue"
 
-import { mapState } from "vuex";
+
+import { mapState } from 'vuex'
+// import List from '@/views/post/List.vue'
+
 
 export default {
   components: {
     Header,
-    Header2,
     Aside,
     Main,
     HeaderMain,
+    Home,
+
   },
   computed: {
-    ...mapState(["renderNum"]),
-  },
+    ...mapState(['renderNum'])
+  }
 };
 </script>
 <style scoped>
@@ -75,5 +74,26 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+.aside {
+  width: auto;
+  padding-top: 20%;
+  border-left: 0.1em solid #eee;
+  padding: 0.5em;
+}
+/* #router {
+  margin: 20px;
+  height: 66px;
+} */
 
+/* ul {
+  list-style: none;
+  width: auto;
+}
+
+li {
+  float: left;
+  padding: 0 26px;
+  width: auto;
+  list-style: none;
+} */
 </style>
