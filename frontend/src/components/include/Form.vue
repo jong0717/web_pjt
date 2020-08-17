@@ -343,6 +343,24 @@
         </v-col>
       </v-row>
     </v-container>
+    <file-pond
+      name="test"
+      ref="pond"
+      label-idle="Drop files here..."
+      allow-multiple="true"
+      accepted-file-types="image/jpeg, image/png"
+      v-bind:server="server"
+      v-bind:files="myFiles"
+      v-on:init="handleFilePondInit"
+    />
+
+    <div class="form-group">
+      <label for="exampleFormControlFile1"></label>
+      <div>
+        <img v-bind:src="defalutImg" alt width="180" height="180" />
+      </div>
+      <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
+    </div>
 
     <div class="text-right">
       <button
@@ -366,6 +384,11 @@
 
 <script>
 import $ from "jquery";
+import vueFilePond from "vue-filepond";
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 $(document).ready(function () {
   $(".editorHTMLDIV").hide();
@@ -377,6 +400,9 @@ export default {
     type: { type: String },
     source: String,
   },
+  components: {
+    FilePond,
+  },
   data: function () {
     return {
       pno: "",
@@ -385,6 +411,7 @@ export default {
       content: "",
       heart: 0,
       createDate: "",
+<<<<<<< frontend/src/components/include/Form.vue
       defalutImg:
         "//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png",
       files: [],
@@ -392,8 +419,19 @@ export default {
       selectImg: "",
       tag: "",
 
+=======
+      bid: this.$route.params.bid,
+      tag: 'ss',
+>>>>>>> frontend/src/components/include/Form.vue
       html_switch: false,
       drawer: null,
+      defalutImg:
+        "//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png",
+      files: [],
+      flag: true,
+      selectImg: "",
+      myFiles: [],
+      server: `${this.$store.state.HOST}/api/image`,
     };
   },
   methods: {
@@ -414,23 +452,24 @@ export default {
       this.content = document.getElementById("content").innerHTML;
       let err = true;
       let msg = "";
-      !this.uid &&
-        ((msg = "작성자를 입력해주세요"),
-        (err = false),
-        this.$refs.uid.focus());
-      err &&
-        !this.title &&
-        ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
-      err &&
-        !this.content &&
-        ((msg = "내용 입력해주세요"),
-        (err = false),
-        this.$refs.content.focus());
+      // !this.uid &&
+      //   ((msg = "작성자를 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.uid.focus());
+      // err &&
+      //   !this.title &&
+      //   ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
+      // err &&
+      //   !this.content &&
+      //   ((msg = "내용 입력해주세요"),
+      //   (err = false),
+      //   this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
+<<<<<<< frontend/src/components/include/Form.vue
       this.$http
         .post(`${this.$store.state.HOST}/api/post/insert`, {
           pno: this.pno,
@@ -452,6 +491,73 @@ export default {
           alert("등록 처리시 에러가 발생했습니다.");
         });
     },
+=======
+      console.log('글쓰기실행')
+      let i;
+      for (i = 0; i < this.files.length; i++) {
+        let formData = new FormData();
+        // formData.append("pno", this.pno);
+        formData.append("uid", this.uid);
+        formData.append("title", this.title);
+        formData.append("content", this.content);
+        formData.append("heart", this.heart);
+        // formData.append("createDate", this.createDate);
+        formData.append("files", this.files[i]);
+        formData.append("bid", this.bid);
+        formData.append("tag", this.tag);
+        this.$http
+          .post(`${this.$store.state.HOST}/api/post/insert`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            alert("등록이 완료되었습니다.");
+            // this.$router.push("/temp1");
+            this.$router.go(-1)
+            console.log(res, "SUCCESS!!");
+          })
+          .catch((err) => {
+            // this.$router.push("/temp1");
+            this.$router.go(-1)
+            console.log(err, "FAILURE!!");
+          });
+        // this.$router.push("/temp1");
+        // this.$router.go(-1)
+      }
+    },
+    updateHandler() {
+      this.$http
+        .put(`${this.$store.state.HOST}/api/post/modify/${this.pno}`, {
+          pno: this.pno,
+          uid: this.uid,
+          title: this.title,
+          content: this.content,
+          heart: 0,
+          createDate: this.createDate,
+        })
+        .then(() => {
+          alert("수정이 완료되었습니다.");
+          this.moveList();
+        })
+        .catch(() => {
+          alert("수정 처리시 에러가 발생했습니다.");
+        });
+    },
+    moveList() {
+      this.$router.push("/temp1");
+    },
+    handleFileUpload() {
+      this.files = this.$refs.files.files;
+      console.log(this.files);
+      alert(this.files[0].name);
+      this.defalutImg = this.files[0].name;
+    },
+    handleFilePondInit: function () {
+      console.log("FilePond has initialized");
+      this.$refs.pond.getFiles();
+    },
+>>>>>>> frontend/src/components/include/Form.vue
   },
 
   updateHandler() {
