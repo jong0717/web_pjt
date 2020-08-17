@@ -1,8 +1,64 @@
 <template>
   <div>
     <div class="container mt-3">
-    <BlogList />
-      <div class="input-group flex-nowrap mt-2">
+      <v-sheet class="mx-auto" elevation="8" max-width="800">
+        <v-slide-group v-model="selectedData.template_num" class="pa-4" show-arrows>
+          <!-- <v-slide-item v-for="n in 3" :key="n"> -->
+          <!-- <v-slide-item v-for="image in images" :key="image" v-slot:default="{ active, toggle }"> -->
+          <v-slide-item v-slot:default="{ toggle }" class="ma-2" >
+            <v-card
+              @click="toggle"
+              class="tmpcard ma-4"
+            >
+            <img src="@/assets/template/tmp1.png" alt="" class="imgitem">
+<!-- 
+              <v-row class="fill-height" align="center" justify="center">
+                <v-scale-transition>
+                  <v-icon v-if="active" color="white"  v-text="'mdi-close-circle-outline'"></v-icon>
+                </v-scale-transition>
+              </v-row> -->
+            </v-card>
+         </v-slide-item>
+         <v-slide-item v-slot:default="{ toggle }">
+            <v-card
+              @click="toggle"
+              class="ma-4"
+            >
+            <img src="@/assets/template/tmp2.png" alt="" class="imgitem">
+
+              <!-- <v-row class="fill-height" align="center" justify="center">
+                <v-scale-transition>
+                  <v-icon v-if="active" color="white" v-text="'mdi-close-circle-outline'"></v-icon>
+                </v-scale-transition>
+              </v-row> -->
+            </v-card>
+         </v-slide-item>
+         <v-slide-item v-slot:default="{ toggle }">
+            <v-card
+              @click="toggle"
+              class="ma-4"
+            >
+            <img src="@/assets/template/tmp3.png" alt="" class="imgitem">
+<!-- 
+              <v-row class="fill-height " align="center" justify="center">
+                <v-scale-transition>
+                  <v-icon  class="XBtn" v-if="active" color="white" v-text="'mdi-close-circle-outline'"></v-icon>
+                </v-scale-transition>
+              </v-row> -->
+            </v-card>
+         </v-slide-item>
+        </v-slide-group>
+
+        <v-expand-transition>
+          <v-sheet v-if="selectedData.template_num != null" color="grey lighten-4" height="180" tile>
+            <v-row class="fill-height" align="center" justify="center">
+              <h3 class="title">template {{ selectedData.template_num+1 }}</h3>
+            </v-row>
+          </v-sheet>
+        </v-expand-transition>
+      </v-sheet>
+
+      <div class="input-group flex-nowrap mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">블로그Get</span>
         </div>
@@ -18,9 +74,9 @@
           <option value="2">template2</option>
           <option value="3">template3</option>
         </select>
-      </div>
-        <!-- <button @click="moveToblog(selectedData)" class="ml-1 B-CreateBtn">Get</button> -->
-        <v-btn @click="moveToblog(selectedData)" x-large color="success" dark>시작하기</v-btn>
+      </div>-->
+      <!-- <button @click="moveToblog(selectedData)" class="ml-1 B-CreateBtn">Get</button> -->
+      <v-btn @click="createBlog(selectedData)" x-large rounded outlined color="success" class='mt-3'>시작하기</v-btn>
     </div>
   </div>
 </template>
@@ -38,13 +94,16 @@ export default {
   data() {
     return {
       selectedData: {
-        selected: '',
-        name: '',
-      }
-    }
+        template_num: null,
+        blogname: "",
+        bid: "",
+        uid: this.$store.state.uid.uid,
+        visitors_num: 0,
+      },
+    };
   },
   methods: {
-    ...mapActions(['moveToblog'])
+    ...mapActions(["createBlog"]),
   },
   mounted() {
     this.$store.state.renderNum = 0

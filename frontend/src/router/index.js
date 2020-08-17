@@ -28,6 +28,7 @@ import store from '@/store'
 // hong place(template3)
 // 1.home
 import Home from '@/views/template3/home/Home.vue'
+import RecentList from '@/views/template3/post/RecentList.vue'
 // +재완
 // lsit2
 import List2 from '@/views/template2/post/List2.vue'
@@ -124,6 +125,17 @@ const routes = [
     name:'Home',
     component:Home
   },
+  // temp3/post
+  {
+    path: '/3/:uid/:bid/create',
+    name: 'Create3',
+    component: Create3,
+  },
+  {
+    path: '/3/:uid/:bid/list',
+    name: 'RecentList',
+    component: RecentList,
+  }
   // 재완
   {
     path: '/temp2',

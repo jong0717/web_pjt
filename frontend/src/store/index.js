@@ -172,17 +172,50 @@ export default new Vuex.Store({
     },
     search({ commit }, searchInput) {
       http.get(`api/post/search/${searchInput}`)
-      .then((res) => {
-        // console.log(res.data)
-        this.state.searchFlag = true
-        this.state.newPostsArr = []
-        this.state.posts = []
-        this.state.pnoArr = []
-        commit('setPOSTs', res.data)
-      .catch((err) => {
-        console.log(err)
+        .then((res) => {
+          console.log(res.data)
+          this.state.searchFlag = true
+          this.state.newPostsArr = []
+          this.state.posts = []
+          this.state.pnoArr = []
+          commit('setPOSTs', res.data)
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+    },
+    moveToBlog({ commit }, payload) {
+      this.state.blogname = payload.blogname
+      commit('setRenderNum', payload.template_num)
+      // router.push({ name: 'List' })
+      if (payload.template_num == 1) {
+        router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: payload.bid } })
+      } else if (payload.template_num == 3) {
+        router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: payload.bid } })
+      }
+    },
+    createBlog({ commit }, payload) {
+      http.post(`api/blog/insert`, {
+        bid: payload.bid,
+        blogname: payload.blogname,
+        template_num: payload.template_num+1,
+        uid: payload.uid,
+        visitors_num: payload.visitors_num,
+        // payload
       })
-      })
+        .then((res) => {
+          commit('setRenderNum', payload.template_num+1)
+          console.log(res.data)
+          // router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
+          if (payload.template_num == 0) {
+            router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
+          } else if (payload.template_num == 2) {
+            router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: res.data } })
+          } // blogcreate 시에 값이 0 1 2로 되어 있어 일단 이렇게
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     moveToblog({ commit }, payload) {
       this.state.blogname = payload.name

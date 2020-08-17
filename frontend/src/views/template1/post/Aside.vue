@@ -19,6 +19,35 @@
 <script>
 export default {
   name: "Aside",
+  data: function(){
+    return {
+      count: '',
+    }
+  },
+  // created(){
+  //   this.getBlog(),
+  //   this.getCount()
+  // },
+  methods: {
+    // getBlog(){
+    //   this.$http.get(`${this.$store.state.HOST}/api/blog/bbbb`)
+    //     .then(({ data }) => {
+    //       this.count = data;
+    //     })
+    //     .catch(() => {
+    //       console.log('에러가 발생했습니다.');
+    //     });
+    // },
+    // getCount(){
+    //   this.$http.get(`${this.$store.state.HOST}/api/blog`)
+    //     .then(({ data }) => {
+    //       this.count = data;
+    //     })
+    //     .catch(() => {
+    //       console.log('에러가 발생했습니다.');
+    //     });
+    // }
+  }
 };
 </script>
 <style scoped>

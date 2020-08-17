@@ -17,12 +17,14 @@
     class="mx-auto my-12"
     max-width="374"
   >
-    <v-img
+    <v-img v-if="post.img === null"
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
     ></v-img>
 
-    <v-card-title>{{ post.title }}</v-card-title>
+    <div v-if="post.img !== null">
+      <img :src="'https://storage.googleapis.com/getblog/'+post.img" alt="" width="350px">
+    </div>
 
     <v-card-text>
       <v-row
@@ -80,9 +82,8 @@
   </v-card>
   <!-- <div><h1>여기에 나와야 돼</h1></div> -->
     <div class="text-center">
-      <router-link to="/temp1"
-        ><button class="btn btn-primary" id="listBtn">목록</button></router-link
-      >&nbsp;
+      <button @click="back" class="btn btn-primary" id="listBtn">목록</button>
+      &nbsp;
       <router-link :to="'/update?pno=' + post.pno"
         ><button class="btn btn-primary" id="updateBtn">수정</button></router-link
       >
@@ -213,6 +214,9 @@ export default {
           title: '운암동루덴스'
         }, headers
       } )
+    },
+    back() {
+      this.$router.go(-1)
     }
   },
 };
