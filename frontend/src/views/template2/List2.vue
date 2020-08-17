@@ -1,5 +1,6 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
+      <h1>왜안돼</h1>
     <v-navigation-drawer v-model="drawer" app>
       <v-list dense>
         <!-- home -->
