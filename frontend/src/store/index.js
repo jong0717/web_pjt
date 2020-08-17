@@ -154,9 +154,10 @@ export default new Vuex.Store({
       router.go()
     },
     // post
-    getPOSTs({ commit, state }) {
+    getPOSTs({ commit, state }, bid) {
+      console.log(bid)
       http
-        .get(`/api/post/list`, {
+        .get(`/api/post/list/${bid}`, {
           params: {
             page: state.page++,
             size: 4,
