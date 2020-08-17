@@ -15,7 +15,7 @@ export default {
     
   },
   mounted() {
-    this.$store.state.renderNum = 1;
+    this.$store.state.renderNum = 2;
   }
 };
 </script>

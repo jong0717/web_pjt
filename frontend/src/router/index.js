@@ -32,6 +32,8 @@ import RecentList from '@/views/template3/post/RecentList.vue'
 // +재완
 // lsit2
 import List2 from '@/views/template2/List2.vue'
+import Create2 from '../views/template2/post/Create2.vue'
+
 
 Vue.use(VueRouter)
 
@@ -124,6 +126,11 @@ const routes = [
     path:'/2/:uid/:bid',
     name:'List2',
     component:List2
+  },
+  {
+    path: '/2/:uid/:bid/create',
+    name: 'Create2',
+    component: Create2,
   },
   // temp3
   {

@@ -354,6 +354,13 @@
       <button class="btn btn-primary" id="updateBtn" v-else @click="checkHandler">수정</button>
       <button class="btn btn-primary" id="listBtn" @click="moveList">목록</button>
     </div>
+    <div class="form-group">
+      <label for="exampleFormControlFile1"></label>
+      <div>
+        <img v-bind:src="defalutImg" alt width="180" height="180" />
+      </div>
+      <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
+    </div>
   </div>
 </template>
 
@@ -378,6 +385,13 @@ export default {
       content: "",
       heart: 0,
       createDate: "",
+      defalutImg:
+        "//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png",
+      files: [],
+      flag: true,
+      selectImg: "",
+      tag: "",
+
       html_switch: false,
       drawer: null,
     };
@@ -424,38 +438,54 @@ export default {
           title: this.title,
           content: this.content,
           heart: 0,
+          tag: null,
           createDate: this.createDate,
+          bid: this.$route.params.bid,
+          files: this.files[0],
         })
         .then(() => {
           alert("등록이 완료되었습니다.");
           this.moveList();
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           alert("등록 처리시 에러가 발생했습니다.");
         });
     },
-    updateHandler() {
-      this.$http
-        .put(`${this.$store.state.HOST}/api/post/modify/${this.pno}`, {
-          pno: this.pno,
-          uid: this.uid,
-          title: this.title,
-          content: this.content,
-          heart: 0,
-          createDate: this.createDate,
-        })
-        .then(() => {
-          alert("수정이 완료되었습니다.");
-          this.moveList();
-        })
-        .catch(() => {
-          alert("수정 처리시 에러가 발생했습니다.");
-        });
-    },
-    moveList() {
-      this.$router.push("/temp1");
-    },
   },
+
+  updateHandler() {
+    this.$http
+      .put(`${this.$store.state.HOST}/api/post/modify/${this.pno}`, {
+        pno: this.pno,
+        uid: this.uid,
+        title: this.title,
+        content: this.content,
+        heart: 0,
+        createDate: this.createDate,
+      })
+      .then(() => {
+        alert("수정이 완료되었습니다.");
+        this.moveList();
+      })
+      .catch(() => {
+        alert("수정 처리시 에러가 발생했습니다.");
+      });
+  },
+  moveList() {
+    this.$router.push("/temp1");
+  },
+  handleFileUpload() {
+    this.files = this.$refs.files.files;
+    console.log(this.files);
+    alert(this.files[0].name);
+    this.defalutImg = this.files[0].name;
+  },
+  handleFilePondInit: function () {
+    console.log("FilePond has initialized");
+    this.$refs.pond.getFiles();
+  },
+
   created() {
     if (this.type === "update") {
       this.$http
