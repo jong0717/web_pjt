@@ -21,11 +21,12 @@
             <v-list-item-title>최근 쓴 글</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <div v-for="(item, index) in newPosts" :key="index + '_posts'">
+        <v-list-asadfasdf div v-for="(item, index) in newPosts" :key="index + '_posts'">
           <router-link :to="'/read?pno='+item.pno">
-            <p v-if="index<5" class="my-4 subtitle-1">{{item.title}}</p>
+            <p v-if="index<5" class="recently my-4 subtitle-1">{{item.title}}</p>
+            
           </router-link>
-        </div>
+        </v-list-asadfasdf>
       </v-list>
     </v-navigation-drawer>
 
@@ -53,6 +54,11 @@
           <template v-slot:aside>
             <b-img width="80" alt="placeholder" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></b-img>
           </template>
+
+          <div v-for="(item, index) in newPosts" :key="index + '_posts'">
+            <div v-if="index=0"></div>
+            {{ item }}
+          </div>
           <router-link :to="'/read?pno='+item.pno">
             <h5 class="mt-0 mb-1">{{ index+1 }}. {{item.title}}</h5>
             <!-- <h5 v-if="index%2==0" class="mt-0 mb-1">{{ index+1 }}. {{item.title}}</h5> -->

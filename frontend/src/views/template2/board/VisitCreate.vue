@@ -30,7 +30,6 @@ export default {
         createVisit() {
             this.visitlist.push(this.content)
             this.content = null
-
         }
     }
 }
