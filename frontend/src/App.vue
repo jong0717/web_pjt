@@ -20,6 +20,9 @@
           </div>
         </div>
       </div>
+       <div v-if="renderNum==2">
+        <router-view />
+      </div>
       <div v-if="renderNum==3">
         <Home />
       </div>
