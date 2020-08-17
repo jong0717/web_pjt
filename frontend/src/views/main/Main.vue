@@ -37,7 +37,7 @@
           <p class="mb-0">TEL:02-1234-4566</p>
           </v-card-text>
           <v-divider></v-divider>
-
+    
           <v-card-text class="white--text pt-0">
             COPYRIGHT (c) 2017-{{ new Date().getFullYear() }}. All rights reserved. 
           </v-card-text>
