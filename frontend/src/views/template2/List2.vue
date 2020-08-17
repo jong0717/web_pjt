@@ -1,6 +1,6 @@
 <template>
   <v-app>
-      <h1>왜안돼</h1>
+    <h1>왜안돼</h1>
     <v-navigation-drawer v-model="drawer" app>
       <v-list dense>
         <!-- home -->
@@ -82,10 +82,10 @@ export default {
   },
   updated() {
     this.loadUntilViewportIsFull();
-      },
+  },
   methods: {
     movePage() {
-      this.$router.push("/create");
+      this.$router.push({ name: "Create2" });
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");

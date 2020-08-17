@@ -70,14 +70,14 @@ export default {
   // },
   mounted() {
     this.addScrollWatcher();
-    this.$store.state.renderNum = 1;
+    this.$store.state.renderNum = 2;
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
     movePage() {
-      this.$router.push({ name:'Create' });
+      this.$router.push({ name:'Create2' });
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
