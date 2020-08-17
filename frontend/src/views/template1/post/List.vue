@@ -86,9 +86,9 @@ export default {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
       watcher.enterViewport(() => {
-        console.log("___BOTTOM___");
-        if (this.$store.state.searchFlag === false) {
-          setTimeout(() => {
+        // console.log("___BOTTOM___");
+        if (this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
+          setTimeout(() => { // Main이랑 Detail에서 자꾸 여기 함수 실행돼서 막으려고 이렇게 해놓았습니다.
             this.$store.dispatch("getPOSTs", this.$route.params.bid);
           }, 500);
         }
@@ -97,7 +97,7 @@ export default {
     loadUntilViewportIsFull() {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
-      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false) {
+      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
         this.$store.dispatch("getPOSTs", this.$route.params.bid);
       }
     },

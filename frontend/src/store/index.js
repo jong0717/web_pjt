@@ -168,8 +168,9 @@ export default new Vuex.Store({
             commit('setPOSTs', data.content);
           }
         })
-        .catch(() => {
-          alert('에러가 발생했습니다.');
+        .catch((err) => {
+          alert('글을 가져오는 데 에러가 발생했습니다.');
+          console.log(err)
         });
     },
     getPOST(context, payload) {
@@ -211,11 +212,11 @@ export default new Vuex.Store({
       commit('setRenderNum', payload.template_num)
       // router.push({ name: 'List' })
       if (payload.template_num == 1) {
-        router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: payload.bid } })
+        router.push({ name: 'List', params: { bid: payload.bid } })
       } else if (payload.template_num == 2) {
-        router.push({ name: 'List2', params: { uid: this.state.uid.uid, bid: payload.bid } })
+        router.push({ name: 'List2', params: { bid: payload.bid } })
       } else if (payload.template_num == 3) {
-        router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: payload.bid } })
+        router.push({ name: 'Home', params: { bid: payload.bid } })
       }
     },
     createBlog({ commit }, payload) {
@@ -232,11 +233,11 @@ export default new Vuex.Store({
           console.log(res.data)
           // router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
           if (payload.template_num == 0) {
-            router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
+            router.push({ name: 'List', params: { bid: res.data } })
           } else if (payload.template_num == 1) {
-            router.push({ name: 'List2', params: { uid: this.state.uid.uid, bid: res.data } })
+            router.push({ name: 'List2', params: { bid: res.data } })
           } else if (payload.template_num == 2) {
-            router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: res.data } })
+            router.push({ name: 'Home', params: { bid: res.data } })
           } // blogcreate 시에 값이 0 1 2로 되어 있어 일단 이렇게
         })
         .catch((err) => {

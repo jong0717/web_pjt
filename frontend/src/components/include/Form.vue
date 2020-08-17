@@ -498,7 +498,7 @@ export default {
         })
         .then(() => {
           alert("수정이 완료되었습니다.");
-          this.moveList();
+          this.$router.go(-1)
         })
         .catch(() => {
           alert("수정 처리시 에러가 발생했습니다.");

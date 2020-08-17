@@ -48,10 +48,14 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: "main",
   mounted() {
-    this.$store.state.renderNum = 0;
+    this.setRenderNum(0)
+  },
+  methods: {
+    ...mapMutations(['setRenderNum'])
   },
   data: () => ({
     // years: [
@@ -75,7 +79,7 @@ export default {
     historys:[
       {
         title: "회사설립",
-        content:"By 안재완,윤승재,홍순종,심유민,최재혁",
+        content:"By 안재완,윤승재,홍순종,조유민,최재혁",
         color: "cyan",
         year: "2017",
       },
