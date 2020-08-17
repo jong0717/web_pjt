@@ -3,9 +3,20 @@
 
 DROP TABLE IF EXISTS `user`;
 
+CREATE TABLE `user` (
+  `uid` int NOT NULL auto_increment,
+  `nickname` varchar(128) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `password` varchar(128) DEFAULT NULL,
+  `create_date` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `user_idx_unique_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into user(nickname, email, password) values('test', 'test@test.com', 1234);
+
 CREATE TABLE `posts` (
   `pno` int NOT NULL AUTO_INCREMENT,
-  `bid` int NOT NULL,
   `uid` int NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` varchar(1000) NOT NULL,
@@ -14,9 +25,7 @@ CREATE TABLE `posts` (
   `create_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`pno`),
   KEY `post_to_user_fk` (`uid`),
-  KEY `post_to_blog_fk` (`bid`),
-  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) on delete cascade,
-  CONSTRAINT `post_to_blog_fk` FOREIGN KEY (`bid`) REFERENCES `blog` (`bid`) on delete cascade 
+  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 
@@ -30,12 +39,12 @@ CREATE TABLE reply (
   `pno` int NOT NULL,
   `replytext` varchar(1000) NOT NULL,
   `replyer` varchar(50) NOT NULL,
-  `create_date` datetime DEFAULT current_timestamp(),
+  `regtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (rno),
-  CONSTRAINT fk_post FOREIGN KEY (pno) REFERENCES posts(pno) on delete cascade
+  CONSTRAINT fk_post FOREIGN KEY (pno) REFERENCES posts(pno)
 );
 
-SELECT * FROM users;
+SELECT * FROM user;
 
 CREATE TABLE `roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'role id',
@@ -53,7 +62,7 @@ CREATE TABLE `user_roles` (
   `user_id` INT,
   `role_id` INT,
   PRIMARY KEY (`user_id`, `role_id`),
-  FOREIGN KEY (`user_id`) REFERENCES users(`uid`) on delete cascade,
+  FOREIGN KEY (`user_id`) REFERENCES user(`uid`),
   FOREIGN KEY (`role_id`) REFERENCES roles(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -64,15 +73,3 @@ INSERT INTO user_roles(`user_id`, `role_id`) VALUES(1, 3);
 INSERT INTO user_roles(`user_id`, `role_id`) VALUES(2, 1);
 
 SELECT * FROM user_roles;
-
-CREATE TABLE blog (
-  `bid` int NOT NULL AUTO_INCREMENT,
-  `uid` int NOT NULL,
-  `blogname` varchar(100) NOT NULL,
-  `template_num` int NOT NULL,
-  `visitors_num` int default 0,
-  PRIMARY KEY (bid),
-  CONSTRAINT fk_users FOREIGN KEY (uid) REFERENCES users(uid) on delete cascade
-);
-
-$ docker run -p 6379:6379 --name redis_boot -d redis

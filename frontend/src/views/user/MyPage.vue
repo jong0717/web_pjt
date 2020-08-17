@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-6">
+      <div class="col">
         <h3>기본 정보</h3>
         <form class="wrap_set">
           <div class="form-group">
             <div v-if="imageUrl">
-              <img :src="imageUrl" alt width="100px" />
+              <img :src="imageUrl" alt="" width="100px">
             </div>
             <div v-if="!imageUrl">
               <v-gravatar :email="email" />
@@ -27,21 +27,11 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput1">새 비밀번호</label>
-            <input
-              type="password"
-              class="form-control"
-              id="exampleFormControlInput1"
-              v-model="userData.password"
-            />
+            <input type="password" class="form-control" id="exampleFormControlInput1" v-model="userData.password" />
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">소개</label>
-            <textarea
-              v-model="userData.introduce"
-              class="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-            ></textarea>
+            <textarea v-model="userData.introduce" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
           <div class="row justify-content-around">
             <v-btn @click="editUserinfo" color="success">수정하기</v-btn>
@@ -136,13 +126,12 @@ export default {
         imageUrl: null,
         introduce: null,
         nickname: null,
-        password: null,
-      },
-      dialog: false,
+        password: null
+      }
     };
   },
   methods: {
-    ...mapActions(["logout", "getMyBlog", "moveToBlog"]),
+    ...mapActions(['logout']),
     getUserinfo() {
       axios
         .get(`${this.$store.state.HOST}/account/userinfo`, {
@@ -154,42 +143,36 @@ export default {
           console.log(res.data);
           this.email = res.data.email;
           this.userData.nickname = res.data.nickname;
-          this.userData.imageUrl = res.data.imageUrl;
-          this.userData.introduce = res.data.introduce;
+          this.userData.imageUrl = res.data.imageUrl
+          this.userData.introduce = res.data.introduce
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editUserinfo() {
-      axios
-        .put(`${this.$store.state.HOST}/account/modify`, this.userData)
-        .then((res) => {
-          location.reload();
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      axios.put(`${this.$store.state.HOST}/account/modify`, this.userData)
+      .then((res) => {
+        location.reload()
+        console.log(res)
+      })  
+      .catch((err) => {
+        console.log(err)
+      })
     },
     deleteUser() {
-      axios
-        .delete(`${this.$store.state.HOST}/account/withdrawal`, {
-          data: this.$store.state.authToken,
-        })
-        .then((res) => {
-          console.log(res);
-          setTimeout(() => {
-            this.logout();
-          }, 1000);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    moveToBlogCreate() {
-      this.$router.push({ name: "BlogCreate" });
-    },
+      axios.delete(`${this.$store.state.HOST}/account/withdrawal`, {data:this.$store.state.authToken})
+      .then((res) => {
+        console.log(res)
+        setTimeout(() => {
+          this.logout()
+        }, 1000)
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
   mounted() {
     this.getUserinfo();
@@ -199,10 +182,9 @@ export default {
   // created() {
   //   this.getUserinfo();
   // },
-  computed: {
-    ...mapState(["myblog"]),
-    ...mapGetters(["canCreateBlogNum"]),
-  },
+  // computed: {
+  //   ...mapState(['authToken'])
+  // }
 };
 </script>
 

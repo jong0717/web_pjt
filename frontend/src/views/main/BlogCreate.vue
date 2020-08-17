@@ -62,20 +62,13 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">블로그Get</span>
         </div>
-        <input
-          v-model="selectedData.blogname"
-          type="text"
-          class="form-control"
-          placeholder="블로그 이름을 입력하세요."
-          aria-label="Username"
-          aria-describedby="addon-wrapping"
-        />
+        <input v-model="selectedData.name" type="text" class="form-control" placeholder="블로그 이름을 입력하세요." aria-label="Username" aria-describedby="addon-wrapping">
       </div>
-      <!-- <div class="input-group mb-3 mt-2">
+      <div class="input-group mb-3 mt-2">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">디자인Get</label>
         </div>
-        <select v-model="selectedData.template_num" class="custom-select" id="inputGroupSelect01">
+        <select v-model="selectedData.selected" class="custom-select" id="inputGroupSelect01">
           <option selected>원하는 template을 고르세요.</option>
           <option value="1">template1</option>
           <option value="2">template2</option>
@@ -90,20 +83,16 @@
 
 <script>
 // import Main from '@/views/home/Main.vue'
-// import BlogList from '@/components/main/BlogList.vue'
-import { mapActions } from "vuex";
+import BlogList from '@/components/main/BlogList.vue'
+import { mapActions } from 'vuex'
 
 export default {
-  name: "blogcreate",
-  components: {
-    // BlogList,
+  name:'blogcreate',
+  components:{
+    BlogList,
   },
   data() {
     return {
-      model:null,
-      images:[
-        "../../assets/template/tmp1.png","../../assets/template/tmp2.png","../../assets/template/tmp3.png",
-      ],
       selectedData: {
         template_num: null,
         blogname: "",
@@ -117,22 +106,15 @@ export default {
     ...mapActions(["createBlog"]),
   },
   mounted() {
-    this.$store.state.renderNum = 0;
-  },
-};
+    this.$store.state.renderNum = 0
+  }
+}
 </script>
 
 <style>
 .B-CreateBtn {
   background-color: rgb(110, 92, 92);
-  border: lightgray;
+  border : lightgray;
+  
 }
-.imgitem {
-  width: 220px;
-  height: 220px;
-}
-.XBtn {
-  z-index: 100;
-}
-
 </style>

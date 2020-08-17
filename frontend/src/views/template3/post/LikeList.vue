@@ -24,7 +24,7 @@
       <v-btn
         text
         color="deep-purple accent-4"
-      >                                                                                                
+      >
         Read
       </v-btn>
       <v-btn

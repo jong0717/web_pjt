@@ -12,7 +12,7 @@ import Read from '../views/post/Read.vue'
 import Create from '../views/post/Create.vue'
 import Update from '../views/post/Update.vue'
 import Delete from '../views/post/Delete.vue'
-import Create3 from '../views/template3/post/Create3.vue'
+
 // user
 import Join from '@/views/user/Join.vue'
 import Login from '@/views/user/Login.vue'
@@ -31,7 +31,7 @@ import Home from '@/views/template3/home/Home.vue'
 import RecentList from '@/views/template3/post/RecentList.vue'
 // +재완
 // lsit2
-// import List2 from '@/views/template2/post/List2.vue'
+import List2 from '@/views/template2/post/List2.vue'
 
 Vue.use(VueRouter)
 
@@ -64,25 +64,24 @@ const routes = [
     name: 'MyPage',
     component: MyPage
   },
-  // temp1
   {
-    path: '/1/:uid/:bid/visitPage',
+    path: '/visitPage',
     name: 'VisitPage',
     component: VisitPage
   },
   {
-    path: '/1/:uid/:bid/visitCreate',
+    path: '/visitCreate',
     name: 'VisitCreate',
     component: VisitCreate
   },
-  // temp1/post
+  // post
   {
-    path: '/1/:uid/:bid',
+    path: '/temp1',
     name: 'List',
     component: List
   },
   {
-    path: '/1/:uid/:bid/create',
+    path: '/create',
     name: 'Create',
     component: Create,
   },
@@ -119,9 +118,10 @@ const routes = [
     name: 'NotFoundPage',
     component: NotFoundPage
   },
-  // temp3
+    // hong place(template3)
+  // 1. home
   {
-    path:'/3/:uid/:bid',
+    path:'/temp3',
     name:'Home',
     component:Home
   },
@@ -137,11 +137,11 @@ const routes = [
     component: RecentList,
   }
   // 재완
-  // {
-  //   path: '/temp2',
-  //   name: 'List2',
-  //   component: List2
-  // },
+  {
+    path: '/temp2',
+    name: 'List2',
+    component: List2
+  },
 
 ]
 
@@ -151,18 +151,18 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Join', 'List', 'Main']
-  const authPages = ['Login', 'Join']
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['Login', 'Join', 'List', 'Main']
+//   const authPages = ['Login', 'Join']
 
-  const authRequired = !publicPages.includes(to.name)
-  const unauthRequired = authPages.includes(to.name)
-  const isLogin = !!Vue.$cookies.isKey('auth-token')
+//   const authRequired = !publicPages.includes(to.name)
+//   const unauthRequired = authPages.includes(to.name)
+//   const isLogin = !!Vue.$cookies.isKey('auth-token')
 
-  if(unauthRequired && isLogin) {
-    next('/') 
-  }
-  authRequired && !isLogin ? next({ name: 'Login' }) : next()
-})
+//   if(unauthRequired && isLogin) {
+//     next('/') 
+//   }
+//   authRequired && !isLogin ? next({ name: 'Login' }) : next()
+// })
 
 export default router

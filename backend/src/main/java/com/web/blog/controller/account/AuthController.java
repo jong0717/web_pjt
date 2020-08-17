@@ -68,7 +68,7 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
-        // System.out.println(loginRequest.getEmail() + " " + loginRequest.getPassword());
+        System.out.println(loginRequest.getEmail() + " " + loginRequest.getPassword());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -136,6 +136,7 @@ public class AuthController {
         } */
 
         user.setRoles(roles);
+        System.out.println(user);
         userDao.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

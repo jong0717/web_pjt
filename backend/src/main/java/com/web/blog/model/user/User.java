@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -61,8 +60,9 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    // @OneToMany(mappedBy = "role", cascade = { CascadeType.REMOVE })
-    // private List<Role> user_roles;
+    // blog
+    private String blogName;
+    private int templateNumber;
 
     public User() {}
 
@@ -72,6 +72,7 @@ public class User {
         this.password = password;
 
         this.provider = EAuthProvider.local;
+        this.templateNumber = -1;
     }
 
     @Builder
@@ -81,6 +82,7 @@ public class User {
         this.password = password;
 
         this.provider = EAuthProvider.local;
+        this.templateNumber = -1;
     }
 
     public void setUid(String uid) { this.uid = Long.parseLong(uid); }

@@ -3,27 +3,40 @@
     <v-navigation-drawer
       v-model="drawer"
       app
-      :color="color"
-      :expand-on-hover="expandOnHover"
-      :mini-variant="miniVariant"
-      :right="right"
-      :permanent="permanent"
-      :src="bg"
-      absolute
-      dark
-      class='Nav'
+      right
+      
     >
-      <v-list dense nav class="py-0 backimg">
-        <div>
-          <v-list-item two-line :class="miniVariant && 'px-0'">
-          <!-- <i class="fas fa-bars fa-lg" @click.stop="drawer = !drawer"></i> -->
-            <v-list-item-content></v-list-item-content>
+      <v-list dense>
 
-            <v-text-field :rules="rules" placeholder="Search" v-model="searchInput" class="SEARCH"></v-text-field>
-            <i class="fas fa-search" @click="search(searchInput)"></i>
-          </v-list-item>
-          <v-divider></v-divider>
-        </div>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <router-link :to="{ name: 'list3' }"><v-list-item-title>Home</v-list-item-title></router-link>
+          </v-list-item-content>
+        </v-list-item>
+ 
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-email</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>Contact</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-tag</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>Tag</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
         <div>
           <v-avatar color="light">
@@ -41,107 +54,60 @@
       </v-list>
     </v-navigation-drawer>
 
-    <!-- <v-app-bar
+    <v-app-bar
       app
-      color="indigo"
+      color="blue lighten-3"
       dark
     >
+      <v-spacer></v-spacer>
+
+      <v-toolbar-title>Myblog</v-toolbar-title>
+
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar> -->
+    </v-app-bar>
 
     <v-main>
+      <LikeList class="mt-3" />
       <v-container
         class="fill-height"
         fluid
       >
+            <RecentList />
         <v-row
           align="center"
           justify="center"
         >
           <v-col class="text-center">
-
-            <Sidebar/>
-            <!-- <RecentList /> -->
-            <router-view />
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> 
     </v-main>
 
+    <v-footer
+      color="blue lighten-3"
+      app
+    >
+      <v-spacer></v-spacer>
+
+      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import Sidebar from "@/components/template3/Sidebar.vue";
-// import BootstrapSidebar from '@/components/template3/BootstrapSidebar.vue'
-// import RecentList from "@/views/template3/post/RecentList.vue";
-import { mapActions, mapState } from "vuex";
-export default {
-  name: "home",
-  components: {
-    Sidebar,
-    // BootstrapSidebar,
-    // RecentList,
-  },
-  data() {
-    return {
-      searchInput: "",
-      // right: false,
-      // permanent: true,
-      // miniVariant: false,
-      // expandOnHover: false,
-      background: true,
-    };
-  },
-  methods: {
-    ...mapActions(["search"]),
-  },
-  computed: {
-    ...mapState(['blogname']),
-    bg() {
-      return this.background
-        ? "https://i.pinimg.com/originals/5b/4f/12/5b4f120836f452f0f916a7eb885fdd98.jpg"
-        : undefined;
+import LikeList from '@/views/template3/post/LikeList.vue'
+import RecentList from '@/views/template3/post/RecentList.vue'
+  export default {
+    name: 'LayoutsDemosBaselineFlipped',
+    props: {
+      source: String,
     },
-  },
-  mounted() {
-    this.$store.state.renderNum = 3;
-  },
-};
+    components: {
+      LikeList,
+      RecentList
+    },
+    data: () => ({
+      drawer: null,
+    }),
+  }
 </script>
-
-
-<style scoped>
-/* #background {
-  position: relative;
-  top: 0;
-  left: 0;
-
-  /* Preserve aspet ratio */
-/* min-width: 100%;
-  min-height: 100%;
-} */
-.searchBtn {
-  min-width: 36px !important;
-  height: 36px;
-}
-.SEARCH {
-  width: 60%;
-  height: 60%;
-}
-i {
-  color: white;
-}
-
-.backimg {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-.Nav {
-  position:fixed;
-}
-
-</style>
