@@ -68,23 +68,23 @@ const routes = [
   },
   // temp1
   {
-    path: '/1/:uid/:bid/visitPage',
+    path: '/1/:bid/visitPage',
     name: 'VisitPage',
     component: VisitPage
   },
   {
-    path: '/1/:uid/:bid/visitCreate',
+    path: '/1/:bid/visitCreate',
     name: 'VisitCreate',
     component: VisitCreate
   },
   // temp1/post
   {
-    path: '/1/:uid/:bid',
+    path: '/1/:bid',
     name: 'List',
     component: List
   },
   {
-    path: '/1/:uid/:bid/create',
+    path: '/1/:bid/create',
     name: 'Create',
     component: Create,
   },
@@ -123,7 +123,7 @@ const routes = [
   },
   // temp2
   {
-    path:'/2/:uid/:bid',
+    path:'/2/:bid',
     name:'List2',
     component:List2
   },
@@ -134,18 +134,18 @@ const routes = [
   },
   // temp3
   {
-    path:'/3/:uid/:bid',
+    path:'/3/:bid',
     name:'Home',
     component:Home
   },
   // temp3/post
   {
-    path: '/3/:uid/:bid/create',
+    path: '/3/:bid/create',
     name: 'Create3',
     component: Create3,
   },
   {
-    path: '/3/:uid/:bid/list',
+    path: '/3/:bid/list',
     name: 'RecentList',
     component: RecentList,
   }

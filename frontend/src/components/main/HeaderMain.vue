@@ -20,9 +20,12 @@ export default {
   },
     methods: {
     ...mapActions(["logout", "search"]),
+    created() {
+      this.$store.state.renderNum = '0'
+  },
     mounted() {
-    this.$store.state.renderNum = 0
-  }
+      this.$store.state.renderNum = '0'
+    }
   },
 };
 </script>

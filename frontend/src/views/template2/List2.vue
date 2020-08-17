@@ -72,7 +72,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "List",
+  name: "List2",
   computed: {
     ...mapGetters(["posts", "newPosts"]),
   },
@@ -94,9 +94,10 @@ export default {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
       watcher.enterViewport(() => {
-        if (this.$store.state.searchFlag === false) {
+        // console.log("___BOTTOM2___");
+        if (this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
           setTimeout(() => {
-            this.$store.dispatch("getPOSTs");
+            this.$store.dispatch("getPOSTs", this.$route.params.bid);
           }, 500);
         }
       });
@@ -104,8 +105,9 @@ export default {
     loadUntilViewportIsFull() {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
-      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false) {
-        this.$store.dispatch("getPOSTs");
+      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
+        this.$store.dispatch("getPOSTs", this.$route.params.bid);
+
       }
     },
     reload() {

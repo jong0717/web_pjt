@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-       <div v-if="renderNum==2">
+      <div v-if="renderNum==2">
         <router-view />
       </div>
       <div v-if="renderNum==3">
@@ -29,12 +29,12 @@
     </v-app>
   </div>
 </template>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
+
 <script>
 import Header from "@/components/template1/Header.vue";
 import HeaderMain from "@/components/main/HeaderMain.vue"
 import Aside from "@/views/template1/post/Aside.vue";
-import Main from "@/views/main/Main.vue"
+// import Main from "@/views/main/Main.vue"
 import Home from "@/views/template3/home/Home.vue"
 
 
@@ -46,7 +46,7 @@ export default {
   components: {
     Header,
     Aside,
-    Main,
+    // Main,
     HeaderMain,
     Home,
 
