@@ -49,3 +49,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+i:hover {
+  cursor:pointer;
+}
+</style>
