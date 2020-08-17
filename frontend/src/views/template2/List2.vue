@@ -81,6 +81,31 @@ export default {
   },
   updated() {
     this.loadUntilViewportIsFull();
+      },
+  methods: {
+    movePage() {
+      this.$router.push("/create");
+    },
+    getFormatDate(createDate) {
+      return moment(new Date(createDate)).format("YYYY.MM.DD");
+    },
+    addScrollWatcher() {
+      const bottomSensor = document.querySelector("#bottomSensor");
+      const watcher = scrollMonitor.create(bottomSensor);
+      watcher.enterViewport(() => {
+        if (this.$store.state.searchFlag === false) {
+          setTimeout(() => {
+            this.$store.dispatch("getPOSTs");
+          }, 500);
+        }
+      });
+    },
+    loadUntilViewportIsFull() {
+      const bottomSensor = document.querySelector("#bottomSensor");
+      const watcher = scrollMonitor.create(bottomSensor);
+      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false) {
+        this.$store.dispatch("getPOSTs");
+
       }
     },
     reload() {
@@ -94,6 +119,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .list {
   /* border-right: 0.1em solid #eee; */

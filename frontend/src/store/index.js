@@ -211,6 +211,8 @@ export default new Vuex.Store({
       // router.push({ name: 'List' })
       if (payload.template_num == 1) {
         router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: payload.bid } })
+      } else if (payload.template_num == 2) {
+        router.push({ name: 'List2', params: { uid: this.state.uid.uid, bid: payload.bid } })
       } else if (payload.template_num == 3) {
         router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: payload.bid } })
       }
@@ -230,6 +232,8 @@ export default new Vuex.Store({
           // router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
           if (payload.template_num == 0) {
             router.push({ name: 'List', params: { uid: this.state.uid.uid, bid: res.data } })
+          } else if (payload.template_num == 1) {
+            router.push({ name: 'List2', params: { uid: this.state.uid.uid, bid: res.data } })
           } else if (payload.template_num == 2) {
             router.push({ name: 'Home', params: { uid: this.state.uid.uid, bid: res.data } })
           } // blogcreate 시에 값이 0 1 2로 되어 있어 일단 이렇게
