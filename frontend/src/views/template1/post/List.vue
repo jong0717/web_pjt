@@ -111,7 +111,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .list {
   /* border-right: 0.1em solid #eee; */
   padding: 0.5em;

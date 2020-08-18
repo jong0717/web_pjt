@@ -34,7 +34,7 @@
         </div>
         <div class="d-flex justify-content-around mb-4">
           <router-link :to="{ name:Home, params: {uid:this.$store.state.uid.uid, bid:3 } }"><i class="fas fa-list"></i></router-link>
-          <router-link class="router-link" to="/create"><i class="fas fa-pen"></i></router-link>
+          <router-link class="router-link" :to="{ name:Create3, params: {uid:this.$store.state.uid.uid, bid:3}}"><i class="fas fa-pen"></i></router-link>
           <router-link to="/visitcreate"><i class="fas fa-book"></i></router-link>
           <router-link to="/user/mypage"><i class="fas fa-user-cog"></i></router-link>
         </div>

@@ -544,13 +544,13 @@ export default {
   border-color: gray;
   margin-right: 7px;
 }
-
+/* 
 # {
   font-family: "Jua", sans-serif;
   background-color: gray;
   border-color: gray;
   margin-right: 7px;
-}
+} */
 
 #listBtn {
   font-family: "Jua", sans-serif;
