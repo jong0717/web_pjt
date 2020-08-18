@@ -20,6 +20,7 @@
         <th scope="col">블로그이름</th>
         <th scope="col">테마</th>
         <th scope="col">이동</th>
+        <th scope="col">삭제</th>
       </tr>
     </thead>
     <tbody v-for="item in myblog" :key="item">
@@ -28,6 +29,7 @@
         <td>{{ item.blogname }}</td>
         <td>{{ item.template_num }}</td>
         <td><i @click="moveToBlog(item)" class="far fa-caret-square-right"></i></td>
+        <td><b-button @click="deleteBlog(item.bid)" variant="outline-danger">삭제하기</b-button></td>
       </tr>
 
     </tbody>
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+import axios from "axios"
 import { mapActions, mapState } from "vuex";
 export default {
   data() {
@@ -43,6 +46,19 @@ export default {
     }},
   methods: {
     ...mapActions(["moveToBlog"]),
+    deleteBlog(bid) {
+      console.log(bid)
+      axios.delete(`${this.$store.state.HOST}/api/blog/` + bid)
+      .then((res) => {
+        alert("삭제가 완료되었습니다")
+        console.log(res)
+        this.$router.go()
+      })
+      .catch((err) => {
+        alert("삭제 처리시 에러가 발생했습니다.")
+        console.log(err)
+      })
+    }
   },
   computed: {
     ...mapState(["myblog"]),

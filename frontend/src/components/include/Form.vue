@@ -361,7 +361,12 @@
       </div>
       <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
     </div>
-
+    <div>
+      <label for="tags-basic">Type a new tag and press enter</label>
+      <b-form-tags input-id="tags-basic" v-model="tags" class="mb-2"></b-form-tags>
+      <p>Value: {{ tags }}</p>
+    </div>
+    <button @click="getTag">getTag</button>
     <div class="text-right">
       <button
         class="btn btn-primary"
@@ -405,7 +410,8 @@ export default {
       heart: 0,
       createDate: "",
       bid: this.$route.params.bid,
-      tag: 'ss',
+      tags: [],
+      tag: '',
       html_switch: false,
       drawer: null,
       defalutImg:
@@ -452,7 +458,8 @@ export default {
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
-      console.log('글쓰기실행')
+      console.log("글쓰기실행");
+      this.getTag()
       let i;
       for (i = 0; i < this.files.length; i++) {
         let formData = new FormData();
@@ -474,12 +481,12 @@ export default {
           .then((res) => {
             alert("등록이 완료되었습니다.");
             // this.$router.push("/temp1");
-            this.$router.go(-1)
+            this.$router.go(-1);
             console.log(res, "SUCCESS!!");
           })
           .catch((err) => {
             // this.$router.push("/temp1");
-            this.$router.go(-1)
+            this.$router.go(-1);
             console.log(err, "FAILURE!!");
           });
         // this.$router.push("/temp1");
@@ -498,7 +505,7 @@ export default {
         })
         .then(() => {
           alert("수정이 완료되었습니다.");
-          this.$router.go(-1)
+          this.$router.go(-1);
         })
         .catch(() => {
           alert("수정 처리시 에러가 발생했습니다.");
@@ -517,6 +524,17 @@ export default {
       console.log("FilePond has initialized");
       this.$refs.pond.getFiles();
     },
+    getTag() {
+      let i
+      for (i = 0; i < (this.tags).length; i++) {
+        if (i === (this.tags).length-1) {
+          this.tag = this.tag + this.tags[i]
+          break
+        }
+        this.tag = this.tag + this.tags[i] + ':' 
+      }
+      console.log(this.tag)
+    }
   },
   created() {
     if (this.type === "update") {

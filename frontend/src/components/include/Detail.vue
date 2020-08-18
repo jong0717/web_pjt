@@ -190,6 +190,9 @@ export default {
   created() {
     this.getNickname(), this.getReplies();
   },
+  mounted() {
+    this.$store.state.renderNum = 1
+  },
   methods: {
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD HH:MM:SS");
