@@ -26,7 +26,6 @@ import { mapGetters } from "vuex"
 
     }),
       mounted() {
-    this.addScrollWatcher();
     this.$store.state.renderNum = 3
   },
   updated() {
@@ -39,17 +38,6 @@ import { mapGetters } from "vuex"
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
     },
-    addScrollWatcher() {
-      const bottomSensor = document.querySelector("#bottomSensor");
-      const watcher = scrollMonitor.create(bottomSensor);
-      watcher.enterViewport(() => {
-        console.log("___BOTTOM___");
-        if (this.$store.state.searchFlag === false) {
-          setTimeout(() => {
-            this.$store.dispatch("getPOSTs");
-          }, 500);
-        }
-      });
     },
     loadUntilViewportIsFull() {
       const bottomSensor = document.querySelector("#bottomSensor");
@@ -61,7 +49,6 @@ import { mapGetters } from "vuex"
     reload() {
       this.$router.go()
     },
-  }
   }
 </script>
 
