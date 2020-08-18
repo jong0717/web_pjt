@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ReplyService {
+
+    private final String errorMessage = "해당 댓글이 없습니다. rno=";
     private final ReplyRepository replyRepository;
 
     @Transactional
@@ -28,7 +30,7 @@ public class ReplyService {
     @Transactional
     public Long update(Long rno, ReplyUpdateRequstDto requestDto) {
         Reply reply = replyRepository.findByRno(rno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. rno=" + rno));
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage + rno));
 
         reply.update(requestDto.getReplytext(), requestDto.getReplyer(), requestDto.getCreateDate());
 
@@ -38,7 +40,7 @@ public class ReplyService {
     @Transactional
     public void delete (Long rno) {
         Reply reply = replyRepository.findByRno(rno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. rno=" + rno));
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage + rno));
 
         replyRepository.delete(reply);
     }
@@ -46,7 +48,7 @@ public class ReplyService {
     @Transactional(readOnly = true)
     public ReplyResponseDto findByRno(Long rno) {
         Reply entity = replyRepository.findByRno(rno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. rno=" + rno));
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage + rno));
         
         return new ReplyResponseDto(entity);
     }

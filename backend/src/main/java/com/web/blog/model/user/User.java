@@ -23,11 +23,9 @@ import java.util.Set;
         uniqueConstraints = { 
             @UniqueConstraint(columnNames = "email") 
         })
-//NON_NULL 사용시 parameter가 null인 경우에 제외
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @Id
-    // 기본 키 생성을 데이터베이스에 위임하는 방식
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
@@ -48,7 +46,6 @@ public class User {
     String introduce;
 
     @JsonIgnore
-    // @NotBlank
     @Size(max = 120)
     private String password;
 

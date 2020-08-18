@@ -3,8 +3,6 @@ package com.web.blog.payload.request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.ToString;
 
-import java.util.Set;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

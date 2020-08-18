@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,7 +23,6 @@ import com.web.blog.model.posts.PostsListResponseDto;
 import com.web.blog.model.posts.PostsResponseDto;
 import com.web.blog.model.posts.PostsSaveRequestDto;
 import com.web.blog.model.posts.PostsUpdateRequestDto;
-import com.web.blog.model.upload.UploadReqDto;
 import com.web.blog.service.GCSService;
 import com.web.blog.service.PostsService;
 

@@ -10,7 +10,6 @@ import com.web.blog.model.blog.BlogResponseDto;
 import com.web.blog.model.blog.BlogSaveRequestDto;
 import com.web.blog.model.blog.BlogUpdateRequestDto;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

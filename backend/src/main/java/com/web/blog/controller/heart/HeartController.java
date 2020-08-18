@@ -41,7 +41,7 @@ public class HeartController {
     public Object clickHeart(@Valid @RequestBody HeartRequest request) {
         Long uid = jwtutils.getUidFromJwtToken(request.getAccessToken());
 
-        if (heartDao.existsByPostPnoAndUserUid(request.getPno(), uid)) {
+        if (Boolean.TRUE.equals(heartDao.existsByPostPnoAndUserUid(request.getPno(), uid))) {
             heartDao.deleteByPostPnoAndUserUid(request.getPno(), uid);
             postDao.minusHeart(request.getPno());
 

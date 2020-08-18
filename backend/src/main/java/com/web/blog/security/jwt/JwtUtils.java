@@ -45,7 +45,7 @@ public class JwtUtils {
     }
 
     public Object getAuthoritiesFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", List.class);
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("roles", List.class);
     }
 
     public boolean validateJwtToken(String authToken) {
