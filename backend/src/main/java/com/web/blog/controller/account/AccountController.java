@@ -2,12 +2,18 @@ package com.web.blog.controller.account;
 
 import javax.validation.Valid;
 
+import com.web.blog.dao.user.RoleDao;
 import com.web.blog.dao.user.UserDao;
 import com.web.blog.model.BasicResponse;
+import com.web.blog.model.blog.Blog;
+import com.web.blog.model.posts.Posts;
 import com.web.blog.payload.request.UserRequest;
 import com.web.blog.payload.response.UserResponse;
 import com.web.blog.security.jwt.JwtUtils;
 import com.web.blog.security.service.UserDetailsServiceImpl;
+import com.web.blog.service.BlogService;
+import com.web.blog.service.GuestbookService;
+import com.web.blog.service.PostsService;
 import com.web.blog.model.user.User;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +47,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/account")
 public class AccountController {
 
+    private final String errorMessage = "유저 정보 얻기 실패";
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -48,7 +56,19 @@ public class AccountController {
     UserDao userDao;
 
     @Autowired
+    RoleDao roleDao;
+
+    @Autowired
     UserDetailsServiceImpl userService;
+
+    @Autowired
+    BlogService blogService;
+
+    @Autowired
+    PostsService postService;
+
+    @Autowired
+    GuestbookService guestbookService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -56,46 +76,11 @@ public class AccountController {
     @Autowired
     PasswordEncoder encoder;
 
-    /* @PostMapping("/signup")
-    @ApiOperation(value = "가입하기")
-    public Object signup(@Valid @RequestBody SignupRequest request) {
-        // 이메일, 닉네임 중복처리 필수
-        // 회원가입단을 생성해 보세요.
-        User user = userDao.getUserByEmail(request.getEmail());
-        
-        final BasicResponse result = new BasicResponse();
-        result.status = true;
-        result.token = 1;
-
-        if (user != null) {
-            result.data = "fail";
-            result.message = "Account for that email already exists.";
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-
-        User user1 = User.builder()
-                            .email(request.getEmail())
-                            .password(request.getPassword())
-                            .nickname(request.getNickname())
-                            .build();
-
-        // System.out.println(user1);
-        userDao.save(user1);
-
-        result.data = "success";
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    } */
-
     @GetMapping("/userinfo")
     @ApiOperation(value = "유저 정보 얻기")
     public Object getUserInfo(@RequestParam(required = true) final String accessToken) {
-        System.out.println(accessToken);
-
         User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(accessToken))
-                            .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
-        
+                            .orElseThrow(() -> new IllegalArgumentException(errorMessage));
 
         return new ResponseEntity<>(new UserResponse(user), HttpStatus.OK);
     }
@@ -105,7 +90,7 @@ public class AccountController {
     public Object modify(@Valid @RequestBody UserRequest request) {
         final BasicResponse result = new BasicResponse();
         User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(request.getAccessToken()))
-                            .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
+                            .orElseThrow(() -> new IllegalArgumentException(errorMessage));
 
         try {
             user.setNickname(request.getNickname());
@@ -141,11 +126,26 @@ public class AccountController {
         final BasicResponse result = new BasicResponse();
 
         try {
+            User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(accessToken))
+                                .orElseThrow(() -> new IllegalArgumentException(errorMessage));
+
+            postService.deleteAllByUsersUid(user.getUid());
+
+            if (user.getBlogs() != null) {
+                for (Blog b : user.getBlogs()) {
+                    guestbookService.deleteAll(b.getBid());
+                    blogService.delete(b.getBid());
+                }
+            }
+
             userDao.deleteByUid(jwtUtils.getUidFromJwtToken(accessToken));
 
             result.status = true;
             result.data = "success";
+            result.message = "회원 탈퇴 성공";
         } catch (Exception e) {
+            e.printStackTrace();
+
             result.status = false;
             result.data = "fail";
             result.message = "회원 탈퇴 실패";

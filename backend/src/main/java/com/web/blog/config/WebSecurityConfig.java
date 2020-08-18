@@ -44,8 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
-    @Autowired
-    private HttpCookieOAuth2AuthorizationRequestDao httpCookieOAuth2AuthorizationRequestDao;
+    // @Autowired
+    // private HttpCookieOAuth2AuthorizationRequestDao httpCookieOAuth2AuthorizationRequestDao;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
@@ -107,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 로그인 없이 접속 가능한 주소들
                 .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
 
-                .antMatchers("/auth/**", "/oauth2/**", "/account/**", "/api/post/**", "/api/reply/**", "/api/blog/**", "/heart/**", "/api/image/**").permitAll()
+                .antMatchers("/auth/**", "/oauth2/**", "/account/**", "/api/post/**", "/api/reply/**", "/api/blog/**", "/heart/**", "/api/image/**", "/guestbook/**").permitAll()
 
                 // admin만 접속 가능한 주소들
                 .antMatchers("/api/admin/**").hasRole("ADMIN")

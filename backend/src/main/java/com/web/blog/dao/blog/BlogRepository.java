@@ -11,10 +11,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface BlogRepository extends JpaRepository<Blog, Long>{
 
-  @Query("SELECT b FROM Blog b ORDER BY b.bid DESC")
+    @Query("SELECT b FROM Blog b ORDER BY b.bid DESC")
     List<Blog> findAllDesc();
 
-    @Query("SELECT b.bid, b.uid, b.blogname, b.template_num, b.visitors_num FROM Blog b, User u WHERE b.bid = :bid and b.uid = u.uid")
+    // @Query("SELECT b.bid, b.uid, b.blogname, b.template_num, b.visitors_num FROM Blog b, User u WHERE b.bid = :bid and b.uid = u.uid")
     Optional<Blog> findByBid(@Param("bid") Long bid);
-  
+
+    void deleteByBid(Long bid);
 }

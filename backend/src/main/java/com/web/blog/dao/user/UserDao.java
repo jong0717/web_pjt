@@ -24,6 +24,9 @@ public interface UserDao extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     Optional<User> findByEmailAndPassword(String email, String password);
 
+    @Query(value = "SELECT nickname FROM users WHERE uid = :uid", nativeQuery = true)
+    Optional<String> findNicknameByUid(@Param("uid") Long uid);
+
     // use executeQuery() -> executeUpdate()
     // Not select query
     @Modifying

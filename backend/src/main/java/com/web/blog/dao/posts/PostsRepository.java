@@ -17,7 +17,6 @@ import javax.transaction.Transactional;
 public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     @Query("SELECT p FROM Posts p, Blog b where p.bid = b.bid ORDER BY p.pno DESC")
-    // List<Posts> findAllDesc();
     Page<Posts> findAllDesc(Pageable pageable, @Param("bid") Long bid);
 
     //@Query("SELECT p.pno, p.uid, p.title, p.content, p.heart, p.createDate, u.nickname FROM Posts p, User u WHERE p.pno = :pno and p.uid = u.uid")
@@ -44,4 +43,7 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("SELECT p FROM Posts p where p.tag like '%' || :tagName || '%'")
     List<Posts> findByTagContaining(@Param("tagName") String tagName);
 
+    @Modifying
+    @Query(value = "DELETE FROM posts WHERE uid = :uid LIMIT :count", nativeQuery = true)
+    int deleteAllByUsersUidFirstN(@Param("uid") Long uid, @Param("count") int count);
 }

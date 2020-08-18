@@ -3,7 +3,9 @@ package com.web.blog.controller.blog;
 import java.util.List;
 
 import com.web.blog.service.BlogService;
+import com.web.blog.service.GuestbookService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 import com.web.blog.model.blog.*;
+import com.web.blog.model.guestbook.Guestbook;
 
 @CrossOrigin(origins = { "http://localhost:3000" })
 @RequiredArgsConstructor
@@ -27,13 +30,14 @@ public class BlogController {
   
   private final BlogService blogService;
 
+  @Autowired
+  GuestbookService guestbookService;
   
   @PostMapping("/api/blog/insert")
   @ApiOperation(value = "블로그 개설하기")
   public Long save(@RequestBody BlogSaveRequestDto requestDto){
     return blogService.save(requestDto);
-}
-
+  }
 
   @PutMapping("api/blog/insert/{bid}")
   @ApiOperation(value = "블로그 이름 수정하기")
@@ -44,8 +48,11 @@ public class BlogController {
   @DeleteMapping("api/blog/{bid}")
   @ApiOperation(value = "블로그 삭제하기")
   public Long delete(@PathVariable Long bid) {
+    Blog blog = blogService.findBlog(bid);
+    if (blog.getGuestbooks() != null)
+      guestbookService.deleteAll(bid);
     blogService.delete(bid);
-      return bid;
+    return bid;
   }
 
   @GetMapping("api/blog/{bid}")

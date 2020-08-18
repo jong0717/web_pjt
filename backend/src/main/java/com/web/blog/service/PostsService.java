@@ -1,6 +1,6 @@
 package com.web.blog.service;
 
-import java.util.LinkedList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class PostsService{
+    private final String errorMessage = "해당 글이 없습니다. pno=";
     private final PostsRepository postsRepository;
 
     @Transactional
@@ -32,7 +33,7 @@ public class PostsService{
     @Transactional
     public Long update(Long pno, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findByPno(pno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. pno=" + pno));
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage + pno));
 
         posts.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getImg(), requestDto.getTag(), requestDto.getCreateDate());
 
@@ -42,7 +43,7 @@ public class PostsService{
     @Transactional
     public void delete (Long pno) {
         Posts posts = postsRepository.findByPno(pno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. pno=" + pno));
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage + pno));
 
         postsRepository.delete(posts);
     }
@@ -50,7 +51,7 @@ public class PostsService{
     @Transactional(readOnly = true)
     public PostsResponseDto findByPno(Long pno) {
         Posts entity = postsRepository.findByPno(pno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. pno=" + pno));
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage + pno));
 
         return new PostsResponseDto(entity);
     }
@@ -59,9 +60,6 @@ public class PostsService{
     public Page<PostsListResponseDto> findAllDesc(int page, int size, Long bid) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pno"));
         return postsRepository.findAllDesc(pageRequest, bid).map(PostsListResponseDto::new);
-        // return postsRepository.findAllDesc().stream()
-        //         .map(PostsListResponseDto::new)
-        //         .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -78,14 +76,10 @@ public class PostsService{
 
     @Transactional(readOnly = true)
 	public List<String> getPostTag(Long pno){
-        List<String> tagList = new LinkedList<>();
         String tag = postsRepository.getPostTag(pno);
         String[] tagArr = tag.split(":");
 
-        for(int i=0; i<tagArr.length; i++)
-            tagList.add(tagArr[i]);
-
-        return tagList;
+        return Arrays.asList(tagArr);
     }
 
     @Transactional(readOnly = true)
@@ -95,4 +89,11 @@ public class PostsService{
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public void deleteAllByUsersUid(Long uid) {
+        int deleteRows = 1;
+        while (deleteRows > 0) {
+            deleteRows = postsRepository.deleteAllByUsersUidFirstN(uid, 50);
+        }
+    }
 }

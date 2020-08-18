@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.web.blog.model.blog.Blog;
+import com.web.blog.model.posts.Posts;
 
 import java.util.HashSet;
 import java.util.List;
@@ -55,14 +57,17 @@ public class User {
     private EAuthProvider provider;
 
     // https://dzone.com/articles/why-set-is-better-than-list-in-manytomany
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE })
     @JoinTable(	name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id"), 
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    // @OneToMany(mappedBy = "role", cascade = { CascadeType.REMOVE })
-    // private List<Role> user_roles;
+    @OneToMany(mappedBy = "user")
+    private List<Posts> posts;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Blog> blogs;
 
     public User() {}
 
