@@ -15,6 +15,7 @@ public class PostsListResponseDto {
     private String img;
     private String tag;
     private LocalDateTime createDate;
+    private boolean clickHeart;
 
     public PostsListResponseDto(Posts entity) {
         this.pno = entity.getPno();
@@ -26,5 +27,19 @@ public class PostsListResponseDto {
         this.img = entity.getImg();
         this.tag = entity.getTag();
         this.createDate = entity.getCreateDate();
+        this.clickHeart = false;
+    }
+
+    public PostsListResponseDto(Posts entity, boolean clickHeart) {
+        this.pno = entity.getPno();
+        this.uid = entity.getUid();
+        this.bid = entity.getBid();
+        this.title = entity.getTitle();
+        this.content = entity.getContent();
+        this.heart = entity.getHeart();
+        this.img = entity.getImg();
+        this.tag = entity.getTag();
+        this.createDate = entity.getCreateDate();
+        this.clickHeart = clickHeart;
     }
 }
