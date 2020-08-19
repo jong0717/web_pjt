@@ -41,11 +41,11 @@
 
         <v-card-actions>
           {{ item.heart }}
-          <v-btn icon color="black">
-            <v-icon>mdi-heart</v-icon>
+          <v-btn v-if="!item.clickHeart" icon color="black">
+            <v-icon @click="like(item.pno)">mdi-heart</v-icon>
           </v-btn>
-          <v-btn icon color="pink">
-            <v-icon>mdi-heart</v-icon>
+          <v-btn v-else icon color="pink">
+            <v-icon @click="like(item.pno)">mdi-heart</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -57,7 +57,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
 import moment from "moment";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "List",
@@ -76,6 +76,7 @@ export default {
     this.loadUntilViewportIsFull();
   },
   methods: {
+    ...mapActions(['like', 'checkLike']),
     movePage() {
       this.$router.push({ name:'Create' });
     },

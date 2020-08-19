@@ -8,6 +8,7 @@ import BlogCreate from '@/views/main/BlogCreate.vue'
 
 // post
 import List from '../views/template1/post/List.vue'
+import Tag from '../views/template1/board/Tag.vue'
 import Read from '../views/post/Read.vue'
 import Create from '../views/post/Create.vue'
 import Update from '../views/post/Update.vue'
@@ -82,6 +83,11 @@ const routes = [
     path: '/1/:bid',
     name: 'List',
     component: List
+  },
+  {
+    path: '/1/:bid/tag',
+    name: 'Tag',
+    component: Tag
   },
   {
     path: '/1/:bid/create',
