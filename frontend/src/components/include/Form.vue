@@ -11,17 +11,18 @@
         ref="title"
         placeholder="제목을 입력하세요"
         v-model="title"
+        style="width:100%"
       />
     </div>
 
     <label for="content">내용</label>
-    <v-container class="form-group fill-height pt-0" fluid>
+    <!-- <v-container class="form-group fill-height pt-0" fluid> -->
       <v-row align="center" justify="center">
         <v-col class="text-center">
           <!-- Bold -->
-          <div class="justify-content-between">
+          <div class="justify-content-between" fluid>
             <!-- buttons -->
-            <v-row class="editorbuttons border border-bottom">
+            <div class="editorbuttons border border-bottom">
               <!-- H1 -->
               <v-tooltip top>
                 <template
@@ -325,24 +326,25 @@
                 @click="convertToEditor"
               />
               <input v-if="html_switch===false" type="button" value=" HTML" @click="convertToHTML" />
-            </v-row>
+            </div>
 
             <div class="col-1-none"></div>
 
-            <v-row
+            <div
               class="editortext editorDIV form-control"
               type="text"
               id="content"
               ref="content"
               placeholder="내용을 입력하세요"
+              style='height: auto; min-height: 200px;'
               contenteditable="true"
-            ></v-row>
+            ></div>
 
             <div class="editorHTMLDIV"></div>
           </div>
         </v-col>
       </v-row>
-    </v-container>
+    <!-- </v-container> -->
     <file-pond
       name="test"
       ref="pond"
@@ -427,32 +429,23 @@ export default {
     convertToHTML: function () {
       this.content = document.getElementById("content").innerHTML;
       this.html_switch = true;
+      console.log(this.content)
       $(".editorHTMLDIV").text($(".editorDIV").html());
       $(".editorHTMLDIV").show();
       $(".editorDIV").hide();
     },
     convertToEditor: function () {
+      this.content = document.getElementById("content").innerText;
       this.html_switch = false;
+      console.log(this.content)
       $(".editorDIV").html($(".editorHTMLDIV").text());
       $(".editorDIV").show();
       $(".editorHTMLDIV").hide();
     },
     checkHandler() {
-      this.content = document.getElementById("content").innerHTML;
+      this.content = document.getElementById("content").innerText;
       let err = true;
       let msg = "";
-      // !this.uid &&
-      //   ((msg = "작성자를 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.uid.focus());
-      // err &&
-      //   !this.title &&
-      //   ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
-      // err &&
-      //   !this.content &&
-      //   ((msg = "내용 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type == "create" ? this.createHandler() : this.updateHandler();
@@ -569,7 +562,6 @@ export default {
   border-color: gray;
   margin-right: 7px;
 } */
-
 #listBtn {
   font-family: "Jua", sans-serif;
   background-color: gray;
