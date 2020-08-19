@@ -8,7 +8,7 @@
         </div>
         <div class='text-right'>
             <!-- <button type="submit" class="btn btn-dark tile" @click="createVisit">등록</button> -->
-            <v-btn class="ma-2" color="deep-purple accent-1" @click="createVisit">등록</v-btn>
+            <v-btn class="ma-2 text-white" color="#9aa6c0" @click="createVisit">등록</v-btn>
         </div>
         <VisitPage3 :visitlist="visitlist"/>
     </div>

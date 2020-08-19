@@ -375,6 +375,7 @@
         id="registerBtn"
         v-if="type == 'create'"
         @click="checkHandler"
+        green lighten-2
       >등록</button>&nbsp;
       <button class="btn btn-primary" id="updateBtn" v-else @click="checkHandler">수정</button>
       <button class="btn btn-primary" id="listBtn" @click="moveList">목록</button>
@@ -423,6 +424,7 @@ export default {
       selectImg: "",
       myFiles: [],
       server: `${this.$store.state.HOST}/api/image`,
+      
     };
   },
   methods: {
@@ -473,8 +475,15 @@ export default {
           })
           .then((res) => {
             alert("등록이 완료되었습니다.");
-            // this.$router.push("/temp1");
-            this.$router.go(-1);
+            if (this.$store.state.renderNum === 1) {
+              this.$router.push({ name:'List', params:{bid:this.bid}});
+            } else if (this.$store.state.renderNum === 2) {
+              this.$router.push({ name:'List2', params:{bid:this.bid} });
+            }
+            else {
+              this.$router.push({ name:'RecentList', params:{bid:this.bid} });
+            }
+            // this.$router.go(-1);
             console.log(res, "SUCCESS!!");
           })
           .catch((err) => {
@@ -545,6 +554,9 @@ export default {
         });
     }
   },
+  // mounted() {
+  //   this.bid = this.$route.params.bid
+  // }
 };
 </script>
 
@@ -575,4 +587,3 @@ export default {
   font-family: "Jua", sans-serif;
 }
 </style>
-

@@ -23,7 +23,7 @@
         :left="left"
         :right="right"
         :small="small"
-        color="red lighten-3"
+        color="#ddaeb6"
 
       >
         <template v-slot:icon>
@@ -33,7 +33,7 @@
         </template>
         <!-- <span slot="opposite">Tus eu perfecto</span> -->
         <v-card class="elevation-2">
-          <v-card-title class="headline">  {{ item.title }}</v-card-title>
+          <v-card-title class="headline">{{ item.title }}</v-card-title>
           <v-card-text>
            {{ item.content }}
           </v-card-text>
