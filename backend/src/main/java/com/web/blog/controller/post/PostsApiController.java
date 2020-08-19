@@ -72,7 +72,7 @@ public class PostsApiController {
     }   
 
     @GetMapping("/api/post/list/{bid}")
-    @ApiOperation(value = "전체 게시글 불러오기")
+    @ApiOperation(value = "현재 블로그의 전체 게시글 불러오기")
     public Page<PostsListResponseDto> findAll(@RequestParam(required = true) final int page,
                                                 @RequestParam(required = true) final int size,
                                                 @PathVariable Long bid) {

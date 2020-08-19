@@ -5,8 +5,8 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `posts` (
   `pno` int NOT NULL AUTO_INCREMENT,
-  `bid` int NOT NULL,
-  `uid` int NOT NULL,
+  `bid` bigint NOT NULL,
+  `uid` bigint NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` varchar(1000) NOT NULL,
   `heart` int default 0,
