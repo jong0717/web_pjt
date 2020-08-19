@@ -53,6 +53,7 @@ export default new Vuex.Store({
     myblog: [],
     myblogbid: [],
     page: 0,
+    guestbooks:[],
   },
   getters: {
     // user
@@ -84,7 +85,8 @@ export default new Vuex.Store({
     },
     canCreateBlogNum(state) {
       return 5 - (state.myblog).length
-    }
+    },
+
   },
   mutations: {
     // user

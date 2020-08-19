@@ -375,7 +375,6 @@
         id="registerBtn"
         v-if="type == 'create'"
         @click="checkHandler"
-        green lighten-2
       >등록</button>&nbsp;
       <button class="btn btn-primary" id="updateBtn" v-else @click="checkHandler">수정</button>
       <button class="btn btn-primary" id="listBtn" @click="moveList">목록</button>
@@ -563,8 +562,8 @@ export default {
 <style>
 #registerBtn {
   font-family: "Jua", sans-serif;
-  background-color: gray;
-  border-color: gray;
+  background-color:#424242;
+  border-color: #424242;
   margin-right: 7px;
 }
 /* 
@@ -576,8 +575,9 @@ export default {
 } */
 #listBtn {
   font-family: "Jua", sans-serif;
-  background-color: gray;
-  border-color: gray;
+  background-color: #CFD8DC;
+  border-color: #CFD8DC;
+  color: black;
 }
 
 #createForm {

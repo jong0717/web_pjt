@@ -6,7 +6,9 @@
       <div>
         <h4 class="recentposts"><strong>최신글</strong></h4>
         <div v-for="(item,index) in newPosts" :key="index">
+          <div v-if="index<5">
           <a href="#" class="text-white">{{item.title}}</a>
+          </div>
         </div>
       </div>
       <div>

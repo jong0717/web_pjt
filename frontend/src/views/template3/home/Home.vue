@@ -43,12 +43,10 @@
 
     <v-app-bar
       app
-      color=""
       dark
       class="appbar d-flex justify-content-end">
-      <!-- <v-app-bar-nav-icon  @click.stop="drawer = !drawer">Menu</v-app-bar-nav-icon> -->
+      <v-btn outlined @click="moveToPage" class="mr-2"><i class="fas fa-home"></i></v-btn>
       <v-btn outlined @click="logout">로그아웃</v-btn>
-      <!-- <v-toolbar-title>Application</v-toolbar-title> -->
     </v-app-bar>
 
     <v-main>
@@ -69,12 +67,6 @@
         </v-row>
       </v-container> 
     </v-main>
-    <!-- <v-footer
-      color="#e4b3af"
-      app
-    >
-      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>  -->
   </v-app>
 </template>
 
@@ -104,7 +96,7 @@ export default {
   methods: {
     ...mapActions(["logout","search"]),
     moveToPage() {
-      this.$router.push({ name:'Create3' });
+      this.$router.push({ name:'Main' });
     },
   },
   computed: {
