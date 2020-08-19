@@ -84,7 +84,7 @@ export default new Vuex.Store({
     },
     canCreateBlogNum(state) {
       return 5 - (state.myblog).length
-    }
+    },
   },
   mutations: {
     // user
@@ -154,11 +154,13 @@ export default new Vuex.Store({
       router.go()
     },
     // post
-    getPOSTs({ commit, state }, bid) {
+    getPOSTs({ state, commit }, bid) {
       console.log(bid)
       http
         .get(`/api/post/list/${bid}`, {
           params: {
+            bid: bid,
+            accessToken: state.authToken,
             page: state.page++,
             size: 4,
           }
@@ -253,6 +255,33 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err)
         })
-    }
+    },
+    like({ state }, payload) {
+      const likeData = {
+        accessToken: state.authToken,
+        pno: payload
+      }
+      http.post(`heart/click`, likeData)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    // checkLike({ state }, payload) {
+    //   const checkData = {
+    //     accessToken: state.authToken,
+    //     pno: payload
+    //   }
+    //   http.post(`heart/check`, checkData)
+    //   .then((res) => {
+    //     console.log(res.data)
+    //     return res.data
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // }
   },
 })

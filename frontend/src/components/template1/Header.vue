@@ -82,7 +82,7 @@
             <router-link class="routerlink" :to="{ name:'List' }">목록</router-link>
           </li>
           <li class="routerlist">
-            <router-link class="routerlink" :to="{ name:'MyPage' }">MyPage</router-link>
+            <router-link class="routerlink" :to="{ name:'Tag' }">태그</router-link>
           </li>
           <li class="routerlist">
             <router-link class="routerlink" :to="{ name:'VisitCreate' }">방명록</router-link>
