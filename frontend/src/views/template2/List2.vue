@@ -1,10 +1,9 @@
 <template>
   <v-app>
-    <h1>왜안돼</h1>
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer  v-model="drawer" app :src='background'>
       <v-list dense>
         <!-- home -->
-        <v-list-item link>
+        <v-list-item link @click="moveToMain">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -17,49 +16,64 @@
           <v-list-item-action>
             <v-icon>mdi-email</v-icon>
           </v-list-item-action>
+
           <v-list-item-content>
             <v-list-item-title>최근 쓴 글</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <div v-for="(item, index) in newPosts" :key="index + '_posts'">
-          <router-link :to="'/read?pno='+item.pno">
-            <p v-if="index<5" class="my-4 subtitle-1">{{item.title}}</p>
-          </router-link>
+          <div v-if="index<4" class="my-4 subtitle-1" style="margin:0;" >
+            <router-link :to="'/read?pno='+item.pno"><div style="color:gray;">{{ item.title }}</div></router-link>
+          <div class="dat">{{getFormatDate(item.createDate)}}</div>
+          </div>
+
         </div>
+
+        <v-list-item>
+          <v-list-item-action>
+            <v-icon>mdi-pencil</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>글쓰기</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <!-- navbar -->
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app color="#19ce60" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
-    <v-main>
+
+    <v-main background-color="#dbffe0">
       <div class="container list">
-        <div class="row justify-content-around">
-          <v-btn @click="movePage" large color="primary">글쓰기</v-btn>
-          <v-btn @click="reload" large color="primary">전체 목록 보기</v-btn>
-        </div>
         <!-- 시작 -->
-        <b-media
-          right-align
-          class="m-4"
-          vertical-align="center"
-          v-for="(item, index) in newPosts"
-          :key="index + '_posts'"
-        >
-          <template v-slot:aside>
-            <b-img
-              width="80"
-              alt="placeholder"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            ></b-img>
-          </template>
-          <router-link :to="'/read?pno='+item.pno">
-            <h5 class="mt-0 mb-1">{{ index+1 }}. {{item.title}}</h5>
-            <!-- <h5 v-if="index%2==0" class="mt-0 mb-1">{{ index+1 }}. {{item.title}}</h5> -->
-          </router-link>
-          <p class="mb-0">{{ item.content }}</p>
-        </b-media>
+
+        <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
+          <v-carousel-item v-for="(slide, i) in newPosts" :key="i">
+            <v-row v-show="i<4" class="fill-height" align="center" justify="center">
+              <v-img
+                class="imagine h-100"
+                :src="'https://storage.googleapis.com/getblog/'+slide.img"
+                alt
+              ></v-img>
+            </v-row>
+            <!-- <v-row v-else></v-row> -->
+          </v-carousel-item>
+        </v-carousel>
+
+        <h1 class="mt-15">Category 1</h1>
+        <button>더보기</button>
+        <hr />
+
+        <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock">
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.content }}</p>
+          {{ item.createDate }}
+          <hr class="w-50 mx-auto" />
+        </div>
+        <hr />
         <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
       </div>
     </v-main>
@@ -78,12 +92,16 @@ export default {
   },
   mounted() {
     this.addScrollWatcher();
+    // this.$store.dispatch("getPOSTs", this.$route.params.bid)
     this.$store.state.renderNum = 2;
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
+    moveToMain() {
+      this.$router.push("/");
+    },
     movePage() {
       this.$router.push({ name: "Create2" });
     },
@@ -95,7 +113,11 @@ export default {
       const watcher = scrollMonitor.create(bottomSensor);
       watcher.enterViewport(() => {
         // console.log("___BOTTOM2___");
-        if (this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
+        if (
+          this.$store.state.searchFlag === false &&
+          (typeof this.$route.params.bid === "number" ||
+            typeof this.$route.params.bid === "string")
+        ) {
           setTimeout(() => {
             this.$store.dispatch("getPOSTs", this.$route.params.bid);
           }, 500);
@@ -105,9 +127,13 @@ export default {
     loadUntilViewportIsFull() {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
-      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
+      if (
+        watcher.isFullyInViewport &&
+        this.$store.state.searchFlag === false &&
+        (typeof this.$route.params.bid === "number" ||
+          typeof this.$route.params.bid === "string")
+      ) {
         this.$store.dispatch("getPOSTs", this.$route.params.bid);
-
       }
     },
     reload() {
@@ -116,29 +142,32 @@ export default {
   },
   data: () => {
     return {
+      background: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80',
       drawer: null,
     };
   },
 };
 </script>
 
-<style>
-.list {
-  /* border-right: 0.1em solid #eee; */
-  padding: 0.5em;
+<style scoped>
+* {
+  margin: 0px;
+  padding: 0px;
 }
-.list-card {
-  padding: 10px;
-  margin: 10px;
-  width: 100%;
-  float: left;
+.dat{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.7em;
+  margin-right: 20px;
 }
-.list-cards {
-  text-align: center;
-  margin: 10px;
-  padding: 10px;
-}
-.card {
+.listBlock {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   display: inline-block;
+  width: 40%;
+}
+.mynavi{
+  background-color: #cee3ca;
 }
 </style>

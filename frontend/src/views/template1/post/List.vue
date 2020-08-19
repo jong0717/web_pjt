@@ -2,7 +2,7 @@
   <div class="container list">
     <div class="row justify-content-around">
       <v-btn @click="movePage" large color="blue-grey darken-2" class="text-white">글쓰기</v-btn>
-      <v-btn @click="reload" large color="blue-grey darken-2" class='text-white'>전체 목록 보기</v-btn>
+      <v-btn @click="reload" large color="blue-grey darken-2" class="text-white">전체 목록 보기</v-btn>
     </div>
     <div class="list-cards row d-flex justify-content-around">
       <v-card
@@ -16,7 +16,7 @@
         <v-img height="250" :src="'/public/files/'+item.img"></v-img>
         <img :src="require(`@/assets/post/${imgURL}`)">
         <img :src="'/public/files/'+item.img">
-        <p>{{item.img}}</p> -->
+        <p>{{item.img}}</p>-->
         <v-card-title>
           <router-link :to="'/read?pno='+item.pno">
             <h5 class="card-title">{{item.title}}</h5>
@@ -32,7 +32,7 @@
 
           <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
 
-          <div>{{item.content}}</div>
+          <div class="contentArea" v-html="item.content"></div>
         </v-card-text>
 
         <v-divider class="mx-4"></v-divider>
@@ -78,7 +78,7 @@ export default {
   methods: {
     ...mapActions(['like', 'checkLike']),
     movePage() {
-      this.$router.push({ name:'Create' });
+      this.$router.push({ name: "Create" });
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
@@ -88,8 +88,13 @@ export default {
       const watcher = scrollMonitor.create(bottomSensor);
       watcher.enterViewport(() => {
         // console.log("___BOTTOM___");
-        if (this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
-          setTimeout(() => { // Main이랑 Detail에서 자꾸 여기 함수 실행돼서 막으려고 이렇게 해놓았습니다.
+        if (
+          this.$store.state.searchFlag === false &&
+          (typeof this.$route.params.bid === "number" ||
+            typeof this.$route.params.bid === "string")
+        ) {
+          setTimeout(() => {
+            // Main이랑 Detail에서 자꾸 여기 함수 실행돼서 막으려고 이렇게 해놓았습니다.
             this.$store.dispatch("getPOSTs", this.$route.params.bid);
           }, 500);
         }
@@ -98,7 +103,12 @@ export default {
     loadUntilViewportIsFull() {
       const bottomSensor = document.querySelector("#bottomSensor");
       const watcher = scrollMonitor.create(bottomSensor);
-      if (watcher.isFullyInViewport && this.$store.state.searchFlag === false && (typeof(this.$route.params.bid) === "number" || typeof(this.$route.params.bid) === "string")) {
+      if (
+        watcher.isFullyInViewport &&
+        this.$store.state.searchFlag === false &&
+        (typeof this.$route.params.bid === "number" ||
+          typeof this.$route.params.bid === "string")
+      ) {
         this.$store.dispatch("getPOSTs", this.$route.params.bid);
       }
     },
@@ -107,8 +117,7 @@ export default {
     },
   },
   data: () => {
-    return {
-    }
+    return {};
   },
 };
 </script>
@@ -132,6 +141,14 @@ export default {
   display: inline-block;
 }
 .writeBtn {
-  color:greenyellow !important;
+  color: greenyellow !important;
+}
+.contentArea {
+  display: inline-block;
+  height: 2em;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
