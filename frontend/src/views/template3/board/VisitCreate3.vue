@@ -10,13 +10,13 @@
             <!-- <button type="submit" class="btn btn-dark tile" @click="createVisit">등록</button> -->
             <v-btn class="ma-2" color="deep-purple accent-1" @click="createVisit">등록</v-btn>
         </div>
-        <VisitPage :visitlist="visitlist"/>
+        <VisitPage3 :visitlist="visitlist"/>
     </div>
     
 </template>
 
 <script>
-import VisitPage from '@/views/template3/board/VisitPage.vue'
+import VisitPage3 from '@/views/template3/board/VisitPage3.vue'
 export default {
     name: 'VisitCreate',
     data() {
@@ -26,7 +26,7 @@ export default {
         }
     },
     components: {
-        VisitPage,
+        VisitPage3,
     },
     methods: {
         createVisit() {
@@ -34,7 +34,10 @@ export default {
             this.content = null
 
         }
-    }
+    },
+    mounted() {
+        this.$store.state.renderNum = 3
+    },
 }
 
 </script>
