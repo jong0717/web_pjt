@@ -29,30 +29,27 @@
           <v-avatar color="light">
             <v-icon dark>mdi-account-circle</v-icon>
           </v-avatar>
-          <h2>{{ blogname }}</h2>
+          <h2 class="text-white">{{ blogname }}</h2>
          
         </div>
         <div class="d-flex justify-content-around mb-4">
-          <router-link :to="{ name:RecentList }"><i class="fas fa-list"></i></router-link>
-          <router-link :to="{ name:Create3 }"><i class="fas fa-pen"></i></router-link>
-          <router-link :to="{ name:visitpage3 }">
-            <!-- <v-btn  @click="moveToPage"> -->
-              <i class="fas fa-book"></i>
-              <!-- </v-btn> -->
-            </router-link>
+          <router-link :to="{ name:'RecentList' }"><i class="fas fa-list"></i></router-link>
+          <router-link :to="{ name:'Create3' }"><i class="fas fa-pen"></i></router-link>
+          <router-link :to="{ name:'VisitCreate3' }"><i class="fas fa-book"></i></router-link>
           <router-link to="/user/mypage"><i class="fas fa-user-cog"></i></router-link>
         </div>
       </v-list>
     </v-navigation-drawer>
 
-    <!-- <v-app-bar
+    <v-app-bar
       app
-      color="indigo"
+      color=""
       dark
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar> -->
+      class="appbar d-flex justify-content-end">
+      <!-- <v-app-bar-nav-icon  @click.stop="drawer = !drawer">Menu</v-app-bar-nav-icon> -->
+      <v-btn outlined @click="logout">로그아웃</v-btn>
+      <!-- <v-toolbar-title>Application</v-toolbar-title> -->
+    </v-app-bar>
 
     <v-main>
       <v-container
@@ -70,9 +67,14 @@
             <router-view />
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> 
     </v-main>
-
+    <!-- <v-footer
+      color="#e4b3af"
+      app
+    >
+      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
+    </v-footer>  -->
   </v-app>
 </template>
 
@@ -96,12 +98,13 @@ export default {
       // miniVariant: false,
       // expandOnHover: false,
       background: true,
+      bid: this.$route.params.bid
     };
   },
   methods: {
-    ...mapActions(["search"]),
+    ...mapActions(["logout","search"]),
     moveToPage() {
-      this.$route.push({ name:'VisitPage3' });
+      this.$router.push({ name:'Create3' });
     },
   },
   computed: {
@@ -150,5 +153,11 @@ i {
 .Nav {
   position:fixed;
 }
-
+.appbar {
+  background-color:#4d6a8c !important;
+  height: 70px;
+}
+.footer {
+  background-color:"#c7a0a4"
+}
 </style>
