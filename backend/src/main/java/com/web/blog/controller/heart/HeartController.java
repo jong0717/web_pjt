@@ -58,4 +58,13 @@ public class HeartController {
             return new ResponseEntity<>(new MessageResponse("like"), HttpStatus.OK);
         }
     }
+
+    @PostMapping("/check")
+    @ApiOperation(value = "내가 이 게시글 하트를 클릭했는지 체크")
+    public Object checkHeart(@Valid @RequestBody HeartRequest request) {
+        Long uid = jwtutils.getUidFromJwtToken(request.getAccessToken());
+        boolean result = Boolean.TRUE.equals(heartDao.existsByPostPnoAndUserUid(request.getPno(), uid));
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
