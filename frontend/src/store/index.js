@@ -216,7 +216,7 @@ export default new Vuex.Store({
       } else if (payload.template_num == 2) {
         router.push({ name: 'List2', params: { bid: payload.bid } })
       } else if (payload.template_num == 3) {
-        router.push({ name: 'Home', params: { bid: payload.bid } })
+        router.push({ name: 'RecentList', params: { bid: payload.bid } })
       }
     },
     createBlog({ commit }, payload) {

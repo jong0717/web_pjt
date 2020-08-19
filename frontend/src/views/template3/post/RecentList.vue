@@ -1,14 +1,45 @@
 <template>
   <div>
-    <h2 class="text-align-left">전체글</h2>
+    <h2>전체글</h2>
     <hr />
-    <v-card class="elevation-2" v-for="(item,index) in newPosts" :key="index">
+    <!-- <v-card class="elevation-2" v-for="(item,index) in newPosts" :key="index">
       <v-card-title class="headline">
         {{ item.title }}
       </v-card-title>
       
       <v-card-text>{{ item.content }}</v-card-text>
-    </v-card>
+    </v-card> -->
+    <v-timeline
+      :align-top="alignTop"
+      :reverse="reverse"
+      :dense="dense"
+    >
+      <v-timeline-item
+         v-for="(item,index) in newPosts" :key="index"
+        :fill-dot="fillDot"
+        :hide-dot="hideDot"
+        :icon="icon ? 'mdi-star' : ''"
+        :icon-color=" iconColor ? 'red lighten-3' : ''"
+        :left="left"
+        :right="right"
+        :small="small"
+        color="red lighten-3"
+
+      >
+        <template v-slot:icon>
+          <v-avatar v-if="avatar">
+            <img src="http://i.pravatar.cc/64">
+          </v-avatar>
+        </template>
+        <!-- <span slot="opposite">Tus eu perfecto</span> -->
+        <v-card class="elevation-2">
+          <v-card-title class="headline">  {{ item.title }}</v-card-title>
+          <v-card-text>
+           {{ item.content }}
+          </v-card-text>
+        </v-card>
+      </v-timeline-item>
+    </v-timeline>
     <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
   </div>
 </template>
@@ -22,7 +53,19 @@ export default {
     ...mapGetters(["posts", "newPosts"]),
     // ...mapState(["searchFlag"]),
   },
-  data: () => ({}),
+  data: () => ({
+    alignTop: true,
+      avatar: false,
+      dense: true,
+      fillDot: false,
+      hideDot: false,
+      icon: false,
+      iconColor: false,
+      left: false,
+      reverse: false,
+      right: false,
+      small: false,
+  }),
   mounted() {
     this.addScrollWatcher();
     this.$store.state.renderNum = 3;
