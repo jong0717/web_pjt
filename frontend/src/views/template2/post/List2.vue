@@ -112,10 +112,10 @@ export default {
 }
 .contentible{
   display: inline-block;
-  /* width: 200px; */
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis;
+  height: 2em;
 }
 .dat{
   display: flex;
