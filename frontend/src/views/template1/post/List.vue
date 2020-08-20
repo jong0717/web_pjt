@@ -23,7 +23,7 @@
             <h5 class="card-title">{{item.title}}</h5>
           </router-link>
         </v-card-title>
-          <p>{{ item.createDate | moment("YYYY.MM.DD")}}</p>
+          <p>{{ item.createDate | moment("YYYY.MM.DD HH:mm")}}</p>
         <v-card-text>
           <v-row align="center" class="mx-0">
             {{ item.tag }}

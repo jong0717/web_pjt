@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="text-left">전체글({{}})</h3>
+    <h3 class="text-left">전체글</h3>
     <hr />
 
     <v-timeline :align-top="alignTop" :reverse="reverse" :dense="dense">
@@ -24,12 +24,26 @@
         <!-- <span slot="opposite">Tus eu perfecto</span> -->
         <v-card class="elevation-2">
           <router-link :to="'/read3?pno='+item.pno" class="routerlink">
-            <v-card-title class="headline">{{ item.title }}</v-card-title>
+            <v-card-title class="headline mx-2 py-2">{{ item.title }}</v-card-title>
           </router-link>
           <v-card-text>
             <div class="contentable" v-html="item.content"></div>
           </v-card-text>
-          <div class="text-right mr-4">{{item.createDate | moment('YY.MM.DD')}}</div>
+          <div class="d-flex justify-content-between mx-4">
+            <div>
+              {{ item.heart }}
+              <v-btn v-if="!item.clickHeart" icon color="black">
+                <v-icon @click="like(item.pno)">mdi-heart</v-icon>
+              </v-btn>
+              <v-btn v-else icon color="pink">
+                <v-icon @click="like(item.pno)">mdi-heart</v-icon>
+              </v-btn>
+            </div>
+            <div
+              class="date d-flex align-items-center"
+            >{{ item.createDate | moment('YY.MM.DD HH:mm')}}</div>
+          </div>
+          <!-- <div class="text-right mr-4">{{item.createDate | moment('YY.MM.DD HH:mm')}}</div> -->
         </v-card>
       </v-timeline-item>
     </v-timeline>
@@ -40,7 +54,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
 import moment from "moment";
-import { mapGetters } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters(["posts", "newPosts"]),
@@ -72,6 +86,7 @@ export default {
     this.loadUntilViewportIsFull();
   },
   methods: {
+    ...mapActions(['like']),
     movePage() {
       this.$router.push("/create");
     },
