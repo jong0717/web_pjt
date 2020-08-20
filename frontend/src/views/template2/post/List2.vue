@@ -13,19 +13,32 @@
           <!-- </router-link> -->
         </v-row>
       </v-carousel-item>
-    </v-carousel>   
+    </v-carousel>
 
-    <h1 class="mt-15">Category 1</h1>
-    <button @click="myPlus">더보기</button>
+    <h1 class="mt-15">전체글</h1>
+    <button>더보기</button>
     <hr />
 
-    <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock"> 
-      <div :v-if="index<NNum">
-        <router-link :to="'/read2?pno='+item.pno"><u><h2 style="color:black">{{ item.title }}</h2></u></router-link>
-        <div class="contentible" v-html="item.content"></div>
-        {{ item.createDate | moment('YY.MM.DD HH:mm')}}
-        <hr class="w-50 mx-auto" />
+    <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock">
+      <router-link :to="'/read2?pno='+item.pno">
+        <h2 style="color:#1bbf5b">{{ item.title }}</h2>
+      </router-link>
+      <div class="contentible" v-html="item.content"></div>
+      <div class="d-flex justify-content-around">
+        <div>
+          {{ item.heart }}
+          <v-btn v-if="!item.clickHeart" icon color="black">
+            <v-icon @click="like(item.pno)">mdi-heart</v-icon>
+          </v-btn>
+          <v-btn v-else icon color="pink">
+            <v-icon @click="like(item.pno)">mdi-heart</v-icon>
+          </v-btn>
+        </div>
+        <div class="date d-flex align-items-center">
+          {{ item.createDate | moment('YY.MM.DD HH:mm')}}
+        </div>
       </div>
+      <hr class="w-50 mx-auto" />
     </div>
     <hr />
     <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
@@ -35,7 +48,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
 import moment from "moment";
-import { mapGetters } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -45,11 +58,11 @@ export default {
   mounted() {
     this.addScrollWatcher();
     // this.$store.dispatch("getPOSTs", this.$route.params.bid)
-    this.$store.state.bid = this.$route.params.bid
+    this.$store.state.bid = this.$route.params.bid;
     this.$store.state.renderNum = 2;
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
+    if (!window.location.hash) {
+      window.location = window.location + "#loaded";
+      window.location.reload();
     }
     this.$store.dispatch("getBlogName", this.$route.params.bid)
   },
@@ -57,9 +70,7 @@ export default {
     this.loadUntilViewportIsFull();
   },
   methods: {
-    myPlus() {
-      this.NNum =2
-    },
+    ...mapActions(['like']),
     moveToMain() {
       this.$router.push("/");
     },
@@ -103,7 +114,8 @@ export default {
   },
   data: () => {
     return {
-      background: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80',
+      background:
+        "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80",
       drawer: null,
       NNum: 4,
     };
@@ -112,20 +124,22 @@ export default {
 </script>
 
 <style scoped>
-
+.date {
+  font-size:20px;
+}
 * {
   margin: 0px;
   padding: 0px;
 }
-.contentible{
+.contentible {
   display: inline-block;
-  white-space: nowrap; 
-  overflow: hidden; 
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
-  width: 100%;
   height: 1.2em;
+  width: 100%;
 }
-.dat{
+.dat {
   display: flex;
   justify-content: flex-end;
   font-size: 0.7em;
@@ -135,7 +149,7 @@ export default {
   display: inline-block;
   width: 40%;
 }
-.mynavi{
+.mynavi {
   background-color: #cee3ca;
 }
 </style>
