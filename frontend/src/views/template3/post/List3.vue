@@ -71,6 +71,11 @@ export default {
   mounted() {
     this.addScrollWatcher();
     this.$store.state.renderNum = 3;
+    this.$store.state.bid = this.$route.params.bid
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
   },
   updated() {
     this.loadUntilViewportIsFull();

@@ -17,7 +17,7 @@
     <hr />
 
     <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock">
-      <h4>{{ item.title }}</h4>
+      <router-link :to="'/read2?pno='+item.pno"><h4>{{ item.title }}</h4></router-link>
       <p>{{ item.content }}</p>
       {{ item.createDate }}
       <hr class="w-50 mx-auto" />
@@ -40,7 +40,12 @@ export default {
   mounted() {
     this.addScrollWatcher();
     // this.$store.dispatch("getPOSTs", this.$route.params.bid)
+    this.$store.state.bid = this.$route.params.bid
     this.$store.state.renderNum = 2;
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
   },
   updated() {
     this.loadUntilViewportIsFull();

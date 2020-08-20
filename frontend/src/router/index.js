@@ -32,12 +32,14 @@ import List3 from '@/views/template3/post/List3.vue'
 import VisitPage3 from '@/views/template3/board/VisitPage3.vue'
 import VisitCreate3 from '@/views/template3/board/VisitCreate3.vue'
 import Read3 from '@/views/template3/post/Read3.vue'
+import Delete3 from '@/views/template3/post/Delete3.vue'
 // +재완
 // lsit2
 import List2 from '@/views/template2/post/List2.vue'
 import Create2 from '../views/template2/post/Create2.vue'
 import VisitCreate2 from '@/views/template2/board/VisitCreate2.vue'
-
+import Read2 from '@/views/template2/post/Read2.vue'
+import Delete2 from '@/views/template2/post/Delete2.vue'
 
 Vue.use(VueRouter)
 
@@ -137,9 +139,19 @@ const routes = [
     component:List2
   },
   {
-    path: '/2/:uid/:bid/create',
+    path: '/2/:bid/create',
     name: 'Create2',
     component: Create2,
+  },
+  {
+    path: '/read2',
+    name: 'Read2',
+    component: Read2
+  },
+  {
+    path: '/delete2',
+    name: 'Delete2',
+    component: Delete2,
   },
   {
     path: '/2/:bid/visitcreate',
@@ -162,6 +174,11 @@ const routes = [
     path: '/read3',
     name: 'Read3',
     component: Read3
+  },
+  {
+    path: '/delete3',
+    name: 'Delete3',
+    component: Delete3,
   },
   {
     path: '/3/:bid/',

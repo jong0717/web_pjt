@@ -369,9 +369,9 @@
     <div>
       <label for="tags-basic">Type a new tag and press enter</label>
       <b-form-tags input-id="tags-basic" v-model="tags" class="mb-2"></b-form-tags>
-      <p>Value: {{ tags }}</p>
+      
     </div>
-    <button @click="getTag">getTag</button>
+    
 
     <!--  -->
     <v-file-input
@@ -508,7 +508,7 @@ export default {
               this.$router.push({ name:'List2', params:{bid:this.bid} });
             }
             else {
-              this.$router.push({ name:'RecentList', params:{bid:this.bid} });
+              this.$router.push({ name:'List3', params:{bid:this.bid} });
             }
             // this.$router.go(-1);
             console.log(res, "SUCCESS!!");

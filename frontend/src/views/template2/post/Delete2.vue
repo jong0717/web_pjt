@@ -11,8 +11,7 @@ export default {
       .delete(`/api/post/${this.$route.query.pno}`)
       .then(() => {
         alert('삭제가 완료되었습니다.');
-        // this.$router.push({ name:'List' });
-        this.$router.go(-2)
+        this.$router.push({ name:'List2', params:{bid: this.$store.state.bid} });
       })
       .catch(() => {
         alert('삭제 처리시 에러가 발생했습니다.');
