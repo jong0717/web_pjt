@@ -33,10 +33,10 @@
          
         </div>
         <div class="d-flex justify-content-around mb-4">
-          <router-link :to="{ name:'RecentList' }"><i class="fas fa-list"></i></router-link>
+          <router-link :to="{ name:'List3' }"><i class="fas fa-list"></i></router-link>
           <router-link :to="{ name:'Create3' }"><i class="fas fa-pen"></i></router-link>
           <router-link :to="{ name:'VisitCreate3' }"><i class="fas fa-book"></i></router-link>
-          <router-link to="/user/mypage"><i class="fas fa-user-cog"></i></router-link>
+          <router-link :to="{ name:'VisitCreate3' }"><i class="fas fa-sync-alt"></i></router-link>
         </div>
       </v-list>
     </v-navigation-drawer>
@@ -45,8 +45,9 @@
       app
       dark
       class="appbar d-flex justify-content-end">
-      <v-btn outlined @click="moveToPage" class="mr-2"><i class="fas fa-home"></i></v-btn>
-      <v-btn outlined @click="logout">로그아웃</v-btn>
+      <v-btn outlined @click="moveToPage" class="mx-1"><i class="fas fa-home"></i></v-btn>
+      <router-link to="/user/mypage"><v-btn outlined class="mx-1"><i class="fas fa-user-cog"></i></v-btn></router-link>
+      <v-btn outlined @click="logout" class="LogoutBtn mx-1">로그아웃</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -124,6 +125,17 @@ export default {
 /* min-width: 100%;
   min-height: 100%;
 } */
+/* .v-toolbar__content {
+  display: flex;
+  justify-content: space-between;
+} */
+.LogoutBtn {
+  padding:0 8px !important;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+  min-width: 36px !important; 
+  padding: 0;
+}
 .searchBtn {
   min-width: 36px !important;
   height: 36px;
