@@ -136,7 +136,7 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 1.2em;
+  height: 3em;
   width: 100%;
 }
 .dat {
