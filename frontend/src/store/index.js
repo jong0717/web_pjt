@@ -155,28 +155,28 @@ export default new Vuex.Store({
       router.go()
     },
     // post
-    // getPOSTs({ state, commit }, bid) {
-    //   // console.log(bid)
-    //   http
-    //     .get(`/api/post/list/${bid}`, {
-    //       params: {
-    //         bid: bid,
-    //         accessToken: state.authToken,
-    //         page: state.page++,
-    //         size: 4,
-    //       }
-    //     })
-    //     .then(({ data }) => {
-    //       console.log(data)
-    //       if (data.empty === false) {
-    //         commit('setPOSTs', data.content);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       alert('글을 가져오는 데 에러가 발생했습니다.');
-    //       console.log(err)
-    //     });
-    // },
+    getPOSTs({ state, commit }, bid) {
+      // console.log(bid)
+      http
+        .get(`/api/post/list/${bid}`, {
+          params: {
+            bid: bid,
+            accessToken: state.authToken,
+            page: state.page++,
+            size: 4,
+          }
+        })
+        .then(({ data }) => {
+          console.log(data)
+          if (data.empty === false) {
+            commit('setPOSTs', data.content);
+          }
+        })
+        .catch((err) => {
+          alert('글을 가져오는 데 에러가 발생했습니다.');
+          console.log(err)
+        });
+    },
     getPOST(context, payload) {
       http
       .get(payload).then(({ data }) => {
@@ -221,7 +221,7 @@ export default new Vuex.Store({
       } else if (payload.template_num == 2) {
         router.push({ name: 'List2', params: { bid: payload.bid } })
       } else if (payload.template_num == 3) {
-        router.push({ name: 'RecentList', params: { bid: payload.bid } })
+        router.push({ name: 'List3', params: { bid: payload.bid } })
       }
     },
     createBlog({ commit }, payload) {
@@ -242,7 +242,7 @@ export default new Vuex.Store({
           } else if (payload.template_num == 1) {
             router.push({ name: 'List2', params: { bid: res.data } })
           } else if (payload.template_num == 2) {
-            router.push({ name: 'RecentList', params: { bid: res.data } })
+            router.push({ name: 'List3', params: { bid: res.data } })
           } // blogcreate 시에 값이 0 1 2로 되어 있어 일단 이렇게
         })
         .catch((err) => {
