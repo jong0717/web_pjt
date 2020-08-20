@@ -19,7 +19,7 @@
           <button
             type="button"
             class="btn btn-outline-dark"
-            style="position:absolute; top:42em; transform:translateX(-50%); left:50%;z-index:3;"
+            style="position:absolute; top:43em; transform:translateX(-50%); left:50%;z-index:3;"
           >시작하기</button>
         </router-link>
       </div>
@@ -147,7 +147,7 @@ img {
 }
 
 img.infinite_rotating_logo {
-  animation: rotate_image 10s linear infinite;
+  animation: rotate_image 20s linear infinite;
   transform-origin: 50% 50%;
 }
 
