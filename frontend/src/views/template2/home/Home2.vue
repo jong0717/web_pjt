@@ -45,6 +45,17 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-icon>mdi-flag</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <router-link :to="{ name:'UpdateTmp2', params:{bid: this.$store.state.bid} }"><v-list-item-title class="btn">템플릿</v-list-item-title></router-link>
+          </v-list-item-content>
+          
+        </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
     <!-- navbar -->
