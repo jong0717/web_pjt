@@ -40,8 +40,8 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title v-if="this.$store.state.uid.uid==this.$store.state.bloguid" class="btn" @click="movePage">
-              <div style="color:white;font-size:1.5em">글쓰기</div>
+            <v-list-item-title class="btn" @click="movePage">
+              <div style="color:#e6f0e8;font-size:1.5em">글쓰기</div>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -63,26 +63,29 @@
       </v-list>
     </v-navigation-drawer>
     <!-- navbar -->
-    <v-app-bar app color="#19ce60" dark >
-      <div class="d-flex justify-space-between align-items-center">
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          <v-toolbar-title class='pl-0'><h1>{{ blogname }}</h1></v-toolbar-title>
-        <div>
-          <form class="form-inline my-2 my-lg-0">
-            <input
-              class="form-control fas"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-              v-model="searchInput"
-            />
-            <v-btn @click="search(searchInput)" outlined class="searchBtn px-0 mx-1" tile color="dark" dark>
-              검색
-            </v-btn>
-            <v-btn outlined @click="logout" class="mx-1">로그아웃</v-btn>
-          </form>
+    <v-app-bar app color="#19ce60" dark>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>{{ blogname }}</v-toolbar-title>
+      <v-content style="padding-top:2em !important" :class="`d-flex justify-end mb-6`" flat tile>
+        <div class="d-flex">
+          <div class="mr-auto"></div>
+          <input
+            class="form-control mr-auto mr-sm-2"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+            style="width:20em;"
+            v-model="searchInput"
+          />
+          <v-btn @click="search(searchInput)" outlined class="searchBtn px-0" tile color="dark" dark>
+            <svg width="1em" style="color:white" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+              <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+            </svg>
+          </v-btn>
+          <v-btn style="margin-left:1em" outlined @click="logout">로그아웃</v-btn>
         </div>
-        </div>
+      </v-content  >
     </v-app-bar>
 
     <v-main class="mainbg">
@@ -180,12 +183,12 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gaegu&display=swap");
-/* .v-toolbar__content {
-  display: flex;
-  justify-content: space-between !important;
-} */
-
+@font-face {
+    font-family: 'TmoneyRoundWindExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
   margin: 0px;
   padding: 0px;
