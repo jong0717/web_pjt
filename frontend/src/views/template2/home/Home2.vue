@@ -21,6 +21,7 @@
             <v-list-item-title>최근 쓴 글</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        
         <div v-for="(item, index) in newPosts" :key="index + '_posts'">
           <div v-if="index<4" class="my-4 subtitle-1" style="margin:0;" >
             <router-link :to="'/read2?pno='+item.pno"><div style="color:gray;">{{ item.title }}</div></router-link>
@@ -37,6 +38,17 @@
           <v-list-item-content>
             <v-list-item-title class="btn" @click="movePage">글쓰기</v-list-item-title>
           </v-list-item-content>
+          
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-icon>mdi-flag</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <router-link :to="{ name:'UpdateTmp2', params:{bid: this.$store.state.bid} }"><v-list-item-title class="btn">템플릿</v-list-item-title></router-link>
+          </v-list-item-content>
+          
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -103,7 +115,7 @@ export default {
       this.$router.push("/");
     },
     movePage() {
-      this.$router.push({ name: "Create2" });
+      this.$router.push({ name: "Create2", params:{bid: this.$store.state.bid} });
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");

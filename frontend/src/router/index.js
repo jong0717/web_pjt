@@ -20,6 +20,7 @@ import Login from '@/views/user/Login.vue'
 import MyPage from '@/views/user/MyPage.vue'
 import VisitPage from '@/views/template1/board/VisitPage.vue'
 import VisitCreate from '@/views/template1/board/VisitCreate.vue'
+import UpdateTmp from '@/views/template1/board/UpdateTmp.vue'
 
 //err
 import NotFoundPage from '@/views/template1/err/NotFoundPage.vue'
@@ -33,6 +34,7 @@ import VisitPage3 from '@/views/template3/board/VisitPage3.vue'
 import VisitCreate3 from '@/views/template3/board/VisitCreate3.vue'
 import Read3 from '@/views/template3/post/Read3.vue'
 import Delete3 from '@/views/template3/post/Delete3.vue'
+import UpdateTmp3 from '@/views/template3/board/UpdateTmp3.vue'
 // +재완
 // lsit2
 import List2 from '@/views/template2/post/List2.vue'
@@ -40,6 +42,7 @@ import Create2 from '../views/template2/post/Create2.vue'
 import VisitCreate2 from '@/views/template2/board/VisitCreate2.vue'
 import Read2 from '@/views/template2/post/Read2.vue'
 import Delete2 from '@/views/template2/post/Delete2.vue'
+import UpdateTmp2 from '@/views/template2/board/UpdateTmp2.vue'
 
 Vue.use(VueRouter)
 
@@ -115,6 +118,11 @@ const routes = [
     component: Delete,
   },
   {
+    path: '/1/:bid/updatetmp',
+    name: 'UpdateTmp',
+    component: UpdateTmp,
+  },
+  {
     path: '/oauth2/redirect',
     name: 'SNSLogin',
     redirect: (to) => {
@@ -142,6 +150,11 @@ const routes = [
     path: '/2/:bid/create',
     name: 'Create2',
     component: Create2,
+  },
+  {
+    path: '/2/:bid/updatetmp',
+    name: 'UpdateTmp2',
+    component: UpdateTmp2,
   },
   {
     path: '/read2',
@@ -194,6 +207,11 @@ const routes = [
     path: '/3/:bid/visitcreate',
     name: 'VisitCreate3',
     component: VisitCreate3
+  },
+  {
+    path: '/3/:bid/updatetmp',
+    name: 'UpdateTmp3',
+    component: UpdateTmp3,
   },
 ]
 
