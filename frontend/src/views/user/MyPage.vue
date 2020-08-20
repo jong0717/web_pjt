@@ -47,7 +47,7 @@
             <v-btn @click="editUserinfo" color="success">수정하기</v-btn>
             <!-- <v-btn @click="deleteUser" color="error">탈퇴하기</v-btn> -->
             <!-- <v-btn color="error">탈퇴하기</v-btn> -->
-            <v-bottom-sheet v-model="sheet" inset>
+            <v-bottom-sheet v-model="sheet">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn color="error" dark v-bind="attrs" v-on="on">탈퇴하기</v-btn>
               </template>

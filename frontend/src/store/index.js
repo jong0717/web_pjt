@@ -268,6 +268,7 @@ export default new Vuex.Store({
       .then((res) => {
         console.log(res.data.message)
         dispatch('getPOSTs', state.bid)
+        router.go()
       })
       .catch((err) => {
         console.log(err)

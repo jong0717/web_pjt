@@ -31,22 +31,20 @@
             <div class="grey--text ml-4">4.5 (413)</div>
           </v-row>
 
-          <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
 
-          <div>{{item.content}}</div>
+          <!-- <div v-html="item.content"></div> -->
         </v-card-text>
 
         <v-divider class="mx-4"></v-divider>
 
-        <v-card-title>Tonight's availability</v-card-title>
 
         <v-card-actions>
           {{ item.heart }}
-          <v-btn icon color="black">
-            <v-icon>mdi-heart</v-icon>
+          <v-btn v-if="!item.clickHeart" icon color="black">
+            <v-icon @click="like(item.pno)">mdi-heart</v-icon>
           </v-btn>
-          <v-btn icon color="pink">
-            <v-icon>mdi-heart</v-icon>
+          <v-btn v-else icon color="pink">
+            <v-icon @click="like(item.pno)">mdi-heart</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -58,7 +56,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollmonitor/1.2.0/scrollMonitor.js"></script>
 <script>
 import moment from "moment";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "List",
@@ -82,6 +80,7 @@ export default {
     this.loadUntilViewportIsFull();
   },
   methods: {
+    ...mapActions(['like']),
     movePage() {
       this.$router.push({ name:'Create' });
     },
