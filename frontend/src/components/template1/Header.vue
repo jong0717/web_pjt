@@ -2,7 +2,7 @@
   <div class="header">
     <div class="inner">
       <nav class="navbar navbar-expand-lg navbar-light bg-white">
-      <!-- <div class="d-flex justify-content-between"> -->
+        <!-- <div class="d-flex justify-content-between"> -->
         <div class="i">
           <v-btn @click="moveToMain" class="ma-2" color="dark darken-2" dark>
             <!-- <v-icon dark left>mdi-arrow-left</v-icon>Main -->
@@ -19,6 +19,7 @@
           class="collapse navbar-collapse d-flex justify-content-end"
           id="navbarSupportedContent"
         >
+          
           <form class="form-inline my-2 my-lg-0">
             <input
               class="form-control mr-sm-2 fas"
@@ -50,6 +51,7 @@
                   <!-- <v-gravatar email="somebody@somewhere.com" :size="30"/> -->
                 </li>
               </span>
+              
             </ul>
           </form>
         </div>
@@ -79,13 +81,16 @@
       <nav id="router">
         <ul>
           <li class="routerlist">
-            <router-link class="routerlink" :to="{ name:'List' }">목록</router-link>
+            <router-link class="routerlink" :to="{ name:'List', params:{bid: this.$store.state.bid} }">목록</router-link>
           </li>
           <li class="routerlist">
-            <router-link class="routerlink" :to="{ name:'Tag' }">태그</router-link>
+            <router-link class="routerlink" :to="{ name:'Tag', params:{bid: this.$store.state.bid} }">태그</router-link>
           </li>
           <li class="routerlist">
-            <router-link class="routerlink" :to="{ name:'VisitCreate' }">방명록</router-link>
+            <router-link class="routerlink" :to="{ name:'VisitCreate', params:{bid: this.$store.state.bid} }">방명록</router-link>
+          </li>
+          <li class="routerlist">
+            <router-link class="routerlink" :to="{ name:'UpdateTmp', params:{bid: this.$store.state.bid} }">템플릿</router-link>
           </li>
         </ul>
       </nav>
@@ -111,8 +116,8 @@ export default {
   methods: {
     ...mapActions(["logout", "search"]),
     moveToMain() {
-      this.$router.push('/')
-    }
+      this.$router.push("/");
+    },
   },
   computed: {
     ...mapGetters(["isLogIn"]),
@@ -182,16 +187,16 @@ h4 {
   color: black;
   font-family: "Nanum Myeongjo";
   display: flex;
-  margin-left:4rem;
+  margin-left: 4rem;
 }
 .navbarname:hover {
   animation: bounce;
   animation-duration: 1.5s;
 }
 .i {
-  margin-left:2rem;
+  margin-left: 2rem;
 }
 #navbarSupportedContent {
-  margin-right:2rem;
+  margin-right: 2rem;
 }
 </style>
