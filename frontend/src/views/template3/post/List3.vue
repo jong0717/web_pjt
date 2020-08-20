@@ -27,7 +27,7 @@
             <v-card-title class="headline mx-2 py-2">{{ item.title }}</v-card-title>
           </router-link>
           <v-card-text>
-            <div class="contentable" v-html="item.content"></div>
+            <div style="font-size:1.4em" class="contentable" v-html="item.content"></div>
           </v-card-text>
           <div class="d-flex justify-content-between mx-4">
             <div>
