@@ -11,6 +11,7 @@
         ref="title"
         placeholder="제목을 입력하세요"
         v-model="title"
+        style="width:100%"
       />
     </div>
 
@@ -19,9 +20,9 @@
       <v-row align="center" justify="center">
         <v-col class="text-center">
           <!-- Bold -->
-          <div class="justify-content-between">
+          <div class="justify-content-between" fluid>
             <!-- buttons -->
-            <v-row class="editorbuttons border border-bottom">
+            <div class="editorbuttons border border-bottom">
               <!-- H1 -->
               <v-tooltip top>
                 <template
@@ -218,13 +219,15 @@
               <!-- images -->
               |
               <v-tooltip top>
-                <template v-slot:activator="{ on }" onclick="document.execCommand('Images')">
+                <template
+                  v-slot:activator="{ on }"
+                >
                   <v-btn
                     :href="source"
                     icon
                     medium
                     target="_blank"
-                    onclick="document.execCommand('images')"
+                    @click="insertmyImage"
                     v-on="on"
                   >
                     <input type="button" class="Imgaes" />
@@ -325,18 +328,19 @@
                 @click="convertToEditor"
               />
               <input v-if="html_switch===false" type="button" value=" HTML" @click="convertToHTML" />
-            </v-row>
+            </div>
 
             <div class="col-1-none"></div>
 
-            <v-row
+            <div
               class="editortext editorDIV form-control"
               type="text"
               id="content"
               ref="content"
               placeholder="내용을 입력하세요"
+              style="height: auto; min-height: 200px;"
               contenteditable="true"
-            ></v-row>
+            ></div>
 
             <div class="editorHTMLDIV"></div>
           </div>
@@ -355,18 +359,29 @@
     />
 
     <div class="form-group">
-      <label for="exampleFormControlFile1"></label>
-      <div>
+      <!-- <label for="exampleFormControlFile1"></label> -->
+      <!-- <div>
         <img v-bind:src="defalutImg" alt width="180" height="180" />
-      </div>
+      </div> -->
       <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
     </div>
+
     <div>
       <label for="tags-basic">Type a new tag and press enter</label>
       <b-form-tags input-id="tags-basic" v-model="tags" class="mb-2"></b-form-tags>
       <p>Value: {{ tags }}</p>
     </div>
     <button @click="getTag">getTag</button>
+
+    <!--  -->
+    <v-file-input
+      v-model="file"
+      label="Select Image File..."
+      accept="image/*"
+      @change="onFileChange"
+    ></v-file-input>
+    <v-btn color="primary" @click="onUpload">Upload</v-btn>
+
     <div class="text-right">
       <button
         class="btn btn-primary"
@@ -411,28 +426,47 @@ export default {
       createDate: "",
       bid: this.$route.params.bid,
       tags: [],
-      tag: '',
+      tag: "",
       html_switch: false,
       drawer: null,
       defalutImg:
         "//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png",
+      file: null,
       files: [],
       flag: true,
       selectImg: "",
+      anotherimage: "http://placekitten.com/200/300",
       myFiles: [],
       server: `${this.$store.state.HOST}/api/image`,
+      
     };
   },
   methods: {
+    onFileChange() {
+      let reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+      reader.readAsDataURL(this.file);
+    },
+    onUpload() {
+      console.log(this.file);
+      console.log(this.file.name);
+    },
+    insertmyImage() {
+      document.execCommand("InsertImage", false, 'https://storage.googleapis.com/getblog/'+this.file.name);
+    },
     convertToHTML: function () {
       this.content = document.getElementById("content").innerHTML;
       this.html_switch = true;
+      console.log(this.content);
       $(".editorHTMLDIV").text($(".editorDIV").html());
       $(".editorHTMLDIV").show();
       $(".editorDIV").hide();
     },
     convertToEditor: function () {
       this.html_switch = false;
+      // console.log(this.content)
       $(".editorDIV").html($(".editorHTMLDIV").text());
       $(".editorDIV").show();
       $(".editorHTMLDIV").hide();
@@ -441,25 +475,13 @@ export default {
       this.content = document.getElementById("content").innerHTML;
       let err = true;
       let msg = "";
-      // !this.uid &&
-      //   ((msg = "작성자를 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.uid.focus());
-      // err &&
-      //   !this.title &&
-      //   ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
-      // err &&
-      //   !this.content &&
-      //   ((msg = "내용 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type == "create" ? this.createHandler() : this.updateHandler();
     },
     createHandler() {
       console.log("글쓰기실행");
-      this.getTag()
+      this.getTag();
       let i;
       for (i = 0; i < this.files.length; i++) {
         let formData = new FormData();
@@ -480,11 +502,20 @@ export default {
           })
           .then((res) => {
             alert("등록이 완료되었습니다.");
-            this.$router.push({name:'List', params: {bid:this.$route.params.bid}})
+            if (this.$store.state.renderNum === 1) {
+              this.$router.push({ name:'List', params:{bid:this.bid}});
+            } else if (this.$store.state.renderNum === 2) {
+              this.$router.push({ name:'List2', params:{bid:this.bid} });
+            }
+            else {
+              this.$router.push({ name:'RecentList', params:{bid:this.bid} });
+            }
+            // this.$router.go(-1);
             console.log(res, "SUCCESS!!");
           })
           .catch((err) => {
-            this.$router.push({name:'List', params: {bid:this.$route.params.bid}})
+            // this.$router.push("/temp1");
+            this.$router.go(-1);
             console.log(err, "FAILURE!!");
           });
         // this.$router.push("/temp1");
@@ -517,22 +548,28 @@ export default {
       console.log(this.files);
       alert(this.files[0].name);
       this.defalutImg = this.files[0].name;
+      document.execCommand(
+        "InsertImage",
+        false,
+        "http://placekitten.com/200/300"
+      );
     },
     handleFilePondInit: function () {
+      console.log("테스트실행");
       console.log("FilePond has initialized");
       this.$refs.pond.getFiles();
     },
     getTag() {
-      let i
-      for (i = 0; i < (this.tags).length; i++) {
-        if (i === (this.tags).length-1) {
-          this.tag = this.tag + this.tags[i]
-          break
+      let i;
+      for (i = 0; i < this.tags.length; i++) {
+        if (i === this.tags.length - 1) {
+          this.tag = this.tag + this.tags[i];
+          break;
         }
-        this.tag = this.tag + this.tags[i] + ':' 
+        this.tag = this.tag + this.tags[i] + ":";
       }
-      console.log(this.tag)
-    }
+      console.log(this.tag);
+    },
   },
   created() {
     if (this.type === "update") {
@@ -550,14 +587,17 @@ export default {
         });
     }
   },
+  // mounted() {
+  //   this.bid = this.$route.params.bid
+  // }
 };
 </script>
 
 <style>
 #registerBtn {
   font-family: "Jua", sans-serif;
-  background-color: gray;
-  border-color: gray;
+  background-color:#424242;
+  border-color: #424242;
   margin-right: 7px;
 }
 /* 
@@ -567,11 +607,11 @@ export default {
   border-color: gray;
   margin-right: 7px;
 } */
-
 #listBtn {
   font-family: "Jua", sans-serif;
-  background-color: gray;
-  border-color: gray;
+  background-color: #CFD8DC;
+  border-color: #CFD8DC;
+  color: black;
 }
 
 #createForm {
@@ -581,4 +621,3 @@ export default {
   font-family: "Jua", sans-serif;
 }
 </style>
-

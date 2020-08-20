@@ -226,7 +226,7 @@ export default new Vuex.Store({
       } else if (payload.template_num == 2) {
         router.push({ name: 'List2', params: { bid: payload.bid } })
       } else if (payload.template_num == 3) {
-        router.push({ name: 'Home', params: { bid: payload.bid } })
+        router.push({ name: 'RecentList', params: { bid: payload.bid } })
       }
     },
     createBlog({ commit }, payload) {
@@ -247,7 +247,7 @@ export default new Vuex.Store({
           } else if (payload.template_num == 1) {
             router.push({ name: 'List2', params: { bid: res.data } })
           } else if (payload.template_num == 2) {
-            router.push({ name: 'Home', params: { bid: res.data } })
+            router.push({ name: 'RecentList', params: { bid: res.data } })
           } // blogcreate 시에 값이 0 1 2로 되어 있어 일단 이렇게
         })
         .catch((err) => {

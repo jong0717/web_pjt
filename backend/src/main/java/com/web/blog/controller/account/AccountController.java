@@ -6,7 +6,6 @@ import com.web.blog.dao.user.RoleDao;
 import com.web.blog.dao.user.UserDao;
 import com.web.blog.model.BasicResponse;
 import com.web.blog.model.blog.Blog;
-import com.web.blog.model.posts.Posts;
 import com.web.blog.payload.request.UserRequest;
 import com.web.blog.payload.response.UserResponse;
 import com.web.blog.security.jwt.JwtUtils;

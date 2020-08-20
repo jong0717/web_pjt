@@ -23,6 +23,7 @@ import com.web.blog.model.posts.PostsListResponseDto;
 import com.web.blog.model.posts.PostsResponseDto;
 import com.web.blog.model.posts.PostsSaveRequestDto;
 import com.web.blog.model.posts.PostsUpdateRequestDto;
+import com.web.blog.security.jwt.JwtUtils;
 import com.web.blog.service.GCSService;
 import com.web.blog.service.PostsService;
 
@@ -33,6 +34,7 @@ public class PostsApiController {
 
     private final PostsService postsService;
     private final GCSService gcsService;
+    private final JwtUtils jwtUtils;
 
     @PostMapping("/api/post/insert")
     @ApiOperation(value = "게시글 등록하기")
@@ -67,16 +69,19 @@ public class PostsApiController {
 
     @GetMapping("api/post/{pno}")
     @ApiOperation(value = "게시글 가져오기")
-    public PostsResponseDto findByPno(@PathVariable Long pno){
-        return postsService.findByPno(pno);
+    public PostsResponseDto findByPno(@PathVariable Long pno, @RequestParam(required = true) final String accessToken) {
+        Long uid = jwtUtils.getUidFromJwtToken(accessToken);
+        return postsService.findByPno(pno, uid);
     }   
 
     @GetMapping("/api/post/list/{bid}")
-    @ApiOperation(value = "전체 게시글 불러오기")
+    @ApiOperation(value = "현재 블로그의 전체 게시글 불러오기")
     public Page<PostsListResponseDto> findAll(@RequestParam(required = true) final int page,
                                                 @RequestParam(required = true) final int size,
+                                                @RequestParam(required = true) final String accessToken,
                                                 @PathVariable Long bid) {
-        return postsService.findAllDesc(page, size, bid);
+        Long uid = jwtUtils.getUidFromJwtToken(accessToken);
+        return postsService.findAllDesc(page, size, bid, uid);
     }
 
     @GetMapping("api/post/detail/{pno}")

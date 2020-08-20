@@ -10,12 +10,12 @@
     <!-- <div><h1>여기에 나와야 돼</h1></div> -->
     <div class="text-center">
       <!-- <button @click="back" class="btn btn-primary" id="listBtn">목록</button> -->
-      <v-btn color="green lighten-2" dark @click="back" id="listBtn">목록</v-btn>
+      <router-link to=""><v-btn color="green lighten-2" fab dark @click="back" id="listBtn">목록</v-btn></router-link>
       <router-link :to="'/update?pno=' + post.pno">
-        <v-btn color="amber lighten-1" dark id="updateBtn">수정</v-btn>
+        <v-btn color="amber lighten-1" fab dark id="updateBtn">수정</v-btn>
       </router-link>
       <router-link :to="'/delete?pno=' + post.pno">
-        <v-btn color="red lighten-1" dark id="deleteBtn">삭제</v-btn>
+        <v-btn color="red lighten-1" fab dark id="deleteBtn">삭제</v-btn>
       </router-link>
     </div>
     <br />
@@ -95,6 +95,7 @@
         <div>
           <input type="text" name="replyer" id="replyer" placeholder="작성자" v-model="replyer">
         </div>
+        <div class="d-flex justify-content-center align-items-center">
         <div>
           <textarea
             name="replytext"
@@ -103,14 +104,15 @@
             rows="3"
             placeholder="여러분의 소중한 댓글을 입력해주세요."
             v-model="replytext"
-            class="form-control mt-4 w-100"
+            class="form-control w-100"
           ></textarea>
           <!-- <textarea id="replytext" class="form-control mt-4" id="exampleFormControlTextarea1" rows="3" v-model="content" placeholder="여러분의 소중한 댓글을 입력해주세요."></textarea> -->
-        </div>
         <!-- <button class="btn btn-primary" id="ReplyAddBtn" @click="addHandler">등록</button> -->
-        <div class='text-right'>
-          <v-btn class="ma-2" tile color="blue darken-1" dark @click="addHandler">등록</v-btn>
+        <!-- <div class='text-center'> -->
         </div>
+          <v-btn class="ml-4 " fab color="blue darken-1" dark @click="addHandler">등록</v-btn>
+          </div>
+        <!-- </div> -->
       </div>
     </template>
   </div>
@@ -149,7 +151,7 @@ export default {
   },
   methods: {
     getFormatDate(createDate) {
-      return moment(new Date(createDate)).format("YYYY.MM.DD HH:MM:SS");
+      return moment(new Date(createDate)).format("YYYY.MM.DD");
     },
     getNickname() {
       this.$http
@@ -245,7 +247,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .read-icon {
   height: 6ch;
   width: 6ch;
@@ -266,6 +268,9 @@ export default {
 
 #replytext {
   border:solid 1px;
-  width : 500px;
+  width : 500px !important;
+  height: 56px !important;
+  /* padding-top:0; */
+
 }
 </style>
