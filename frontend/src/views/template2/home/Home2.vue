@@ -3,34 +3,34 @@
     <v-navigation-drawer v-model="drawer" app :src="background">
       <v-list dense>
         <!-- home -->
-        <v-list-item link @click="moveToMain">
+        <v-list-item link @click="moveToHome">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>
-              <div style="color:white;font-size:1.5em">Home</div>
+              <div style="color:#e6f0e8;font-size:1.5em">Home</div>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <!-- contact -->
-        <v-list-item link>
+        <v-list-item link @click="moveToMain">
           <v-list-item-action>
             <v-icon>mdi-email</v-icon>
           </v-list-item-action>
 
           <v-list-item-content>
             <v-list-item-title>
-              <div style="color:white;font-size:1.5em">최근 쓴 글</div>
+              <div style="color:#e6f0e8;font-size:1.5em; height:1.2em">최근 쓴 글</div>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <div v-for="(item, index) in newPosts" :key="index + '_posts'">
           <div v-if="index<4" class="my-4 subtitle-1" style="margin:0;">
             <router-link :to="'/read2?pno='+item.pno">
-              <div class="listTitle">{{ item.title }}</div>
+              <div style="color:#727973" class="listTitle">{{ item.title }}</div>
             </router-link>
-            <div class="dat" style="color:#97fabf;font-size:1em ">{{getFormatDate(item.createDate)}}</div>
+            <div class="dat" style="color:#727973;font-size:1em ">{{getFormatDate(item.createDate)}}</div>
           </div>
         </div>
 
@@ -45,16 +45,20 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+
+        <!-- 템플릿 -->
+        <v-list-item link @click="moveToTemplate">
           <v-list-item-action>
             <v-icon>mdi-flag</v-icon>
           </v-list-item-action>
 
           <v-list-item-content>
-            <router-link :to="{ name:'UpdateTmp2', params:{bid: this.$store.state.bid} }"><v-list-item-title class="btn">템플릿</v-list-item-title></router-link>
+            <v-list-item-title>
+              <div style="color:#e6f0e8;font-size:1.5em; height:1.2em">템플릿</div>            
+            </v-list-item-title>
           </v-list-item-content>
-          
         </v-list-item>
+
 
       </v-list>
     </v-navigation-drawer>
@@ -116,9 +120,15 @@ export default {
   },
   methods: {
     ...mapActions(["logout", "search"]),
+    moveToHome(){
+      this.$router.push('/')
+    },
 
     moveToMain() {
       this.$router.push({ name: "List2", params:{bid:this.$store.state.bid} });
+    },
+    moveToTemplate() {
+      this.$router.push({ name:'UpdateTmp2', params:{bid: this.$store.state.bid} });
     },
     movePage() {
       this.$router.push({ name: "Create2", params:{bid:this.$store.state.bid} });
@@ -179,8 +189,8 @@ export default {
 * {
   margin: 0px;
   padding: 0px;
-  font-family: "Gaegu", cursive;
-  font-size: 1.2em;
+  font-family: 'TmoneyRoundWindExtraBold';
+  ;
 }
 .dat {
   display: flex;
