@@ -1,10 +1,26 @@
 <template>
   <div>
     <div class="imgCon">
-      <img src="@/assets/main.png" alt="mainImage" />
+      <img
+        class="infinite_rotating_logo"
+        src="@/assets/Ain.png"
+        alt="mainImage"
+        style="position:absolute; left:50%; margin-left: -30em; width:60em; height:auto; z-index:1;"
+      />
+      <router-link to="/blogcreate">
+        <img
+          src="@/assets/blog2.png"
+          alt="mainImage"
+          style="position:absolute; transform:translateX(-50%); left:50%; top:28em;  width:25em; height:auto; z-index:2;"
+        />
+      </router-link>
       <div class="startBtn">
         <router-link to="/blogcreate">
-          <button type="button" class="btn btn-outline-dark">시작하기</button>
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            style="position:absolute; top:42em; transform:translateX(-50%); left:50%;z-index:3;"
+          >시작하기</button>
         </router-link>
       </div>
     </div>
@@ -121,5 +137,16 @@ img {
   margin-bottom: 5vh;
   width: 100%;
   border-radius: 1rem !important;
+}
+
+img.infinite_rotating_logo {
+  animation: rotate_image 10s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
