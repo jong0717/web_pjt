@@ -19,7 +19,6 @@
       <v-btn class="ma-2 text-white" color="#9aa6c0" @click="createVisit">등록</v-btn>
     </div>
     <!-- <VisitPage3 :visitlist="visitlist" /> -->
-    <p>글목록</p>
     <ul v-for="(item,index) in guestbooks" :key="index +'_guestbooks'" class="mylist">
       <hr />
       <li>
