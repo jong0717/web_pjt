@@ -24,7 +24,6 @@
         :right="right"
         :small="small"
         color="#ddaeb6"
-
       >
         <template v-slot:icon>
           <v-avatar v-if="avatar">
@@ -37,6 +36,9 @@
           <v-card-text>
            {{ item.content }}
           </v-card-text>
+          <div class='text-right mr-4'>
+            {{item.createDate | moment('YY.MM.DD')}}
+          </div>
         </v-card>
       </v-timeline-item>
     </v-timeline>
