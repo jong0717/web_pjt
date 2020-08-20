@@ -132,6 +132,9 @@ export default {
 img {
   width: 100%;
 }
+.introduce {
+  margin-top: 60em;
+}
 
 .startBtn {
   margin-bottom: 5vh;
