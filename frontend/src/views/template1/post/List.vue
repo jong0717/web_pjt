@@ -11,7 +11,7 @@
         v-for="(item, index) in newPosts"
         :key="index + '_posts'"
       >
-        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+        <v-img height="250" :src="'https://storage.googleapis.com/getblog/'+item.img"></v-img>
         <!-- <v-img height="250" :src="'@/assets/post/'+item.img"></v-img>
         <v-img height="250" :src="'/public/files/'+item.img"></v-img>
         <img :src="require(`@/assets/post/${imgURL}`)">
