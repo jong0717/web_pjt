@@ -27,14 +27,15 @@ import NotFoundPage from '@/views/template1/err/NotFoundPage.vue'
 import store from '@/store'
 
 // hong place(template3)
-import Home from '@/views/template3/home/Home.vue'
-import RecentList from '@/views/template3/post/RecentList.vue'
+// import Home from '@/views/template3/home/Home.vue'
+import List3 from '@/views/template3/post/List3.vue'
 import VisitPage3 from '@/views/template3/board/VisitPage3.vue'
 import VisitCreate3 from '@/views/template3/board/VisitCreate3.vue'
 // +재완
 // lsit2
-import List2 from '@/views/template2/List2.vue'
+import List2 from '@/views/template2/post/List2.vue'
 import Create2 from '../views/template2/post/Create2.vue'
+import VisitCreate2 from '@/views/template2/board/VisitCreate2.vue'
 
 
 Vue.use(VueRouter)
@@ -139,12 +140,17 @@ const routes = [
     name: 'Create2',
     component: Create2,
   },
-  // temp3
   {
-    path:'/3/:bid/home',
-    name:'Home',
-    component:Home
+    path: '/2/:bid/visitcreate',
+    name: 'VisitCreate2',
+    component: VisitCreate2
   },
+  // temp3
+  // {
+  //   path:'/3/:bid/home',
+  //   name:'Home',
+  //   component:Home
+  // },
   // temp3/post
   {
     path: '/3/:bid/create',
@@ -153,8 +159,8 @@ const routes = [
   },
   {
     path: '/3/:bid/',
-    name: 'RecentList',
-    component: RecentList,
+    name: 'List3',
+    component: List3,
   },
   {
     path: '/3/:bid/visitpage',

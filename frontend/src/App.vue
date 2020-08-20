@@ -21,7 +21,7 @@
         </div>
       </div>
       <div v-if="renderNum==2">
-        <router-view />
+        <Home2 />
       </div>
       <div v-if="renderNum==3">
         <Home />
@@ -36,6 +36,7 @@ import HeaderMain from "@/components/main/HeaderMain.vue"
 import Aside from "@/views/template1/post/Aside.vue";
 // import Main from "@/views/main/Main.vue"
 import Home from "@/views/template3/home/Home.vue"
+import Home2 from '@/views/template2/home/Home2.vue'
 
 
 import { mapState } from 'vuex'
@@ -49,6 +50,7 @@ export default {
     // Main,
     HeaderMain,
     Home,
+    Home2
 
   },
   computed: {
