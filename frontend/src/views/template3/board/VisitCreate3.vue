@@ -20,16 +20,17 @@
     </div>
     <!-- <VisitPage3 :visitlist="visitlist" /> -->
     <p>글목록</p>
-    <ul v-for="(item,index) in guestbooks" :key="index" class="mylist">
+    <ul v-for="(item,index) in guestbooks" :key="index +'_guestbooks'" class="mylist">
       <hr />
       <li>
         <div class="d-flex justify-content-between">
           <div>
             <b-avatar variant="dark mr-3" size="lg"></b-avatar>
             <span class="nickname">
-              <a href="#" class="text-dark">{{ item.writerUid }}</a>
+              <a href="#" class="text-dark">{{ item.writerNickname }}</a>
             </span>
-            <span class="date ml-5 text-secondary">{{getFormatDate(item.createDate)}}</span>
+            <!-- <span class="date ml-5 text-secondary">{{getFormatDate(item.createTime)}}</span> -->
+            <p>등록일 : {{ createDate | moment('YYYY-MM-DD HH:mm:ss') }}</p>
           </div>
           <span class="control">수정/삭제</span>
         </div>
@@ -57,7 +58,8 @@ export default {
       content: "",
       uid: this.$store.state.uid.uid,
       bid: this.$route.params.bid,
-      createDate:""
+      // create_date:'',
+      guestbooks:[],
     };
   },
   components: {
@@ -71,10 +73,13 @@ export default {
           blogId: this.$route.params.bid,
           content: this.content,
           writerUid: this.$store.state.uid.uid,
-          createDate:this.createDate,
+          createTime:"2020-08-20T04:12:32.183Z",
         })
         .then((res) => {
+          console.log('등록');
           console.log(res);
+          this.getGuestBooks()
+          // this.$router.go();
         })
         .catch((err) => {
           console.log(err);
@@ -82,22 +87,27 @@ export default {
       // this.visitlist.push(this.content)
       // this.content = null
     },
-    getGuestBook() {
-        this.$http.get(`${this.$store.state.HOST}/guestbook/list`)
+    getGuestBooks() {
+      console.log('불러완')
+        this.$http.get(`${this.$store.state.HOST}/guestbook/list/?blogId=${this.bid}`)
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            this.guestbooks = res.data;
         })
         .catch((err) => {
             console.log(err)
+            console.log("에러가 발생했습니다.");
         })
     },
-    getFormatDate(createDate) {
-      return moment(new Date(createDate)).format("YYYY.MM.DD HH:MM:SS");
+    getFormatDate(createTime) {
+      return moment(new Date(createTime)).format("YYYY.MM.DD HH:MM:SS");
     },
   },
   mounted() {
     this.$store.state.renderNum = 3;
-    this.getGuestBook()
+  },
+  created() {
+    this.getGuestBooks();
   },
 };
 </script>
