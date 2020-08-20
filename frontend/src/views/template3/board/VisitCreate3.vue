@@ -112,6 +112,7 @@ export default {
       createTime: moment(),
       guestbooks: [],
       dialog:false,
+      
     };
   },
   components: {
