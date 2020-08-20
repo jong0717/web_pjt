@@ -53,6 +53,7 @@ export default new Vuex.Store({
     myblog: [],
     myblogbid: [],
     page: 0,
+    bid: ''
   },
   getters: {
     // user
@@ -154,8 +155,8 @@ export default new Vuex.Store({
       router.go()
     },
     // post
-    getPOSTs({ state, commit }, bid) {
-      console.log(bid)
+    getPOSTs({ state }, bid) {
+      // console.log(bid)
       http
         .get(`/api/post/list/${bid}`, {
           params: {
@@ -166,8 +167,15 @@ export default new Vuex.Store({
           }
         })
         .then(({ data }) => {
+          console.log(data)
           if (data.empty === false) {
-            commit('setPOSTs', data.content);
+            // commit('setPOSTs', data.content);
+            if (state.searchFlag === true) {
+              state.posts = [...data.content]
+            } else {
+              console.log("posts 데이터 다시")
+              state.posts = [...state.posts, ...data.content];
+            }
           }
         })
         .catch((err) => {
@@ -256,32 +264,19 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    like({ state }, payload) {
+    like({ state, dispatch }, payload) {
       const likeData = {
         accessToken: state.authToken,
         pno: payload
       }
       http.post(`heart/click`, likeData)
       .then((res) => {
-        console.log(res)
+        console.log(res.data.message)
+        dispatch('getPOSTs', state.bid)
       })
       .catch((err) => {
         console.log(err)
       })
     },
-    // checkLike({ state }, payload) {
-    //   const checkData = {
-    //     accessToken: state.authToken,
-    //     pno: payload
-    //   }
-    //   http.post(`heart/check`, checkData)
-    //   .then((res) => {
-    //     console.log(res.data)
-    //     return res.data
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-    // }
   },
 })

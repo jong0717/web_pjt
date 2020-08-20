@@ -1,60 +1,12 @@
 <template>
   <div>
-    <!-- <h1>여기에 글 정보</h1>
-    <hr />
-    <br />
-    <br />
-    <h1>title : {{ post.title }}</h1>
-    <br />-->
-    <!-- <h4>{{ nickname }}</h4> -->
-    <!-- <br />
-    <h4>content : {{ post.content }}</h4>
-    <br />
-    <br />
-    <hr />-->
-    <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-      <v-img
-        v-if="post.img === null"
-        height="250"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-      ></v-img>
-
-      <div v-if="post.img !== null">
-        <img :src="'https://storage.googleapis.com/getblog/'+post.img" alt width="350px" />
+    <div class="inner">
+      <div class="hgroup">
+        <div class="category">
+          <h1>{{ post.title }}</h1>
+        </div>
       </div>
-
-      <v-card-text>
-        <v-row align="center" class="mx-0">
-          <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-          <div class="grey--text ml-4">4.5 (413)</div>
-        </v-row>
-
-        <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
-
-        <div>{{ post.content }}</div>
-      </v-card-text>
-
-      <v-divider class="mx-4"></v-divider>
-
-      <v-card-title>Tonight's availability</v-card-title>
-
-      <v-card-text>
-        <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-          <v-chip>5:30PM</v-chip>
-
-          <v-chip>7:30PM</v-chip>
-
-          <v-chip>8:00PM</v-chip>
-
-          <v-chip>9:00PM</v-chip>
-        </v-chip-group>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-btn color="deep-purple lighten-2" text @click="reserve">Reserve</v-btn>
-      </v-card-actions>
-    </v-card>
+    </div>
     <!-- <div><h1>여기에 나와야 돼</h1></div> -->
     <div class="text-center">
       <!-- <button @click="back" class="btn btn-primary" id="listBtn">목록</button> -->
@@ -185,6 +137,7 @@ export default {
       replytext: "",
       replyer: "",
       createDate: "",
+      post: {},
     };
   },
   created() {
@@ -192,6 +145,7 @@ export default {
   },
   mounted() {
     this.$store.state.renderNum = 1
+    this.getPost()
   },
   methods: {
     getFormatDate(createDate) {
@@ -268,17 +222,21 @@ export default {
           alert("삭제 처리시 에러가 발생했습니다.");
         });
     },
-    getNaverBlog() {
-      const headers = {
-        "X-Naver-Client-Id": "PbOyaByRiX_P1pzboQ3m",
-        "X-Naver-Client-Secret": "AClAi8Sq6M",
-      };
-      this.$http.get("https://openapi.naver.com/v1/search/blog", {
+    getPost() {
+      this.$http
+      .get(`${this.$store.state.HOST}/api/post/${this.$route.query.pno}`, {
         params: {
-          title: "운암동루덴스",
-        },
-        headers,
-      });
+          accessToken: this.$store.state.authToken,
+          pno: this.$route.query.pno
+        }
+      })
+      .then((res) => {
+        console.log(res)
+        this.post = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
     back() {
       this.$router.go(-1);

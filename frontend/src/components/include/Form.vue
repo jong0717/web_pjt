@@ -480,13 +480,11 @@ export default {
           })
           .then((res) => {
             alert("등록이 완료되었습니다.");
-            // this.$router.push("/temp1");
-            this.$router.go(-1);
+            this.$router.push({name:'List', params: {bid:this.$route.params.bid}})
             console.log(res, "SUCCESS!!");
           })
           .catch((err) => {
-            // this.$router.push("/temp1");
-            this.$router.go(-1);
+            this.$router.push({name:'List', params: {bid:this.$route.params.bid}})
             console.log(err, "FAILURE!!");
           });
         // this.$router.push("/temp1");
