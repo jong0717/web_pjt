@@ -11,9 +11,9 @@
         </div>
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
         <div id="navbarname" class="animate__animated animate__bounce">
-          <a class="navbarname" href="/">
+          
             <h4>{{ blogname }}</h4>
-          </a>
+          
         </div>
         <div
           class="collapse navbar-collapse d-flex justify-content-end"
@@ -82,9 +82,6 @@
         <ul>
           <li class="routerlist">
             <router-link class="routerlink" :to="{ name:'List', params:{bid: this.$store.state.bid} }">목록</router-link>
-          </li>
-          <li class="routerlist">
-            <router-link class="routerlink" :to="{ name:'Tag', params:{bid: this.$store.state.bid} }">태그</router-link>
           </li>
           <li class="routerlist">
             <router-link class="routerlink" :to="{ name:'VisitCreate', params:{bid: this.$store.state.bid} }">방명록</router-link>

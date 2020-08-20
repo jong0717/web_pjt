@@ -224,7 +224,11 @@ export default new Vuex.Store({
         router.push({ name: 'List3', params: { bid: payload.bid } })
       }
     },
-    createBlog({ commit }, payload) {
+    createBlog({ commit, state }, payload) {
+      if ((state.myblog).length > 4) {
+        alert('최대 개설 가능 블로그 수를 초과하였습니다.')
+        return
+      }
       http.post(`api/blog/insert`, {
         bid: payload.bid,
         blogname: payload.blogname,
@@ -274,5 +278,15 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
+    getBlogName({ state }, bid) {
+      http.get(`api/blog/${bid}`)
+      .then((res) => {
+        console.log(res)
+        state.blogname = res.data.blogname
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
 })

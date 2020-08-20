@@ -2,8 +2,14 @@
   <div>
     <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
       <v-carousel-item v-for="(slide, i) in newPosts" :key="i">
-        <v-row v-show="i<4" class="fill-height" align="center" justify="center">
-          <v-img class="h-100" :src="'https://storage.googleapis.com/getblog/'+slide.img" alt></v-img>
+        <v-row class="fill-height" align="center" justify="center">
+          
+          <v-img
+            class=" h-100"
+            :src="'https://storage.googleapis.com/getblog/'+slide.img"
+            alt 
+          >
+          </v-img>
           <!-- </router-link> -->
         </v-row>
       </v-carousel-item>
@@ -58,6 +64,7 @@ export default {
       window.location = window.location + "#loaded";
       window.location.reload();
     }
+    this.$store.dispatch("getBlogName", this.$route.params.bid)
   },
   updated() {
     this.loadUntilViewportIsFull();
@@ -110,6 +117,7 @@ export default {
       background:
         "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80",
       drawer: null,
+      NNum: 4,
     };
   },
 };
