@@ -59,22 +59,26 @@
       </v-list>
     </v-navigation-drawer>
     <!-- navbar -->
-    <v-app-bar app color="#19ce60" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ blogname }}</v-toolbar-title>
-      <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2 fas"
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-          v-model="searchInput"
-        />
-        <v-btn @click="search(searchInput)" outlined class="searchBtn px-0" tile color="dark" dark>
-          <i class="fas fa-search"></i>
-        </v-btn>
-        <v-btn outlined @click="logout">로그아웃</v-btn>
-      </form>
+    <v-app-bar app color="#19ce60" dark >
+      <div class="d-flex justify-space-between align-items-center">
+          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-toolbar-title class='pl-0'><h1>{{ blogname }}</h1></v-toolbar-title>
+        <div>
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control fas"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              v-model="searchInput"
+            />
+            <v-btn @click="search(searchInput)" outlined class="searchBtn px-0 mx-1" tile color="dark" dark>
+              검색
+            </v-btn>
+            <v-btn outlined @click="logout" class="mx-1">로그아웃</v-btn>
+          </form>
+        </div>
+        </div>
     </v-app-bar>
 
     <v-main class="mainbg">
@@ -167,6 +171,10 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gaegu&display=swap");
+/* .v-toolbar__content {
+  display: flex;
+  justify-content: space-between !important;
+} */
 
 * {
   margin: 0px;
