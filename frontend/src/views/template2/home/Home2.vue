@@ -40,7 +40,7 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title class="btn" @click="movePage">
+            <v-list-item-title v-if="this.$store.state.uid.uid==this.$store.state.bloguid" class="btn" @click="movePage">
               <div style="color:white;font-size:1.5em">글쓰기</div>
             </v-list-item-title>
           </v-list-item-content>
