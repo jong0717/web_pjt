@@ -49,15 +49,6 @@
                   <v-container>
                     <v-row>
                       <div>
-                        <!-- <div>
-                          <input
-                            type="text"
-                            name=""
-                            id="replyer"
-                            placeholder="작성자"
-                            v-model="replyer"
-                          />
-                        </div> -->
                         <div>
                           <textarea
                             name="visittext"

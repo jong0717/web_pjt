@@ -1,21 +1,12 @@
 <template>
   <div>
-    <h2>전체글</h2>
+    <h3 class="text-left">전체글({{}})</h3>
     <hr />
-    <!-- <v-card class="elevation-2" v-for="(item,index) in newPosts" :key="index">
-      <v-card-title class="headline">
-        {{ item.title }}
-      </v-card-title>
-      
-      <v-card-text>{{ item.content }}</v-card-text>
-    </v-card> -->
-    <v-timeline
-      :align-top="alignTop"
-      :reverse="reverse"
-      :dense="dense"
-    >
+
+    <v-timeline :align-top="alignTop" :reverse="reverse" :dense="dense">
       <v-timeline-item
-         v-for="(item,index) in newPosts" :key="index"
+        v-for="(item,index) in newPosts"
+        :key="index"
         :fill-dot="fillDot"
         :hide-dot="hideDot"
         :icon="icon ? 'mdi-star' : ''"
@@ -27,18 +18,18 @@
       >
         <template v-slot:icon>
           <v-avatar v-if="avatar">
-            <img src="http://i.pravatar.cc/64">
+            <img src="http://i.pravatar.cc/64" />
           </v-avatar>
         </template>
         <!-- <span slot="opposite">Tus eu perfecto</span> -->
         <v-card class="elevation-2">
-          <router-link :to="'/read3?pno='+item.pno"><v-card-title class="headline">{{ item.title }}</v-card-title></router-link>
+          <router-link :to="'/read3?pno='+item.pno" class="routerlink">
+            <v-card-title class="headline">{{ item.title }}</v-card-title>
+          </router-link>
           <v-card-text>
-           {{ item.content }}
+            <div class="contentable" v-html="item.content"></div>
           </v-card-text>
-          <div class='text-right mr-4'>
-            {{item.createDate | moment('YY.MM.DD')}}
-          </div>
+          <div class="text-right mr-4">{{item.createDate | moment('YY.MM.DD')}}</div>
         </v-card>
       </v-timeline-item>
     </v-timeline>
@@ -57,24 +48,24 @@ export default {
   },
   data: () => ({
     alignTop: true,
-      avatar: false,
-      dense: true,
-      fillDot: false,
-      hideDot: false,
-      icon: false,
-      iconColor: false,
-      left: false,
-      reverse: false,
-      right: false,
-      small: false,
+    avatar: false,
+    dense: true,
+    fillDot: false,
+    hideDot: false,
+    icon: false,
+    iconColor: false,
+    left: false,
+    reverse: false,
+    right: false,
+    small: false,
   }),
   mounted() {
     this.addScrollWatcher();
     this.$store.state.renderNum = 3;
-    this.$store.state.bid = this.$route.params.bid
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
+    this.$store.state.bid = this.$route.params.bid;
+    if (!window.location.hash) {
+      window.location = window.location + "#loaded";
+      window.location.reload();
     }
   },
   updated() {
@@ -119,4 +110,23 @@ export default {
 </script>
 
 <style scoped>
+/* .contentable {
+  display: inline-block;
+  width: 100%;
+  white-space: normal;
+  overflow: hidden;
+  line-height: 1.2;
+  height: 3.6em;
+
+} */
+.routerlink {
+  color: black !important;
+  /* text-decoration: bold; */
+}
+.v-card__text {
+  padding: 8px;
+}
+.v-card__title {
+  padding: 8px;
+}
 </style>

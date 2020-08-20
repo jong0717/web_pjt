@@ -7,7 +7,9 @@
         <h4 class="recentposts"><strong>최신글</strong></h4>
         <div v-for="(item,index) in newPosts" :key="index">
           <div v-if="index<5">
-          <a href="#" class="text-white">{{item.title}}</a>
+            <router-link :to="'/read3?pno='+item.pno" class="routerlink">
+              {{ item.title }}
+            </router-link>
           </div>
         </div>
       </div>
@@ -15,7 +17,7 @@
         <p>태그</p> 
       </div>
       <div class="d-flex justify-content-around mb-4">
-          <router-link :to="{ name:'RecentList' }"><i class="fas fa-list"></i></router-link>
+          <router-link :to="{ name:'List3' }"><i class="fas fa-list"></i></router-link>
           <router-link :to="{ name:'Create3' }"><i class="fas fa-pen"></i></router-link>
           <router-link :to="{ name:'VisitCreate3' }"><i class="fas fa-book"></i></router-link>
           <router-link to="/user/mypage"><i class="fas fa-user-cog"></i></router-link>
@@ -83,6 +85,9 @@ i {
 }
 .recentposts {
   color:#95a2c2;
-  
 }
+.routerlink {
+  color:white;;
+}
+
 </style>
