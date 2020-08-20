@@ -6,7 +6,12 @@
           <h1>{{ post.title }}</h1>
           <div class="post-meta">
             <span style="margin-right:1em">{{ this.nickname }}</span> |
-            <span style="margin-left:1em">{{ getFormatDate(post.createDate) }}</span>
+            <span style="margin-left:1em; margin-right:1em">{{ getFormatDate(post.createDate) }}</span> |
+            
+            <svg style="margin-left:1em;" @click="CopyUrlToClipboard()" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M12.024 3.797L4.499 7.56l-.448-.895 7.525-3.762.448.894zm-.448 9.3L4.051 9.335 4.5 8.44l7.525 3.763-.448.894z"/>
+              <path fill-rule="evenodd" d="M13.5 5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-11-5.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+            </svg>
           </div>
           <hr>
         </div>
@@ -28,17 +33,12 @@
       </router-link>
     </div>
     <br />
-    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M12.024 3.797L4.499 7.56l-.448-.895 7.525-3.762.448.894zm-.448 9.3L4.051 9.335 4.5 8.44l7.525 3.763-.448.894z"/>
-      <path fill-rule="evenodd" d="M13.5 5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-11-5.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-    </svg>
+    
     <br />
 
     <!-- 댓글 리스트 -->
     댓글
     <hr />
-    <input type="text" id="ShareUrl" class="copyUrl" />
-    <button @click="CopyUrlToClipboard">URL 복사</button>
 
     <div class="media container" v-for="(item, index) in replies" :key="index + '_replies'">
       <img
@@ -166,16 +166,14 @@ export default {
   },
   methods: {
     CopyUrlToClipboard() {
-      var obShareUrl = document.createElement("textarea");
+      var obShareUrl = document.createElement("textarea")
       obShareUrl.value = window.document.location.href;
-      document.body.appendChild(obShareUrl);
 
       obShareUrl.select();
       document.execCommand("copy");
 
-      obShareUrl.blur();
-
-      alert("URL이 클립보드에 복사되었습니다.");
+      alert(obShareUrl.value+" 를 클립보드에 복사하였습니다.");
+      obShareUrl.removeChild(obShareUrl);
     },
     getFormatDate(createDate) {
       return moment(new Date(createDate)).format("YYYY.MM.DD");
