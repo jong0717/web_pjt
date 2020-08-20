@@ -3,23 +3,26 @@
     <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
       <v-carousel-item v-for="(slide, i) in newPosts" :key="i">
         <v-row v-show="i<4" class="fill-height" align="center" justify="center">
+          
           <v-img
-            class="imagine h-100"
+            class=" h-100"
             :src="'https://storage.googleapis.com/getblog/'+slide.img"
-            alt
-          ></v-img>
+            alt 
+          >
+          </v-img>
+          <!-- </router-link> -->
         </v-row>
       </v-carousel-item>
-    </v-carousel>
+    </v-carousel>   
 
     <h1 class="mt-15">Category 1</h1>
     <button>더보기</button>
     <hr />
 
     <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock">
-      <router-link :to="'/read2?pno='+item.pno"><h4>{{ item.title }}</h4></router-link>
-      <p>{{ item.content }}</p>
-      {{ item.createDate }}
+      <router-link :to="'/read2?pno='+item.pno"><h2 style="color:#1bbf5b">{{ item.title }}</h2></router-link>
+      <div class="contentible" v-html="item.content"></div>
+      {{ item.createDate | moment('YY.MM.DD HH:mm')}}
       <hr class="w-50 mx-auto" />
     </div>
     <hr />
@@ -58,7 +61,7 @@ export default {
       this.$router.push({ name: "Create2" });
     },
     getFormatDate(createDate) {
-      return moment(new Date(createDate)).format("YYYY.MM.DD");
+      return moment(new Date(createDate)).format("YYYY.MM.DD ");
     },
     addScrollWatcher() {
       const bottomSensor = document.querySelector("#bottomSensor");
@@ -102,9 +105,17 @@ export default {
 </script>
 
 <style scoped>
+
 * {
   margin: 0px;
   padding: 0px;
+}
+.contentible{
+  display: inline-block;
+  /* width: 200px; */
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 .dat{
   display: flex;
