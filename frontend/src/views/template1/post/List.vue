@@ -18,6 +18,7 @@
         <img :src="'/public/files/'+item.img">
         <p>{{item.img}}</p> -->
         <v-card-title>
+          <!-- <router-link :to="{name:'Read', query:{}}"> -->
           <router-link :to="'/read?pno='+item.pno">
             <h5 class="card-title">{{item.title}}</h5>
           </router-link>
@@ -112,9 +113,12 @@ export default {
   },
   data: () => {
     return {
-      cnt: 0
+      bid: this.$route.params.bid
     }
   },
+  goToDetail() {
+    this.$router.push({name:'Read', params:{bid:this.$route.params.bid}})
+  }
 };
 </script>
 <style scoped>

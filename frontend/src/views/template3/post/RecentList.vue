@@ -33,7 +33,7 @@
         </template>
         <!-- <span slot="opposite">Tus eu perfecto</span> -->
         <v-card class="elevation-2">
-          <v-card-title class="headline">{{ item.title }}</v-card-title>
+          <router-link :to="'/read3?pno='+item.pno"><v-card-title class="headline">{{ item.title }}</v-card-title></router-link>
           <v-card-text>
            {{ item.content }}
           </v-card-text>

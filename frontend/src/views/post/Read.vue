@@ -14,6 +14,9 @@ export default {
   created() {
     this.$store.dispatch('getPOST', `/api/post/${this.$route.query.pno}`);
   },
+  mounted() {
+    this.$store.state.renderNum = 1
+  }
 };
 </script>
 
