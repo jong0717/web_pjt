@@ -16,7 +16,7 @@
     </div>
 
     <label for="content">내용</label>
-    <!-- <v-container class="form-group fill-height pt-0" fluid> -->
+    <v-container class="form-group fill-height pt-0" fluid>
       <v-row align="center" justify="center">
         <v-col class="text-center">
           <!-- Bold -->
@@ -219,13 +219,16 @@
               <!-- images -->
               |
               <v-tooltip top>
-                <template v-slot:activator="{ on }" onclick="document.execCommand('Images')">
+                <template
+                  v-slot:activator="{ on }"
+                  onclick="document.execCommand('InsertImage',false,'http://placekitten.com/200/300')"
+                >
                   <v-btn
                     :href="source"
                     icon
                     medium
                     target="_blank"
-                    onclick="document.execCommand('images')"
+                    @click="insertmyImage"
                     v-on="on"
                   >
                     <input type="button" class="Imgaes" />
@@ -336,7 +339,7 @@
               id="content"
               ref="content"
               placeholder="내용을 입력하세요"
-              style='height: auto; min-height: 200px;'
+              style="height: auto; min-height: 200px;"
               contenteditable="true"
             ></div>
 
@@ -344,7 +347,7 @@
           </div>
         </v-col>
       </v-row>
-    <!-- </v-container> -->
+    </v-container>
     <file-pond
       name="test"
       ref="pond"
@@ -357,18 +360,29 @@
     />
 
     <div class="form-group">
-      <label for="exampleFormControlFile1"></label>
-      <div>
+      <!-- <label for="exampleFormControlFile1"></label> -->
+      <!-- <div>
         <img v-bind:src="defalutImg" alt width="180" height="180" />
-      </div>
+      </div> -->
       <input type="file" id="files" ref="files" v-on:change="handleFileUpload()" multiple />
     </div>
+
     <div>
       <label for="tags-basic">Type a new tag and press enter</label>
       <b-form-tags input-id="tags-basic" v-model="tags" class="mb-2"></b-form-tags>
       <p>Value: {{ tags }}</p>
     </div>
     <button @click="getTag">getTag</button>
+
+    <!--  -->
+    <v-file-input
+      v-model="file"
+      label="Select Image File..."
+      accept="image/*"
+      @change="onFileChange"
+    ></v-file-input>
+    <v-btn color="primary" @click="onUpload">Upload</v-btn>
+
     <div class="text-right">
       <button
         class="btn btn-primary"
@@ -413,38 +427,53 @@ export default {
       createDate: "",
       bid: this.$route.params.bid,
       tags: [],
-      tag: '',
+      tag: "",
       html_switch: false,
       drawer: null,
       defalutImg:
         "//img1.daumcdn.net/thumb/C300x300/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_06.png",
+      file: null,
       files: [],
       flag: true,
       selectImg: "",
+      anotherimage: "http://placekitten.com/200/300",
       myFiles: [],
       server: `${this.$store.state.HOST}/api/image`,
       
     };
   },
   methods: {
+    onFileChange() {
+      let reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+      reader.readAsDataURL(this.file);
+    },
+    onUpload() {
+      console.log(this.file);
+      console.log(this.file.name);
+    },
+    insertmyImage() {
+      document.execCommand("InsertImage", false, 'https://storage.googleapis.com/getblog/'+this.file.name);
+    },
     convertToHTML: function () {
       this.content = document.getElementById("content").innerHTML;
       this.html_switch = true;
-      console.log(this.content)
+      console.log(this.content);
       $(".editorHTMLDIV").text($(".editorDIV").html());
       $(".editorHTMLDIV").show();
       $(".editorDIV").hide();
     },
     convertToEditor: function () {
-      this.content = document.getElementById("content").innerText;
       this.html_switch = false;
-      console.log(this.content)
+      // console.log(this.content)
       $(".editorDIV").html($(".editorHTMLDIV").text());
       $(".editorDIV").show();
       $(".editorHTMLDIV").hide();
     },
     checkHandler() {
-      this.content = document.getElementById("content").innerText;
+      this.content = document.getElementById("content").innerHTML;
       let err = true;
       let msg = "";
 
@@ -453,7 +482,7 @@ export default {
     },
     createHandler() {
       console.log("글쓰기실행");
-      this.getTag()
+      this.getTag();
       let i;
       for (i = 0; i < this.files.length; i++) {
         let formData = new FormData();
@@ -520,22 +549,28 @@ export default {
       console.log(this.files);
       alert(this.files[0].name);
       this.defalutImg = this.files[0].name;
+      document.execCommand(
+        "InsertImage",
+        false,
+        "http://placekitten.com/200/300"
+      );
     },
     handleFilePondInit: function () {
+      console.log("테스트실행");
       console.log("FilePond has initialized");
       this.$refs.pond.getFiles();
     },
     getTag() {
-      let i
-      for (i = 0; i < (this.tags).length; i++) {
-        if (i === (this.tags).length-1) {
-          this.tag = this.tag + this.tags[i]
-          break
+      let i;
+      for (i = 0; i < this.tags.length; i++) {
+        if (i === this.tags.length - 1) {
+          this.tag = this.tag + this.tags[i];
+          break;
         }
-        this.tag = this.tag + this.tags[i] + ':' 
+        this.tag = this.tag + this.tags[i] + ":";
       }
-      console.log(this.tag)
-    }
+      console.log(this.tag);
+    },
   },
   created() {
     if (this.type === "update") {

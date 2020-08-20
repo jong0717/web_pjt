@@ -1,17 +1,5 @@
 <template>
   <div>
-    <!-- <h1>여기에 글 정보</h1>
-    <hr />
-    <br />
-    <br />
-    <h1>title : {{ post.title }}</h1>
-    <br />-->
-    <!-- <h4>{{ nickname }}</h4> -->
-    <!-- <br />
-    <h4>content : {{ post.content }}</h4>
-    <br />
-    <br />
-    <hr />-->
     <v-card :loading="loading" class="mx-auto my-12" max-width="374">
       <v-img
         v-if="post.img === null"
@@ -31,8 +19,7 @@
         </v-row>
 
         <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
-
-        <div>{{ post.content }}</div>
+        <div v-html="$store.state.post.content"></div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
