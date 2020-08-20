@@ -81,7 +81,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue-grey darken-4" text @click="dialog = false">취소</v-btn>
-                <v-btn color="amber accent-4" text @click="dialog = false">확인</v-btn>
+                <v-btn color="amber accent-4" text @click="editHandler">확인</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
