@@ -184,7 +184,8 @@ export default new Vuex.Store({
         });
     },
     getPOST(context, payload) {
-      http.get(payload).then(({ data }) => {
+      http
+      .get(payload).then(({ data }) => {
         context.commit('setPOST', data);
       });
     },
