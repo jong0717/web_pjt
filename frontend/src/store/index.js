@@ -53,7 +53,8 @@ export default new Vuex.Store({
     myblog: [],
     myblogbid: [],
     page: 0,
-    bid: ''
+    bid: '',
+    bloguid: ''
   },
   getters: {
     // user
@@ -283,6 +284,7 @@ export default new Vuex.Store({
       .then((res) => {
         console.log(res)
         state.blogname = res.data.blogname
+        state.bloguid = res.data.uid
       })
       .catch((err) => {
         console.log(err)

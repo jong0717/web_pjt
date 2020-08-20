@@ -26,17 +26,17 @@
         </div>
 
         <div>
+          <h1 class="text-white">{{ blogname }}</h1>
           <v-avatar color="light">
             <v-icon dark>mdi-account-circle</v-icon>
           </v-avatar>
-          <h2 class="text-white">{{ blogname }}</h2>
-         
+          {{this.nickname}}
         </div>
         <div class="d-flex justify-content-around mb-4">
           <router-link :to="{ name:'List3', params:{bid: this.$store.state.bid} }"><svg width="1em" style="color:white" height="1em" viewBox="0 0 16 16" class="bi bi-list-ul" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
           </svg></router-link>
-          <router-link :to="{ name:'Create3', params:{bid: this.$store.state.bid} }"><svg width="1em" style="color:white" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <router-link v-if="this.$store.state.uid.uid==this.$store.state.bloguid" :to="{ name:'Create3', params:{bid: this.$store.state.bid} }"><svg width="1em" style="color:white" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
             <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
           </svg></router-link>
@@ -107,13 +107,26 @@ export default {
       // miniVariant: false,
       // expandOnHover: false,
       background: true,
-      bid: this.$route.params.bid
+      bid: this.$route.params.bid,
+      nickname: "",
     };
   },
   methods: {
     ...mapActions(["logout","search"]),
     moveToPage() {
       this.$router.push({ name:'Main' });
+    },
+    getNickname() {
+      this.$http
+        .get(
+          `${this.$store.state.HOST}/api/post/detail/${this.$route.query.pno}`
+        )
+        .then(({ data }) => {
+          this.nickname = data;
+        })
+        .catch(() => {
+          console.log("에러가 발생했습니다.");
+        });
     },
   },
   computed: {
@@ -126,6 +139,9 @@ export default {
   },
   mounted() {
     this.$store.state.renderNum = 3;
+  },
+  created() {
+    this.getNickname();
   },
 };
 </script>
@@ -141,7 +157,6 @@ export default {
 
 * {
   font-family: 'ImcreSoojin';
-              
 }
 
 .LogoutBtn {

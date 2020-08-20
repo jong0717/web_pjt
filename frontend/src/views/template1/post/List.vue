@@ -1,7 +1,7 @@
 <template>
   <div class="container list">
     <div class="row justify-content-around">
-      <v-btn @click="movePage" large color="blue-grey darken-2" class="text-white">글쓰기</v-btn>
+      <v-btn v-if="this.$store.state.uid.uid==this.$store.state.bloguid" @click="movePage" large color="blue-grey darken-2" class="text-white">글쓰기</v-btn>
       <v-btn @click="reload" large color="blue-grey darken-2" class='text-white'>전체 목록 보기</v-btn>
     </div>
     <div class="list-cards row d-flex justify-content-around">
@@ -81,7 +81,7 @@ export default {
     this.loadUntilViewportIsFull();
   },
   methods: {
-    ...mapActions(['like']),
+    ...mapActions(['like', 'getBlogName']),
     movePage() {
       this.$router.push({ name:'Create' });
     },
@@ -113,7 +113,8 @@ export default {
   },
   data: () => {
     return {
-      bid: this.$route.params.bid
+      bid: this.$route.params.bid,
+      uid: ''
     }
   },
   goToDetail() {
