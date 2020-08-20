@@ -31,6 +31,7 @@ import store from '@/store'
 import List3 from '@/views/template3/post/List3.vue'
 import VisitPage3 from '@/views/template3/board/VisitPage3.vue'
 import VisitCreate3 from '@/views/template3/board/VisitCreate3.vue'
+import Read3 from '@/views/template3/post/Read3.vue'
 // +재완
 // lsit2
 import List2 from '@/views/template2/post/List2.vue'
@@ -156,6 +157,11 @@ const routes = [
     path: '/3/:bid/create',
     name: 'Create3',
     component: Create3,
+  },
+  {
+    path: '/read3',
+    name: 'Read3',
+    component: Read3
   },
   {
     path: '/3/:bid/',

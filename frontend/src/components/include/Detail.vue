@@ -4,10 +4,19 @@
       <div class="hgroup">
         <div class="category">
           <h1>{{ post.title }}</h1>
+          <div class="post-meta">
+            <span style="margin-right:1em">{{ this.nickname }}</span> |
+            <span style="margin-left:1em">{{ getFormatDate(post.createDate) }}</span>
+          </div>
+          <hr>
         </div>
+      </div>
+      <div class="content">
+        <div v-html="post.content"></div>
       </div>
     </div>
     <!-- <div><h1>여기에 나와야 돼</h1></div> -->
+    <hr>
     <div class="text-center">
       <!-- <button @click="back" class="btn btn-primary" id="listBtn">목록</button> -->
       <router-link to=""><v-btn color="green lighten-2" fab dark @click="back" id="listBtn">목록</v-btn></router-link>
@@ -146,7 +155,6 @@ export default {
     this.getNickname(), this.getReplies();
   },
   mounted() {
-    this.$store.state.renderNum = 1
     this.getPost()
   },
   methods: {
@@ -272,5 +280,13 @@ export default {
   height: 56px !important;
   /* padding-top:0; */
 
+}
+.post-meta {
+  display: flex;
+  justify-content: flex-start;
+}
+.category {
+  display: block;
+  text-align: left;
 }
 </style>
