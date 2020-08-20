@@ -221,7 +221,6 @@
               <v-tooltip top>
                 <template
                   v-slot:activator="{ on }"
-                  onclick="document.execCommand('InsertImage',false,'http://placekitten.com/200/300')"
                 >
                   <v-btn
                     :href="source"
