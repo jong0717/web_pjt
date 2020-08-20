@@ -17,10 +17,10 @@
         <p>태그</p> 
       </div>
       <div class="d-flex justify-content-around mb-4">
-          <router-link :to="{ name:'List3' }"><i class="fas fa-list"></i></router-link>
-          <router-link :to="{ name:'Create3' }"><i class="fas fa-pen"></i></router-link>
-          <router-link :to="{ name:'VisitCreate3' }"><i class="fas fa-book"></i></router-link>
-          <router-link to="/user/mypage"><i class="fas fa-user-cog"></i></router-link>
+          <router-link :to="{ name:'List3', params:{bid: this.$store.state.bid} }"><i class="fas fa-list"></i></router-link>
+          <router-link :to="{ name:'Create3', params:{bid: this.$store.state.bid} }"><i class="fas fa-pen"></i></router-link>
+          <router-link :to="{ name:'VisitCreate3', params:{bid: this.$store.state.bid} }"><i class="fas fa-book"></i></router-link>
+          <router-link :to="{ name:'UpdateTmp3', params:{bid: this.$store.state.bid} }"><i class="fas fa-sync-alt"></i></router-link>
         </div>
       </div>
     </b-sidebar>
