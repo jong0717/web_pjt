@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     getFormatDate(createDate) {
-      return moment(new Date(createDate)).format("YYYY.MM.DD");
+      return moment(new Date(createDate)).format("YYYY.MM.DD HH:MM");
     },
     getNickname() {
       this.$http

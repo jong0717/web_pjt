@@ -26,11 +26,11 @@
         </div>
 
         <div>
+          <h1 class="text-white">{{ blogname }}</h1>
           <v-avatar color="light">
             <v-icon dark>mdi-account-circle</v-icon>
           </v-avatar>
-          <h2 class="text-white">{{ blogname }}</h2>
-         
+          {{this.nickname}}
         </div>
         <div class="d-flex justify-content-around mb-4">
           <router-link :to="{ name:'List3', params:{bid: this.$store.state.bid} }"><i class="fas fa-list"></i></router-link>
@@ -91,13 +91,26 @@ export default {
       // miniVariant: false,
       // expandOnHover: false,
       background: true,
-      bid: this.$route.params.bid
+      bid: this.$route.params.bid,
+      nickname: "",
     };
   },
   methods: {
     ...mapActions(["logout","search"]),
     moveToPage() {
       this.$router.push({ name:'Main' });
+    },
+    getNickname() {
+      this.$http
+        .get(
+          `${this.$store.state.HOST}/api/post/detail/${this.$route.query.pno}`
+        )
+        .then(({ data }) => {
+          this.nickname = data;
+        })
+        .catch(() => {
+          console.log("에러가 발생했습니다.");
+        });
     },
   },
   computed: {
@@ -110,6 +123,9 @@ export default {
   },
   mounted() {
     this.$store.state.renderNum = 3;
+  },
+  created() {
+    this.getNickname();
   },
 };
 </script>
