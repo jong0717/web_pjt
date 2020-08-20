@@ -53,6 +53,7 @@ export default new Vuex.Store({
     myblog: [],
     myblogbid: [],
     page: 0,
+    guestbooks:[],
   },
   getters: {
     // user

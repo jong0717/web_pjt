@@ -9,11 +9,13 @@ import 'vuetify/dist/vuetify.min.css'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import vueMoment from 'vue-moment'
 // import { index } from './store'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios;
 Vue.use(BootstrapVue)
+Vue.use(vueMoment)
 Vue.use(Vuetify);
 Vue.component('v-gravatar', Gravatar);
 new Vue({

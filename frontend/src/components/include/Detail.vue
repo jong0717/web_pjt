@@ -184,7 +184,7 @@ export default {
   },
   methods: {
     getFormatDate(createDate) {
-      return moment(new Date(createDate)).format("YYYY.MM.DD HH:MM:SS");
+      return moment(new Date(createDate)).format("YYYY.MM.DD");
     },
     getNickname() {
       this.$http
@@ -276,7 +276,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .read-icon {
   height: 6ch;
   width: 6ch;
