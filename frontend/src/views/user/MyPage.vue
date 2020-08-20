@@ -188,6 +188,10 @@ export default {
         });
     },
     moveToBlogCreate() {
+      if ((this.$store.state.myblog).length > 4) {
+        alert('최대 개설 가능 블로그 수를 초과하였습니다.')
+        return
+      }
       this.$router.push({ name: "BlogCreate" });
     },
   },

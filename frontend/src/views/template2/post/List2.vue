@@ -2,7 +2,7 @@
   <div>
     <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
       <v-carousel-item v-for="(slide, i) in newPosts" :key="i">
-        <v-row v-show="i<4" class="fill-height" align="center" justify="center">
+        <v-row class="fill-height" align="center" justify="center">
           
           <v-img
             class=" h-100"
@@ -16,14 +16,16 @@
     </v-carousel>   
 
     <h1 class="mt-15">Category 1</h1>
-    <button>더보기</button>
+    <button @click="myPlus">더보기</button>
     <hr />
 
-    <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock">
-      <router-link :to="'/read2?pno='+item.pno"><h2 style="color:#1bbf5b">{{ item.title }}</h2></router-link>
-      <div class="contentible" v-html="item.content"></div>
-      {{ item.createDate | moment('YY.MM.DD HH:mm')}}
-      <hr class="w-50 mx-auto" />
+    <div v-for="(item, index) in newPosts" :key="index + '_posts'" class="listBlock"> 
+      <div :v-if="index<NNum">
+        <router-link :to="'/read2?pno='+item.pno"><u><h2 style="color:black">{{ item.title }}</h2></u></router-link>
+        <div class="contentible" v-html="item.content"></div>
+        {{ item.createDate | moment('YY.MM.DD HH:mm')}}
+        <hr class="w-50 mx-auto" />
+      </div>
     </div>
     <hr />
     <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
@@ -49,11 +51,15 @@ export default {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
+    this.$store.dispatch("getBlogName", this.$route.params.bid)
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
+    myPlus() {
+      this.NNum =2
+    },
     moveToMain() {
       this.$router.push("/");
     },
@@ -99,6 +105,7 @@ export default {
     return {
       background: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80',
       drawer: null,
+      NNum: 4,
     };
   },
 };
@@ -115,7 +122,8 @@ export default {
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis;
-  height: 2em;
+  width: 100%;
+  height: 1.2em;
 }
 .dat{
   display: flex;
@@ -124,9 +132,6 @@ export default {
   margin-right: 20px;
 }
 .listBlock {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
   display: inline-block;
   width: 40%;
 }

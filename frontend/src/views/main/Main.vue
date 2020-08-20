@@ -31,9 +31,9 @@
         <h2>오늘의 블로그</h2>
         <div justify-content-center>
           <v-card class="recommendBlog elevation-16 my-4 mx-2" width="300">
-            <v-card-title class="headline">Rate Our Framework</v-card-title>
+            <router-link :to="{ name:'List', params:{bid: 1}}"><v-card-title class="headline">맛집라이프</v-card-title></router-link>
             <v-card-text>
-              If you enjoy using Vuetify, please take a few seconds to rate your experience with the framework. It really helps!
+              전국을 방방곡곡 돌아다니며 맛집을 찾아 리뷰하는 블로그입니다. 들어오셔서 확인해보세요!
               <div class="text-center mt-12">
                 <v-rating
                   v-model="rating1"
@@ -50,9 +50,9 @@
             <v-divider></v-divider>
           </v-card>
           <v-card class="recommendBlog elevation-16 my-4 mx-2" width="300">
-            <v-card-title class="headline">Rate Our Framework</v-card-title>
+            <router-link :to="{ name:'List2', params:{bid: 3}}"><v-card-title class="headline">알고리즘 풀이노트</v-card-title></router-link>
             <v-card-text>
-              If you enjoy using Vuetify, please take a few seconds to rate your experience with the framework. It really helps!
+              코딩테스트를 대비해 매일 하나씩 알고리즘 문제를 풀어 코드를 공유하는 블로그입니다. 
               <div class="text-center mt-12">
                 <v-rating
                   v-model="rating2"
@@ -69,9 +69,9 @@
             <v-divider></v-divider>
           </v-card>
           <v-card class="recommendBlog elevation-16 my-4 mx-2" width="300">
-            <v-card-title class="headline">Rate Our Framework</v-card-title>
+            <router-link :to="{ name:'List3', params:{bid: 2}}"><v-card-title class="headline">취미 블로그</v-card-title></router-link>
             <v-card-text>
-              If you enjoy using Vuetify, please take a few seconds to rate your experience with the framework. It really helps!
+              일상적인 내용, 저의 취미생활을 기록해놓은 블로그입니다. 감성 블로그를 지향합니다.
               <div class="text-center mt-12">
                 <v-rating
                   v-model="rating3"

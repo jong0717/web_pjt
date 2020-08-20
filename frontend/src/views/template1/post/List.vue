@@ -19,7 +19,7 @@
         <p>{{item.img}}</p> -->
         <v-card-title>
           <!-- <router-link :to="{name:'Read', query:{}}"> -->
-          <router-link :to="'/read?pno='+item.pno">
+          <router-link :to="'/read?pno='+item.pno" class="routerlink">
             <h5 class="card-title">{{item.title}}</h5>
           </router-link>
         </v-card-title>
@@ -74,6 +74,7 @@ export default {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
+    this.$store.dispatch("getBlogName", this.$route.params.bid)
 
   },
   updated() {
@@ -121,6 +122,9 @@ export default {
 };
 </script>
 <style scoped>
+.routerlink {
+  color:black;
+}
 .list {
   /* border-right: 0.1em solid #eee; */
   padding: 0.5em;

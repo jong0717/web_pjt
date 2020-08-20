@@ -67,6 +67,7 @@ export default {
       window.location = window.location + "#loaded";
       window.location.reload();
     }
+    this.$store.dispatch("getBlogName", this.$route.params.bid)
   },
   updated() {
     this.loadUntilViewportIsFull();
