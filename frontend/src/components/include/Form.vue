@@ -548,11 +548,6 @@ export default {
       console.log(this.files);
       alert(this.files[0].name);
       this.defalutImg = this.files[0].name;
-      document.execCommand(
-        "InsertImage",
-        false,
-        "http://placekitten.com/200/300"
-      );
     },
     handleFilePondInit: function () {
       console.log("테스트실행");
