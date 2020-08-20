@@ -23,7 +23,7 @@
         </v-list-item>
         <div v-for="(item, index) in newPosts" :key="index + '_posts'">
           <div v-if="index<4" class="my-4 subtitle-1" style="margin:0;" >
-            <router-link :to="'/read?pno='+item.pno"><div style="color:gray;">{{ item.title }}</div></router-link>
+            <router-link :to="'/read2?pno='+item.pno"><div style="color:gray;">{{ item.title }}</div></router-link>
           <div class="dat">{{getFormatDate(item.createDate)}}</div>
           </div>
 
@@ -35,7 +35,7 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title>글쓰기</v-list-item-title>
+            <v-list-item-title class="btn" @click="movePage">글쓰기</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

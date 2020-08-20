@@ -8,7 +8,7 @@
             <span style="margin-right:1em">{{ this.nickname }}</span> |
             <span style="margin-left:1em">{{ getFormatDate(post.createDate) }}</span>
           </div>
-          <hr>
+          <hr />
         </div>
       </div>
       <div class="content">
@@ -16,14 +16,22 @@
       </div>
     </div>
     <!-- <div><h1>여기에 나와야 돼</h1></div> -->
-    <hr>
+    <hr />
     <div class="text-center">
       <!-- <button @click="back" class="btn btn-primary" id="listBtn">목록</button> -->
-      <router-link to=""><v-btn color="green lighten-2" fab dark @click="back" id="listBtn">목록</v-btn></router-link>
+      <router-link to>
+        <v-btn color="green lighten-2" fab dark @click="back" id="listBtn">목록</v-btn>
+      </router-link>
       <router-link :to="'/update?pno=' + post.pno">
         <v-btn color="amber lighten-1" fab dark id="updateBtn">수정</v-btn>
       </router-link>
-      <router-link :to="'/delete?pno=' + post.pno">
+      <router-link v-if="this.$store.state.renderNum==1" :to="'/delete?pno=' + post.pno">
+        <v-btn color="red lighten-1" fab dark id="deleteBtn">삭제</v-btn>
+      </router-link>
+      <router-link v-if="this.$store.state.renderNum==2" :to="'/delete2?pno=' + post.pno">
+        <v-btn color="red lighten-1" fab dark id="deleteBtn">삭제</v-btn>
+      </router-link>
+      <router-link v-if="this.$store.state.renderNum==3" :to="'/delete3?pno=' + post.pno">
         <v-btn color="red lighten-1" fab dark id="deleteBtn">삭제</v-btn>
       </router-link>
     </div>
@@ -47,29 +55,35 @@
       </div>
       <!-- <button class="btn btn-primary" id="ReplyeditBtn" @click="editHandler">수정</button> -->
       <template>
-          <v-dialog v-model="dialog" persistent max-width="600px">
-            <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn
+        <v-dialog v-model="dialog" persistent max-width="600px">
+          <template v-slot:activator="{ on, attrs }">
+            <!-- <v-btn
                 color="primary"
                 dark
                 v-bind="attrs"
                 v-on="on"
               >
                 Open Dialog
-              </v-btn> -->
-      <v-icon color="amber lighten-1" v-bind="attrs" v-on="on" class="mr-2">fas fa-edit</v-icon>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">댓글 수정</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
+            </v-btn>-->
+            <v-icon color="amber lighten-1" v-bind="attrs" v-on="on" class="mr-2">fas fa-edit</v-icon>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">댓글 수정</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <div>
                     <div>
-                      <div>
-                        <input type="text" name="replyer" id="replyer" placeholder="작성자" v-model="replyer" />
-                      </div>
+                      <input
+                        type="text"
+                        name="replyer"
+                        id="replyer"
+                        placeholder="작성자"
+                        v-model="replyer"
+                      />
+                    </div>
                     <div>
                       <textarea
                         name="replytext"
@@ -78,22 +92,21 @@
                         rows="3"
                         placeholder="댓글수정"
                         v-model="replytext"
-                        
                       ></textarea>
                     </div>
                     <!-- <button class="btn btn-primary" id="ReplyAddBtn" @click="addHandler">등록</button> -->
                   </div>
-                  </v-row>
-                </v-container>
-                <!-- <small>*indicates required field</small> -->
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue-grey darken-4" text @click="dialog = false">취소</v-btn>
-                <v-btn color="amber accent-4" text @click="editHandler">확인</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+                </v-row>
+              </v-container>
+              <!-- <small>*indicates required field</small> -->
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-grey darken-4" text @click="dialog = false">취소</v-btn>
+              <v-btn color="amber accent-4" text @click="editHandler">확인</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </template>
       <!-- <button class="btn btn-primary" id="ReplydelBtn" @click="deleteHandler(item.rno)">삭제</button> -->
       <v-icon color="red lighten-1" @click="deleteHandler(item.rno)">fas fa-trash-alt</v-icon>
@@ -102,25 +115,25 @@
     <template>
       <div class="container">
         <div>
-          <input type="text" name="replyer" id="replyer" placeholder="작성자" v-model="replyer">
+          <input type="text" name="replyer" id="replyer" placeholder="작성자" v-model="replyer" />
         </div>
         <div class="d-flex justify-content-center align-items-center">
-        <div>
-          <textarea
-            name="replytext"
-            id="replytext"
-            cols="25"
-            rows="3"
-            placeholder="여러분의 소중한 댓글을 입력해주세요."
-            v-model="replytext"
-            class="form-control w-100"
-          ></textarea>
-          <!-- <textarea id="replytext" class="form-control mt-4" id="exampleFormControlTextarea1" rows="3" v-model="content" placeholder="여러분의 소중한 댓글을 입력해주세요."></textarea> -->
-        <!-- <button class="btn btn-primary" id="ReplyAddBtn" @click="addHandler">등록</button> -->
-        <!-- <div class='text-center'> -->
-        </div>
-          <v-btn class="ml-4 " fab color="blue darken-1" dark @click="addHandler">등록</v-btn>
+          <div>
+            <textarea
+              name="replytext"
+              id="replytext"
+              cols="25"
+              rows="3"
+              placeholder="여러분의 소중한 댓글을 입력해주세요."
+              v-model="replytext"
+              class="form-control w-100"
+            ></textarea>
+            <!-- <textarea id="replytext" class="form-control mt-4" id="exampleFormControlTextarea1" rows="3" v-model="content" placeholder="여러분의 소중한 댓글을 입력해주세요."></textarea> -->
+            <!-- <button class="btn btn-primary" id="ReplyAddBtn" @click="addHandler">등록</button> -->
+            <!-- <div class='text-center'> -->
           </div>
+          <v-btn class="ml-4" fab color="blue darken-1" dark @click="addHandler">등록</v-btn>
+        </div>
         <!-- </div> -->
       </div>
     </template>
@@ -155,7 +168,7 @@ export default {
     this.getNickname(), this.getReplies();
   },
   mounted() {
-    this.getPost()
+    this.getPost();
   },
   methods: {
     getFormatDate(createDate) {
@@ -234,19 +247,19 @@ export default {
     },
     getPost() {
       this.$http
-      .get(`${this.$store.state.HOST}/api/post/${this.$route.query.pno}`, {
-        params: {
-          accessToken: this.$store.state.authToken,
-          pno: this.$route.query.pno
-        }
-      })
-      .then((res) => {
-        console.log(res)
-        this.post = res.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        .get(`${this.$store.state.HOST}/api/post/${this.$route.query.pno}`, {
+          params: {
+            accessToken: this.$store.state.authToken,
+            pno: this.$route.query.pno,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.post = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     back() {
       this.$router.go(-1);
@@ -275,11 +288,10 @@ export default {
 }
 
 #replytext {
-  border:solid 1px;
-  width : 500px !important;
+  border: solid 1px;
+  width: 500px !important;
   height: 56px !important;
   /* padding-top:0; */
-
 }
 .post-meta {
   display: flex;
