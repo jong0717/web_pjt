@@ -26,6 +26,7 @@
     </div>
     <div>
       <hr>
+      <div class="introduce">
       <h1 class="mt-2">소개</h1>
       <v-timeline>
         <v-timeline-item v-for="(history, i) in historys" :key="i" :color="history.color" small>
@@ -33,11 +34,14 @@
             <span :class="`headline font-weight-bold ${history.color}--text`" v-text="history.year"></span>
           </template>
           <div class="py-4">
-            <h2 :class="`headline font-weight-light mb-4 ${history.color}--text`">{{ history.title }}</h2>
+            <h2
+              :class="`headline font-weight-light mb-4 ${history.color}--text`"
+            >{{ history.title }}</h2>
             <div>{{ history.content }}</div>
           </div>
         </v-timeline-item>
       </v-timeline>
+    </div>
       <v-footer dark padless>
         <v-card flat tile class="indigo lighten-1 white--text text-center w-100">
           <v-card-text class="py-0">
