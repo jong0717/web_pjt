@@ -46,11 +46,11 @@
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
 
-    <v-main background-color="#dbffe0">
+    <v-main class="mainbg">
       <div class="container list">
         <!-- 시작 -->
 
-        <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
+        <!-- <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
           <v-carousel-item v-for="(slide, i) in newPosts" :key="i">
             <v-row v-show="i<4" class="fill-height" align="center" justify="center">
               <v-img
@@ -59,7 +59,6 @@
                 alt
               ></v-img>
             </v-row>
-            <!-- <v-row v-else></v-row> -->
           </v-carousel-item>
         </v-carousel>
 
@@ -74,7 +73,8 @@
           <hr class="w-50 mx-auto" />
         </div>
         <hr />
-        <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div>
+        <div v-if="!this.$store.state.searchFlag" id="bottomSensor"></div> -->
+        <router-view />
       </div>
     </v-main>
   </v-app>
@@ -86,7 +86,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "List2",
+  name: "Home",
   computed: {
     ...mapGetters(["posts", "newPosts"]),
   },
@@ -169,5 +169,8 @@ export default {
 }
 .mynavi{
   background-color: #cee3ca;
+}
+.mainbg {
+  background-color:#ecebe8;
 }
 </style>

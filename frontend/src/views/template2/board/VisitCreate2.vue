@@ -16,16 +16,16 @@
     </div>
     <div class="text-right">
       <!-- <button type="submit" class="btn btn-dark tile" @click="createVisit">등록</button> -->
-      <v-btn class="ma-2 text-white" tile color="black" @click="createVisit">등록</v-btn>
+      <v-btn class="ma-2 text-white" color="#19ce60" @click="createVisit">등록</v-btn>
     </div>
     <!-- <VisitPage3 :visitlist="visitlist" /> -->
-    <!-- <p>글목록</p> -->
+    <p>글목록</p>
     <ul v-for="(item,index) in guestbooks" :key="index +'_guestbooks'" class="mylist">
       <hr />
       <li>
         <div class="d-flex justify-content-between">
           <div>
-            <b-avatar variant="dark mr-3" size="lg"></b-avatar>
+            <b-avatar class="avata mr-3" size="lg"></b-avatar>
             <span class="nickname">
               <a href="#" class="text-dark">
                 <strong>{{ item.writerNickname }}</strong>
@@ -103,7 +103,7 @@
 // import VisitPage3 from "@/views/template3/board/VisitPage3.vue";
 import moment from "moment";
 export default {
-  name: "VisitCreate",
+  name: "VisitCreate3",
   data() {
     return {
       content: "",
@@ -183,7 +183,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.state.renderNum = 1;
+    this.$store.state.renderNum = 2;
   },
   created() {
     this.getGuestBooks();
@@ -221,5 +221,9 @@ p {
 
 .v-btn:not(.v-btn--round).v-size--default {
   min-width: 0px;
+}
+
+.avata {
+  background-color:#19ce60;
 }
 </style>

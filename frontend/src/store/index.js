@@ -155,28 +155,28 @@ export default new Vuex.Store({
       router.go()
     },
     // post
-    getPOSTs({ state, commit }, bid) {
-      // console.log(bid)
-      http
-        .get(`/api/post/list/${bid}`, {
-          params: {
-            bid: bid,
-            accessToken: state.authToken,
-            page: state.page++,
-            size: 4,
-          }
-        })
-        .then(({ data }) => {
-          console.log(data)
-          if (data.empty === false) {
-            commit('setPOSTs', data.content);
-          }
-        })
-        .catch((err) => {
-          alert('글을 가져오는 데 에러가 발생했습니다.');
-          console.log(err)
-        });
-    },
+    // getPOSTs({ state, commit }, bid) {
+    //   // console.log(bid)
+    //   http
+    //     .get(`/api/post/list/${bid}`, {
+    //       params: {
+    //         bid: bid,
+    //         accessToken: state.authToken,
+    //         page: state.page++,
+    //         size: 4,
+    //       }
+    //     })
+    //     .then(({ data }) => {
+    //       console.log(data)
+    //       if (data.empty === false) {
+    //         commit('setPOSTs', data.content);
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       alert('글을 가져오는 데 에러가 발생했습니다.');
+    //       console.log(err)
+    //     });
+    // },
     getPOST(context, payload) {
       http
       .get(payload).then(({ data }) => {

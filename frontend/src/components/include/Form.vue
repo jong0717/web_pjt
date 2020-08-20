@@ -593,7 +593,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #registerBtn {
   font-family: "Jua", sans-serif;
   background-color:#424242;
