@@ -1,33 +1,62 @@
 <template>
   <div id="app">
-      <Header />
-        <!-- <nav id="router">
-          <ul>
-            <li><router-link :to="{ name:'List' }">목록</router-link></li>
-            <li><router-link :to="{ name:'MyPage' }">MyPage</router-link></li>
-            <li><router-link :to="{ name:'VisitCreate' }">방명록</router-link></li>
-          </ul>
-        </nav> -->
-    <div class="container">
-      <div class="row">
-        <div class="col-10"><router-view /> </div>
-        <div class="col-2"><Aside /></div>
-        
-      </div> 
-    </div>
+    <v-app>
+      <!-- 메인페이지 -->
+      <div v-if="renderNum==0">
+        <HeaderMain />
+        <router-view />
+      </div>
+      <!-- 첫번째 폼 -->
+      <div v-if="renderNum==1">
+        <Header />
+        <div class="container">
+          <div class="row">
+            <div class="col-9">
+              <router-view />
+            </div>
+            <div class="col-3 aside">
+              <Aside />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="renderNum==2">
+        <Home2 />
+      </div>
+      <div v-if="renderNum==3">
+        <Home />
+      </div>
+    </v-app>
   </div>
 </template>
-<script>
-  import Header from '@/components/common/Header.vue'
-  import Aside from '@/views/post/Aside.vue'
-  // import List from '@/views/post/List.vue'
 
-  export default {
-    components: {
-      Header,
-      Aside,
-    },
+<script>
+import Header from "@/components/template1/Header.vue";
+import HeaderMain from "@/components/main/HeaderMain.vue"
+import Aside from "@/views/template1/post/Aside.vue";
+// import Main from "@/views/main/Main.vue"
+import Home from "@/views/template3/home/Home.vue"
+import Home2 from '@/views/template2/home/Home2.vue'
+
+
+import { mapState } from 'vuex'
+// import List from '@/views/post/List.vue'
+
+
+export default {
+  components: {
+    Header,
+    Aside,
+    // Main,
+    HeaderMain,
+    Home,
+    Home2
+
+  },
+  computed: {
+    ...mapState(['renderNum'])
   }
+};
 </script>
 <style scoped>
 #app {
@@ -50,7 +79,12 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
+.aside {
+  width: auto;
+  padding-top: 20%;
+  border-left: 0.1em solid #eee;
+  padding: 0.5em;
+}
 /* #router {
   margin: 20px;
   height: 66px;

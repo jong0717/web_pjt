@@ -11,18 +11,24 @@ import lombok.NoArgsConstructor;
 public class PostsSaveRequestDto {
     private Long pno;
     private Long uid;
+    private Long bid;
     private String title;
     private String content;
     private Long heart;
+    private String img;
+    private String tag;
     private LocalDateTime createDate;
 
     @Builder
-    public PostsSaveRequestDto(Long pno, Long uid, String title, String content, Long heart, LocalDateTime createDate){
+    public PostsSaveRequestDto(Long pno, Long uid, Long bid, String title, String content, Long heart, String img, String tag, LocalDateTime createDate){
         this.pno = pno;
         this.uid = uid;
+        this.bid = bid;
         this.title = title;
         this.content = content;
         this.heart = heart;
+        this.img = img;
+        this.tag = tag;
         this.createDate = createDate;
     }
 
@@ -30,9 +36,12 @@ public class PostsSaveRequestDto {
         return Posts.builder()
                 .pno(pno)
                 .uid(uid)
+                .bid(bid)
                 .title(title)
                 .content(content)
                 .heart(heart)
+                .img(img)
+                .tag(tag)
                 .createDate(createDate)
                 .build();
     }

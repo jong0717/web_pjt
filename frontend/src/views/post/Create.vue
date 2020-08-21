@@ -11,6 +11,12 @@ export default {
   components: {
     CreateForm,
   },
+  methods: {
+    
+  },
+  mounted() {
+    this.$store.state.renderNum = 1;
+  }
 };
 </script>
 

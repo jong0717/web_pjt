@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import com.web.blog.model.BasicResponse;
 import com.web.blog.model.reply.ReplyListResponseDto;
 import com.web.blog.model.reply.ReplyResponseDto;
 import com.web.blog.model.reply.ReplySaveRequestDto;
