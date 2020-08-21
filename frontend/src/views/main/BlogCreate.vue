@@ -51,8 +51,13 @@
 
         <v-expand-transition>
           <v-sheet v-if="selectedData.template_num != null" color="grey lighten-4" height="180" tile>
-            <v-row class="fill-height" align="center" justify="center">
+            <v-row class="fill-height introTmp">
               <h3 class="title">template {{ selectedData.template_num+1 }}</h3>
+              <div>
+                <p v-if="selectedData.template_num==0">맛집과 여행을 좋아하는 사람들이 사용하기 좋은 폼을 제공하는 템플릿입니다.<br> 당신만의 맛집과 여행지들을 공유해보세요.</p>
+                <p v-else-if="selectedData.template_num+1==2">당신이 좋아하는 사진들을 이미지 슬라이드로 제공합니다. <br>좋아하는 사진이나 보이고 싶은 사진들로 블로그를 꾸며보세요.</p>
+                <p v-else>사용자가 쓴 글을 타임라인처럼 한 눈에 볼 수 있습니다. 취미나 글들을 자유롭게 쓰고 공유해보세요.</p>
+              </div>
             </v-row>
           </v-sheet>
         </v-expand-transition>
@@ -122,7 +127,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.introTmp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .B-CreateBtn {
   background-color: rgb(110, 92, 92);
   border: lightgray;

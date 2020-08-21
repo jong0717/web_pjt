@@ -1,7 +1,7 @@
 <template>
   <div class="container list">
     <div class="row justify-content-around">
-      <v-btn @click="movePage" large color="blue-grey darken-2" class="text-white">글쓰기</v-btn>
+      <v-btn v-if="this.$store.state.uid.uid==this.$store.state.bloguid" @click="movePage" large color="blue-grey darken-2" class="text-white">글쓰기</v-btn>
       <v-btn @click="reload" large color="blue-grey darken-2" class='text-white'>전체 목록 보기</v-btn>
     </div>
     <div class="list-cards row d-flex justify-content-around">
@@ -19,16 +19,16 @@
         <p>{{item.img}}</p> -->
         <v-card-title>
           <!-- <router-link :to="{name:'Read', query:{}}"> -->
-          <router-link :to="'/read?pno='+item.pno">
+          <router-link :to="'/read?pno='+item.pno" class="routerlink">
             <h5 class="card-title">{{item.title}}</h5>
           </router-link>
         </v-card-title>
-          <p>{{ item.createDate | moment("YYYY.MM.DD")}}</p>
+          <p>{{ item.createDate | moment("YYYY.MM.DD HH:mm")}}</p>
         <v-card-text>
           <v-row align="center" class="mx-0">
-            <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
+            {{ item.tag }}
 
-            <div class="grey--text ml-4">4.5 (413)</div>
+            
           </v-row>
 
 
@@ -74,13 +74,14 @@ export default {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
+    this.$store.dispatch("getBlogName", this.$route.params.bid)
 
   },
   updated() {
     this.loadUntilViewportIsFull();
   },
   methods: {
-    ...mapActions(['like']),
+    ...mapActions(['like', 'getBlogName']),
     movePage() {
       this.$router.push({ name:'Create' });
     },
@@ -112,7 +113,8 @@ export default {
   },
   data: () => {
     return {
-      bid: this.$route.params.bid
+      bid: this.$route.params.bid,
+      uid: ''
     }
   },
   goToDetail() {
@@ -121,6 +123,9 @@ export default {
 };
 </script>
 <style scoped>
+.routerlink {
+  color:black;
+}
 .list {
   /* border-right: 0.1em solid #eee; */
   padding: 0.5em;
