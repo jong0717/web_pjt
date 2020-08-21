@@ -1,4 +1,4 @@
-<p align="center"><img src="./frontend/src/assets/로고.png"></p>
+![logo](./frontend/src/assets/로고.png)
 
 ---
 
