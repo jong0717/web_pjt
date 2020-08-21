@@ -1,0 +1,60 @@
+stages:
+    - build
+    - deploy
+build-back:
+    stage: build
+    only :
+        - master
+        - develop
+    script :
+        # Java를 sdkman 으로 설치한 경우 JAVA_HOME 설정을 위해서만 필요
+        - source "/home/ubuntu/.sdkman/bin/sdkman-init.sh"
+        - cd $CI_PROJECT_DIR/backend
+        - chmod +x mvnw
+        - ./mvnw package
+        - cp target/*.jar ~/app1.jar
+    tags :
+        # !! tag 값이 동일하게 설정된 Runner만 파이프라인을 동작시킴
+        - i02prf6
+
+build-front:
+    stage: build
+    cache:
+        key: ${CI_COMMIT_REF_SLUG}
+        paths:
+            - frontend/node_modules
+    only :
+        - master
+        - develop
+    script :
+        # Node.js를 nvm 으로 설치한 경우만 필요
+        - source "/home/ubuntu/.nvm/nvm.sh"
+        - cd $CI_PROJECT_DIR/frontend
+        - yarn install
+        - yarn test
+        - yarn build
+        - rm -rf ~/skeleton-project/frontend/dist
+        - cp -rf dist ~/skeleton-project/frontend/
+    tags :
+        - i02prf6
+
+deploy-back:
+    stage: deploy
+    only :
+        - master
+        - develop
+    script :
+        - cd $HOME
+        - ~/restart_backend1.sh
+    tags :
+        - i02prf6
+
+deploy-front:
+    stage: deploy
+    only :
+        - master
+        - develop
+    script :
+        - ls -al ~/skeleton-project/frontend/dist
+    tags :
+        - i02prf6
