@@ -7,14 +7,14 @@ build-back:
         - master
         - develop
     script :
-        # Java¸¦ sdkman À¸·Î ¼³Ä¡ÇÑ °æ¿ì JAVA_HOME ¼³Á¤À» À§ÇØ¼­¸¸ ÇÊ¿ä
+        # Javaë¥¼ sdkman ìœ¼ë¡œ ì„¤ì¹˜í•œ ê²½ìš° JAVA_HOME ì„¤ì •ì„ ìœ„í•´ì„œë§Œ í•„ìš”
         - source "/home/ubuntu/.sdkman/bin/sdkman-init.sh"
         - cd $CI_PROJECT_DIR/backend
         - chmod +x mvnw
         - ./mvnw package
         - cp target/*.jar ~/app1.jar
     tags :
-        # !! tag °ªÀÌ µ¿ÀÏÇÏ°Ô ¼³Á¤µÈ Runner¸¸ ÆÄÀÌÇÁ¶óÀÎÀ» µ¿ÀÛ½ÃÅ´
+        # !! tag ê°’ì´ ë™ì¼í•˜ê²Œ ì„¤ì •ëœ Runnerë§Œ íŒŒì´í”„ë¼ì¸ì„ ë™ì‘ì‹œí‚´
         - i02prf6
 
 build-front:
@@ -27,14 +27,14 @@ build-front:
         - master
         - develop
     script :
-        # Node.js¸¦ nvm À¸·Î ¼³Ä¡ÇÑ °æ¿ì¸¸ ÇÊ¿ä
+        # Node.jsë¥¼ nvm ìœ¼ë¡œ ì„¤ì¹˜í•œ ê²½ìš°ë§Œ í•„ìš”
         - source "/home/ubuntu/.nvm/nvm.sh"
         - cd $CI_PROJECT_DIR/frontend
         - yarn install
-        - yarn test
+        # - yarn test
         - yarn build
-        - rm -rf ~/skeleton-project/frontend/dist
-        - cp -rf dist ~/skeleton-project/frontend/
+        - rm -rf ~/s03p13c207/frontend/dist
+        - cp -rf dist ~/s03p13c207/frontend/
     tags :
         - i02prf6
 
@@ -55,6 +55,6 @@ deploy-front:
         - master
         - develop
     script :
-        - ls -al ~/skeleton-project/frontend/dist
+        - ls -al ~/s03p13c207/frontend/dist
     tags :
         - i02prf6
